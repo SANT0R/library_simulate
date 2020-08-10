@@ -2,13 +2,16 @@ package com.santor.library_simulate.mapper;
 
 import com.santor.library_simulate.dto.ClientDTO;
 import com.santor.library_simulate.model.Client;
+import com.santor.library_simulate.model.Rent;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import javax.annotation.Generated;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2020-08-10T17:01:27+0300",
+    date = "2020-08-10T21:40:16+0300",
     comments = "version: 1.3.1.Final, compiler: javac, environment: Java 1.8.0_181 (Oracle Corporation)"
 )
 public class ClientMapperImpl implements ClientMapper {
@@ -22,6 +25,13 @@ public class ClientMapperImpl implements ClientMapper {
         Client client = new Client();
 
         client.setId( dto.getId() );
+        client.setClientName( dto.getClientName() );
+        client.setPassword( dto.getPassword() );
+        client.setEnabled( dto.isEnabled() );
+        Set<Rent> set = dto.getRents();
+        if ( set != null ) {
+            client.setRents( new HashSet<Rent>( set ) );
+        }
 
         return client;
     }
@@ -35,6 +45,13 @@ public class ClientMapperImpl implements ClientMapper {
         ClientDTO clientDTO = new ClientDTO();
 
         clientDTO.setId( entity.getId() );
+        clientDTO.setClientName( entity.getClientName() );
+        clientDTO.setPassword( entity.getPassword() );
+        clientDTO.setEnabled( entity.isEnabled() );
+        Set<Rent> set = entity.getRents();
+        if ( set != null ) {
+            clientDTO.setRents( new HashSet<Rent>( set ) );
+        }
 
         return clientDTO;
     }

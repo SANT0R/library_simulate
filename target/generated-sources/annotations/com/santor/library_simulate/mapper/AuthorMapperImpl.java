@@ -2,13 +2,16 @@ package com.santor.library_simulate.mapper;
 
 import com.santor.library_simulate.dto.AuthorDTO;
 import com.santor.library_simulate.model.Author;
+import com.santor.library_simulate.model.Book;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import javax.annotation.Generated;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2020-08-10T17:01:26+0300",
+    date = "2020-08-10T21:40:16+0300",
     comments = "version: 1.3.1.Final, compiler: javac, environment: Java 1.8.0_181 (Oracle Corporation)"
 )
 public class AuthorMapperImpl implements AuthorMapper {
@@ -22,6 +25,11 @@ public class AuthorMapperImpl implements AuthorMapper {
         Author author = new Author();
 
         author.setId( dto.getId() );
+        author.setFullName( dto.getFullName() );
+        Set<Book> set = dto.getBooks();
+        if ( set != null ) {
+            author.setBooks( new HashSet<Book>( set ) );
+        }
 
         return author;
     }
@@ -35,6 +43,11 @@ public class AuthorMapperImpl implements AuthorMapper {
         AuthorDTO authorDTO = new AuthorDTO();
 
         authorDTO.setId( entity.getId() );
+        authorDTO.setFullName( entity.getFullName() );
+        Set<Book> set = entity.getBooks();
+        if ( set != null ) {
+            authorDTO.setBooks( new HashSet<Book>( set ) );
+        }
 
         return authorDTO;
     }

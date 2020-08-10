@@ -32,8 +32,8 @@ public class Book extends BaseModel {
 
     @ManyToOne
     private com.santor.library_simulate.model.Author author;
-
-    @OneToMany(mappedBy = "book")
+/*
+    @OneToMany(mappedBy = "book", cascade = CascadeType.ALL)
     private Set<Rent> rents = new HashSet<>();
-
+*/
 }

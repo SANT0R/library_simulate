@@ -19,6 +19,7 @@ com\santor\library_simulate\mapper\AuthorMapper.class
 com\santor\library_simulate\model\base\BaseModel.class
 com\santor\library_simulate\mapper\ClientMapper.class
 com\santor\library_simulate\model\Book.class
+com\santor\library_simulate\controller\AuthorController$HomeController.class
 com\santor\library_simulate\mapper\RentMapper.class
 com\santor\library_simulate\mapper\BookMapper.class
 com\santor\library_simulate\service\AuthorService.class

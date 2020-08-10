@@ -8,7 +8,7 @@ import javax.annotation.Generated;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2020-08-10T17:01:27+0300",
+    date = "2020-08-10T21:40:16+0300",
     comments = "version: 1.3.1.Final, compiler: javac, environment: Java 1.8.0_181 (Oracle Corporation)"
 )
 public class BookMapperImpl implements BookMapper {
@@ -23,6 +23,13 @@ public class BookMapperImpl implements BookMapper {
 
         book.setId( dto.getId() );
         book.setName( dto.getName() );
+        book.setPublisher( dto.getPublisher() );
+        book.setReleaseYear( dto.getReleaseYear() );
+        book.setType( dto.getType() );
+        book.setDescription( dto.getDescription() );
+        book.setPage( dto.getPage() );
+        book.setStock( dto.getStock() );
+        book.setAuthor( dto.getAuthor() );
 
         return book;
     }
@@ -37,6 +44,13 @@ public class BookMapperImpl implements BookMapper {
 
         bookDTO.setId( entity.getId() );
         bookDTO.setName( entity.getName() );
+        bookDTO.setPublisher( entity.getPublisher() );
+        bookDTO.setReleaseYear( entity.getReleaseYear() );
+        bookDTO.setType( entity.getType() );
+        bookDTO.setDescription( entity.getDescription() );
+        bookDTO.setPage( entity.getPage() );
+        bookDTO.setStock( entity.getStock() );
+        bookDTO.setAuthor( entity.getAuthor() );
 
         return bookDTO;
     }
