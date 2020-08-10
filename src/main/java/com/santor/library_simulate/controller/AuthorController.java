@@ -21,12 +21,12 @@ public class AuthorController {
     AuthorService authorService;
 
 
-    public class HomeController {
-        @RequestMapping("/")
-        public String getHomePage() {
-            return "home";
-        }
+
+    @RequestMapping("/home")
+    public String getHomePage() {
+        return "home";
     }
+
     @GetMapping()
     public List<AuthorDTO> getAll() {
         System.out.println("Inside Home Controller");
