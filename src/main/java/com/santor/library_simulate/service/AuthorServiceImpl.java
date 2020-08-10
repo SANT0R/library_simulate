@@ -12,7 +12,7 @@ import com.santor.library_simulate.model.Author;
 import com.santor.library_simulate.dao.AuthorRepository;
 
 @Service
-public class AuthorServiceImpl {
+public class AuthorServiceImpl implements AuthorService {
 
     @Autowired
     AuthorRepository authorRepository;

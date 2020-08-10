@@ -6,7 +6,9 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.*;
+import lombok.Data;
 
+@Data
 @Entity
 public class Author extends BaseModel {
 

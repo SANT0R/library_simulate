@@ -10,7 +10,7 @@ import com.santor.library_simulate.model.Client;
 import com.santor.library_simulate.dao.ClientRepository;
 
 @Service
-public class ClientServiceImpl {
+public class ClientServiceImpl implements ClientService {
 
     @Autowired
     ClientRepository clientRepository;

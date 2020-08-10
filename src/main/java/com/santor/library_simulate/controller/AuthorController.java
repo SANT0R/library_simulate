@@ -10,14 +10,14 @@ import java.util.List;
         import org.springframework.web.bind.annotation.RestController;
 
         import com.santor.library_simulate.model.Author;
-        import com.santor.library_simulate.service.AuthorServiceImpl;
+        import com.santor.library_simulate.service.AuthorService;
 
 @RestController
 @RequestMapping("/author")
 public class AuthorController {
 
     @Autowired
-    AuthorServiceImpl authorService;
+    AuthorService authorService;
 
     @GetMapping()
     public List<Author> getAll() {

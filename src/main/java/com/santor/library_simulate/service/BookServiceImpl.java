@@ -11,7 +11,7 @@ import com.santor.library_simulate.model.Book;
 import com.santor.library_simulate.dao.BookRepository;
 
 @Service
-public class BookServiceImpl {
+public class BookServiceImpl implements BookService {
 
     @Autowired
     BookRepository bookRepository;

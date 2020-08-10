@@ -10,14 +10,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.santor.library_simulate.model.Rent;
-import com.santor.library_simulate.service.RentServiceImpl;
+import com.santor.library_simulate.service.RentService;
 
 @RestController
 @RequestMapping("/rent")
 public class RentController {
 
     @Autowired
-    RentServiceImpl rentService;
+    RentService rentService;
 
     @GetMapping()
     public List<Rent> getAll() {

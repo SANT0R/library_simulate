@@ -10,5 +10,10 @@ import com.santor.library_simulate.model.Book;
 @Repository
 public interface BookRepository extends CrudRepository<Book, Integer> {
 
+    Book findById(Long id);
+
+
+
+
 
 }

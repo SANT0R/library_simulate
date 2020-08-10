@@ -10,14 +10,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.santor.library_simulate.model.Client;
-import com.santor.library_simulate.service.ClientServiceImpl;
+import com.santor.library_simulate.service.ClientService;
 
 @RestController
 @RequestMapping("/client")
 public class ClientController {
 
     @Autowired
-    ClientServiceImpl clientService;
+    ClientService clientService;
 
     @GetMapping()
     public List<Client> getAll() {

@@ -10,14 +10,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.santor.library_simulate.model.Book;
-import com.santor.library_simulate.service.BookServiceImpl;
+import com.santor.library_simulate.service.BookService;
 
 @RestController
 @RequestMapping("/book")
 public class BookController {
 
     @Autowired
-    BookServiceImpl bookService;
+    BookService bookService;
 
     @GetMapping()
     public List<Book> getAll() {

@@ -10,7 +10,7 @@ import com.santor.library_simulate.model.Rent;
 import com.santor.library_simulate.dao.RentRepository;
 
 @Service
-public class RentServiceImpl {
+public class RentServiceImpl implements RentService{
 
     @Autowired
     RentRepository rentRepository;
