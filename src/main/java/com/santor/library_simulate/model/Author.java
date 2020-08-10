@@ -2,7 +2,6 @@ package com.santor.library_simulate.model;
 
 import com.santor.library_simulate.model.base.BaseModel;
 
-import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 

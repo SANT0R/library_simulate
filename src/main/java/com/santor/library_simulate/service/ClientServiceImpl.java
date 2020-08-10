@@ -1,8 +1,5 @@
 package com.santor.library_simulate.service;
 
-
-
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,7 +15,7 @@ public class ClientServiceImpl {
     @Autowired
     ClientRepository clientRepository;
 
-    public List<Client> getAllClient() {
+    public List<Client> getAllClients() {
 
         List<Client> ClientList = new ArrayList<>();
         clientRepository.findAll().forEach(ClientList::add);
