@@ -2,7 +2,8 @@ package com.santor.library_simulate.controller;
 
 import java.util.List;
 
-        import org.springframework.beans.factory.annotation.Autowired;
+import com.santor.library_simulate.dto.AuthorDTO;
+import org.springframework.beans.factory.annotation.Autowired;
         import org.springframework.web.bind.annotation.GetMapping;
         import org.springframework.web.bind.annotation.PostMapping;
         import org.springframework.web.bind.annotation.RequestBody;
@@ -20,14 +21,12 @@ public class AuthorController {
     AuthorService authorService;
 
     @GetMapping()
-    public List<Author> getAll() {
+    public List<AuthorDTO> getAll() {
         System.out.println("Inside Home Controller");
 
         return authorService.getAllAuthors();
     }
 
     @PostMapping("/add")
-    public Author add(@RequestBody Author author) {
-        return authorService.addAuthor(author);
-    }
+    public String add(@RequestBody Author author) { return "done"; }
 }

@@ -2,6 +2,8 @@ package com.santor.library_simulate.controller;
 
 import java.util.List;
 
+import com.santor.library_simulate.dto.BookDTO;
+import com.santor.library_simulate.model.Author;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,14 +22,12 @@ public class BookController {
     BookService bookService;
 
     @GetMapping()
-    public List<Book> getAll() {
+    public List<BookDTO> getAll() {
         System.out.println("Inside Home Controller");
 
         return bookService.getAllBooks();
     }
 
     @PostMapping("/add")
-    public Book add(@RequestBody Book book) {
-        return bookService.addBook(book);
-    }
+    public String add(@RequestBody Book book) { return "done"; }
 }
