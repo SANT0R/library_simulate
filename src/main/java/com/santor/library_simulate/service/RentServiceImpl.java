@@ -46,7 +46,7 @@ public class RentServiceImpl implements RentService {
 
     public void addRent(Rent rent) {
 
-        rent = rentRepository.save(rent);
+        rentRepository.save(rent);
 
     }
 
