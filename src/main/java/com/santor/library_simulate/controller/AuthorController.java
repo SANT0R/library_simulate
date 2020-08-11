@@ -1,8 +1,12 @@
 package com.santor.library_simulate.controller;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
 import java.util.List;
 
 import com.santor.library_simulate.dto.AuthorDTO;
+import lombok.var;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.santor.library_simulate.model.Author;
 import com.santor.library_simulate.service.AuthorService;
+import org.springframework.web.servlet.ModelAndView;
 
 @RestController
 @RequestMapping("/author")
@@ -21,10 +26,17 @@ public class AuthorController {
     @Autowired
     AuthorService authorService;
 
-    @GetMapping("/home")
-    public String getHomePage() {
 
-        return "author.html";
+    @GetMapping("/home")
+    public ModelAndView getHomePage() {
+
+        var now = LocalDateTime.now();
+        var dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+        var date_time = dtf.format(now);
+        var params = new HashMap<String, Object>();
+        params.put("date_time", date_time);
+
+        return new ModelAndView("author", params);
     }
 
     @GetMapping("/")

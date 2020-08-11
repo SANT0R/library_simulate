@@ -8,6 +8,7 @@ import java.util.List;
 public interface RentService {
 
     List<RentDTO> getAllRents();
+    List<RentDTO> getByIds(List ids);
     void addRent(Rent rent);
 
 }

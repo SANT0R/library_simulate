@@ -3,6 +3,7 @@ package com.santor.library_simulate.service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Consumer;
 
 import com.santor.library_simulate.dto.RentDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +31,7 @@ public class RentServiceImpl implements RentService {
     public List<RentDTO> getByIds(List ids) {
 
         List<Rent> rentList = new ArrayList<>();
-        rentRepository.findAllById(ids).forEach(rentList::add);
+        rentRepository.findAllById(ids).forEach((Consumer) rentList);
 
         return rentMapper.toDTOList(rentList);
     }
