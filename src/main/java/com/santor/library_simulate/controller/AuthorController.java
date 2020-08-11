@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+
 import com.santor.library_simulate.model.Author;
 import com.santor.library_simulate.service.AuthorService;
 
@@ -20,14 +21,13 @@ public class AuthorController {
     @Autowired
     AuthorService authorService;
 
-
-
-    @RequestMapping("/home")
+    @GetMapping("/home")
     public String getHomePage() {
-        return "home";
+
+        return "author.html";
     }
 
-    @GetMapping()
+    @GetMapping("/")
     public List<AuthorDTO> getAll() {
         System.out.println("Inside Home Controller");
 
@@ -36,4 +36,8 @@ public class AuthorController {
 
     @PostMapping("/add")
     public String add(@RequestBody Author author) { return "done"; }
+
+    @PostMapping("/delete")
+    public String delete(@RequestBody Author author) { return "done"; }
+
 }

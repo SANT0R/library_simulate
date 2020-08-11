@@ -10,6 +10,7 @@ import java.util.Set;
 
 import javax.persistence.*;
 
+@Table
 @Entity
 @Data
 public class Rent extends BaseModel {

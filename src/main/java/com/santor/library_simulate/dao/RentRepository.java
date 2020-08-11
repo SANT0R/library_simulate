@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.santor.library_simulate.model.Rent;
 
 @Repository
-public interface RentRepository extends CrudRepository<Rent, Integer> {
+public interface RentRepository extends CrudRepository<Rent, Long> {
 
 }

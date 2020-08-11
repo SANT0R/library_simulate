@@ -7,11 +7,9 @@ import lombok.Data;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 
+@Table
 @Entity
 @Data
 public class Book extends BaseModel {
@@ -31,7 +29,7 @@ public class Book extends BaseModel {
     private int stock;
 
     @ManyToOne
-    private com.santor.library_simulate.model.Author author;
+    private  Author author;
 /*
     @OneToMany(mappedBy = "book", cascade = CascadeType.ALL)
     private Set<Rent> rents = new HashSet<>();

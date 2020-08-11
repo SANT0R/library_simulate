@@ -8,6 +8,7 @@ import java.util.Set;
 import javax.persistence.*;
 import lombok.Data;
 
+@Table
 @Data
 @Entity
 public class Author extends BaseModel {

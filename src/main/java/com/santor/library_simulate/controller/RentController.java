@@ -28,6 +28,20 @@ public class RentController {
         return rentService.getAllRents();
     }
 
+    public List<RentDTO> getById() {
+        System.out.println("Inside Home Controller");
+
+        return rentService.getAllRents();
+    }
+
     @PostMapping("/add")
     public String add(@RequestBody Rent rent) { return "done"; }
+
+    @PostMapping("/delete")
+    public String delete(@RequestBody Rent rent) { return "done"; }
+
+    @PostMapping("/update")
+    public String update(@RequestBody Rent rent) { return "done"; }
+
+
 }
