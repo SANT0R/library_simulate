@@ -30,8 +30,8 @@ public class Book extends BaseModel {
 
     @ManyToOne
     private  Author author;
-/*
+
     @OneToMany(mappedBy = "book", cascade = CascadeType.ALL)
     private Set<Rent> rents = new HashSet<>();
-*/
+
 }
