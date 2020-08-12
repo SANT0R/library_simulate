@@ -8,6 +8,6 @@ import org.springframework.stereotype.Repository;
 import com.santor.library_simulate.model.Client;
 
 @Repository
-public interface ClientRepository extends CrudRepository<Client, Integer> {
+public interface ClientRepository extends CrudRepository<Client, Long> {
 
 }

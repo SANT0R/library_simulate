@@ -41,15 +41,59 @@ public class AuthorController {
 
     @GetMapping("/")
     public List<AuthorDTO> getAll() {
-        System.out.println("Inside Home Controller");
 
-        return authorService.getAllAuthors();
+        return authorService.getAll();
+    }
+
+    @PostMapping("/getAllById")
+    public List<AuthorDTO> getAllById(@RequestBody List<AuthorDTO> list) {
+
+        return authorService.getAllById(list);
+    }
+
+    @PostMapping("/getById")
+    public AuthorDTO getById(@RequestBody Long id) {
+
+        return authorService.getById(id);
+    }
+
+    @PostMapping("/deleteAll")
+    public String deleteAll() {
+
+        authorService.deleteAll();
+        return "done";
+    }
+
+    @PostMapping("/deleteAllById")
+    public String deleteAllById(@RequestBody List<AuthorDTO> list) {
+
+        authorService.deleteAllById(list);
+        return "done";
+    }
+
+    @PostMapping("/delete")
+    public String delete(@RequestBody Author author) {
+
+        authorService.deleteById(author);
+
+        return "done";
+    }
+
+    @PostMapping("/update")
+    public String update(@RequestBody Author author) {
+
+        authorService.update(author);
+
+        return "done";
     }
 
     @PostMapping("/add")
-    public String add(@RequestBody Author author) { return "done"; }
+    public String add(@RequestBody Author author) {
 
-    @PostMapping("/delete")
-    public String delete(@RequestBody Author author) { return "done"; }
+        authorService.add(author);
+
+        return "done";
+    }
+
 
 }

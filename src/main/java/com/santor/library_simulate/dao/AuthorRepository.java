@@ -7,6 +7,6 @@ import org.springframework.stereotype.Repository;
 import com.santor.library_simulate.model.Author;
 
 @Repository
-public interface AuthorRepository extends CrudRepository<Author, Integer> {
+public interface AuthorRepository extends CrudRepository<Author, Long> {
 
 }

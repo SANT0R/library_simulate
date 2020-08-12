@@ -4,8 +4,12 @@ package com.santor.library_simulate.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.function.Consumer;
 
+import com.santor.library_simulate.dto.BookDTO;
 import com.santor.library_simulate.dto.ClientDTO;
+import com.santor.library_simulate.model.Book;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +25,7 @@ public class ClientServiceImpl implements ClientService {
     private ClientRepository clientRepository;
     private ClientMapper clientMapper;
 
-    public List<ClientDTO> getAllClients() {
+    public List<ClientDTO> getAll() {
 
         List<Client> clientList = new ArrayList<>();
         clientRepository.findAll().forEach(clientList::add);
@@ -29,10 +33,51 @@ public class ClientServiceImpl implements ClientService {
         return clientMapper.toDTOList(clientList);
     }
 
-    public void addClient(Client client) {
+    public List<ClientDTO> getAllById(List ids) {
 
-        client = clientRepository.save(client);
+        List<Client> clientList = new ArrayList<>();
+        clientRepository.findAllById(ids).forEach((Consumer) clientList);
 
+        return clientMapper.toDTOList(clientList);
+    }
+
+    public void deleteAllById(List ids) {
+
+        List<Client> clientList = new ArrayList<>();
+        clientRepository.findAllById(ids).forEach((Consumer) clientList);
+        clientRepository.deleteAll(clientList);
+
+    }
+
+    public ClientDTO getById(Long id) {
+
+        Optional<Client> optionalClient = clientRepository.findById(id);
+        Client client = optionalClient.get();
+
+        return clientMapper.toDTO (client);
+    }
+
+    public void add(Client client) {
+
+        clientRepository.save(client);
+
+    }
+
+    public void deleteAll( ) {
+
+        clientRepository.deleteAll();
+
+    }
+
+    public void deleteById(Client client) {
+
+        clientRepository.delete(client);
+
+    }
+
+    public void update(Client client) {
+
+        clientRepository.save(client);
 
     }
 

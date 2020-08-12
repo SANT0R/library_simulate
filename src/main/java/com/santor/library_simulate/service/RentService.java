@@ -7,8 +7,13 @@ import java.util.List;
 
 public interface RentService {
 
-    List<RentDTO> getAllRents();
-    List<RentDTO> getByIds(List ids);
-    void addRent(Rent rent);
+    List<RentDTO> getAll();
+    List<RentDTO> getAllById(List ids);
+    RentDTO getById(Long id);
+    void deleteAllById(List ids);
+    void deleteAll();
+    void deleteById(Rent rent);
+    void update(Rent rent);
+    void add(Rent rent);
 
 }

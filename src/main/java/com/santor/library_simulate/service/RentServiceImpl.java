@@ -20,7 +20,7 @@ public class RentServiceImpl implements RentService {
     RentRepository rentRepository;
     private RentMapper rentMapper;
 
-    public List<RentDTO> getAllRents() {
+    public List<RentDTO> getAll() {
 
         List<Rent> rentList = new ArrayList<>();
         rentRepository.findAll().forEach(rentList::add);
@@ -28,12 +28,20 @@ public class RentServiceImpl implements RentService {
         return rentMapper.toDTOList(rentList);
     }
 
-    public List<RentDTO> getByIds(List ids) {
+    public List<RentDTO> getAllById(List ids) {
 
         List<Rent> rentList = new ArrayList<>();
         rentRepository.findAllById(ids).forEach((Consumer) rentList);
 
         return rentMapper.toDTOList(rentList);
+    }
+
+    public void deleteAllById(List ids) {
+
+        List<Rent> rentList = new ArrayList<>();
+        rentRepository.findAllById(ids).forEach((Consumer) rentList);
+        rentRepository.deleteAll(rentList);
+
     }
     
     public RentDTO getById(Long id) {
@@ -44,7 +52,25 @@ public class RentServiceImpl implements RentService {
         return rentMapper.toDTO (rent);
     }
 
-    public void addRent(Rent rent) {
+    public void add(Rent rent) {
+
+        rentRepository.save(rent);
+
+    }
+
+    public void deleteAll() {
+
+        rentRepository.deleteAll();
+
+    }
+
+    public void deleteById(Rent rent) {
+
+        rentRepository.delete(rent);
+
+    }
+
+    public void update(Rent rent) {
 
         rentRepository.save(rent);
 
