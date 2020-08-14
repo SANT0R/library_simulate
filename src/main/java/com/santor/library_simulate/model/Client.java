@@ -13,13 +13,15 @@ import javax.persistence.*;
 @Data
 public class Client extends BaseModel {
 
+    @Column(nullable = false)
     private String clientName;
 
+    @Column(nullable = false)
     private String password;
 
     private boolean enabled;
 
-    @OneToMany(mappedBy = "client")
+    @OneToMany(mappedBy = "client" , cascade = CascadeType.ALL)
     private Set<Rent> rents = new HashSet<>();
 
 }

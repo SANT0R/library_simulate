@@ -14,24 +14,30 @@ import javax.persistence.*;
 @Data
 public class Book extends BaseModel {
 
+    @Column(nullable = false)
     private String name;
 
+    @Column(nullable = false)
     private String publisher;
 
+    @Column(nullable = false)
     private String releaseYear;
 
     private String type;
 
     private String description;
 
+    @Column(nullable = false)
     private int page;
 
+    @Column(nullable = false)
     private int stock;
 
-    @ManyToOne
+    @Column(nullable = false)
+    @ManyToOne(cascade = {CascadeType.REFRESH,CascadeType.PERSIST,CascadeType.MERGE})
     private  Author author;
 
-    @ManyToMany(mappedBy = "book", cascade = CascadeType.ALL)
+    @ManyToMany(mappedBy = "book", cascade = {CascadeType.REFRESH,CascadeType.PERSIST,CascadeType.MERGE})
     private Set<Rent> rents = new HashSet<>();
 
 }

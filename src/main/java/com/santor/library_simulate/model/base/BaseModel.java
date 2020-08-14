@@ -2,19 +2,16 @@ package com.santor.library_simulate.model.base;
 
 import lombok.Data;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.MappedSuperclass;
+import javax.persistence.*;
 import java.io.Serializable;
 
 @MappedSuperclass
 @Data
-public abstract class BaseModel {
+public abstract class BaseModel implements Serializable{
 
-
+    private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private  Long id;
-
+    @Column(name = "ID", unique = true, nullable = false)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    private Long           id;
 }

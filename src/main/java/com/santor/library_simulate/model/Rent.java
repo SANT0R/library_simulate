@@ -15,16 +15,20 @@ import javax.persistence.*;
 @Data
 public class Rent extends BaseModel {
 
+    @Column(nullable = false)
     private Date start_date;
 
+    @Column(nullable = false)
     private Date finishDate;
 
     private Date returnDate;
 
-    @ManyToMany
+    @Column(nullable = false)
+    @ManyToMany(mappedBy = "client")
     private List<Book> books;
 
 
+    @Column(nullable = false)
     @ManyToOne
     private Client client;
 

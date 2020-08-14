@@ -13,6 +13,7 @@ import lombok.Data;
 @Entity
 public class Author extends BaseModel {
 
+    @Column(nullable = false)
     private String fullName;
 
     @OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
