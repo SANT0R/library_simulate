@@ -36,7 +36,7 @@ public class AuthorServiceImpl implements AuthorService {
     public List<AuthorDTO> getAllById(List ids) {
 
         List<Author> authorList = new ArrayList<>();
-        authorRepository.findAllById(ids).forEach((Consumer) authorList);
+        authorRepository.findAll().forEach(authorList::add);
 
         return authorMapper.toDTOList(authorList);
     }
@@ -44,7 +44,7 @@ public class AuthorServiceImpl implements AuthorService {
     public void deleteAllById(List ids) {
 
         List<Author> authorList = new ArrayList<>();
-        authorRepository.findAllById(ids).forEach((Consumer) authorList);
+        authorRepository.findAll().forEach(authorList::add);
         authorRepository.deleteAll(authorList);
 
     }
@@ -55,6 +55,17 @@ public class AuthorServiceImpl implements AuthorService {
         Author author = optionalAuthor.get();
 
         return authorMapper.toDTO (author);
+    }
+
+    public List<AuthorDTO> findByName(String fullName) {
+        List<Author> authorList = authorRepository.findByName(fullName);
+
+        return authorMapper.toDTOList (authorList);
+    }
+
+    public void deleteByName(String fullName) {
+        List<Author> authorList = authorRepository.findByName(fullName);
+        authorRepository.deleteAll(authorList);
     }
 
     public void add(Author author) {

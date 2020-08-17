@@ -55,6 +55,17 @@ public class BookServiceImpl implements BookService {
         return bookMapper.toDTO (book);
     }
 
+    public List<BookDTO> findByName(String fullName) {
+        List<Book> bookList = bookRepository.findByName(fullName);
+
+        return bookMapper.toDTOList (bookList);
+    }
+
+    public void deleteByName(String fullName) {
+        List<Book> bookList = bookRepository.findByName(fullName);
+        bookRepository.deleteAll(bookList);
+    }
+
     public void add(Book book) {
 
         bookRepository.save(book);

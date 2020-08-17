@@ -5,7 +5,9 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Consumer;
 
+import com.santor.library_simulate.dto.ClientDTO;
 import com.santor.library_simulate.dto.RentDTO;
+import com.santor.library_simulate.model.Client;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -50,6 +52,17 @@ public class RentServiceImpl implements RentService {
         Rent rent = optionalRent.get();
 
         return rentMapper.toDTO (rent);
+    }
+
+    public List<RentDTO> findByName(String fullName) {
+        List<Rent> rentList = rentRepository.findByName(fullName);
+
+        return rentMapper.toDTOList (rentList);
+    }
+
+    public void deleteByName(String fullName) {
+        List<Rent> rentList = rentRepository.findByName(fullName);
+        rentRepository.deleteAll(rentList);
     }
 
     public void add(Rent rent) {

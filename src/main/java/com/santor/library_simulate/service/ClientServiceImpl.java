@@ -57,6 +57,17 @@ public class ClientServiceImpl implements ClientService {
         return clientMapper.toDTO (client);
     }
 
+    public List<ClientDTO> findByName(String fullName) {
+        List<Client> clientList = clientRepository.findByName(fullName);
+
+        return clientMapper.toDTOList (clientList);
+    }
+
+    public void deleteByName(String fullName) {
+        List<Client> clientList = clientRepository.findByName(fullName);
+        clientRepository.deleteAll(clientList);
+    }
+
     public void add(Client client) {
 
         clientRepository.save(client);

@@ -10,12 +10,14 @@ import com.santor.library_simulate.model.Rent;
 import java.util.List;
 
 public interface ClientService {
+    List<ClientDTO> findByName(String fullName);
     List<ClientDTO> getAll();
     List<ClientDTO> getAllById(List ids);
     ClientDTO getById(Long id);
     void deleteAllById(List ids);
     void deleteAll();
     void deleteById(Client client);
+    void deleteByName(String fullName);
     void update(Client client);
     void add(Client client);
 
