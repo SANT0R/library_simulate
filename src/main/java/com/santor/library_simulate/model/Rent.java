@@ -16,12 +16,12 @@ import javax.persistence.*;
 public class Rent extends BaseModel {
 
     @Column(nullable = false)
-    private Date start_date;
+    private Date startDate;
 
     @Column(nullable = false)
     private Date finishDate;
 
-    private Date returnDate;
+    private Date returnDate = finishDate;
 
     @Column(nullable = false)
     @ManyToMany(mappedBy = "client")
