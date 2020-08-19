@@ -23,7 +23,7 @@ import com.santor.library_simulate.model.Client;
 import com.santor.library_simulate.service.ClientService;
 import org.springframework.web.servlet.ModelAndView;
 
-@Api(value="post", description=" Post Operations Service")
+@Api(value="post")
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/client")
@@ -51,24 +51,28 @@ public class ClientController {
         return new ModelAndView("author", params);
     }
 
+    @ApiOperation(value = "Get all client")
     @GetMapping("/")
     public List<ClientDTO> getAll() {
 
         return clientService.getAll();
     }
 
+    @ApiOperation(value = "Get clients by id")
     @PostMapping("/getAllById")
     public List<ClientDTO> getAllById(@RequestBody List<ClientDTO> list) {
 
         return clientService.getAllById(list);
     }
 
+    @ApiOperation(value = "Get a client by id")
     @PostMapping("/getById")
     public ClientDTO getById(@RequestBody Long id) {
 
         return clientService.getById(id);
     }
 
+    @ApiOperation(value = "Delete all client")
     @PostMapping("/deleteAll")
     public String deleteAll() {
 
@@ -76,6 +80,7 @@ public class ClientController {
         return "done";
     }
 
+    @ApiOperation(value = "Delete clients by id")
     @PostMapping("/deleteAllById")
     public String deleteAllById(@RequestBody List<ClientDTO> list) {
 
@@ -83,6 +88,7 @@ public class ClientController {
         return "done";
     }
 
+    @ApiOperation(value = "Delete a client by id")
     @PostMapping("/delete")
     public String delete(@RequestBody Client client) {
 
@@ -91,6 +97,7 @@ public class ClientController {
         return "done";
     }
 
+    @ApiOperation(value = "Update a client")
     @PostMapping("/update")
     public String update(@RequestBody Client client) {
 
@@ -99,6 +106,7 @@ public class ClientController {
         return "done";
     }
 
+    @ApiOperation(value = "Add a client")
     @PostMapping("/add")
     public String add(@RequestBody Client client) {
 

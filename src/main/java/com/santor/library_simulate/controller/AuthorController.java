@@ -24,7 +24,7 @@ import com.santor.library_simulate.model.Author;
 import com.santor.library_simulate.service.AuthorService;
 import org.springframework.web.servlet.ModelAndView;
 
-@Api(value="post", description=" Post Operations Service")
+@Api(value="post")
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/author")
@@ -55,6 +55,8 @@ public class AuthorController {
 
         return new ModelAndView("author", params);
     }
+
+
     @ApiOperation(value = "Get all author")
     @GetMapping("/")
     public List<AuthorDTO> getAll() {

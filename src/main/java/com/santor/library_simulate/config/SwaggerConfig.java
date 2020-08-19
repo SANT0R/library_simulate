@@ -18,7 +18,7 @@ import java.time.LocalDate;
 @EnableSwagger2
 public class SwaggerConfig {
 
-    ApiInfo apiInfo() {
+    private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
                 .title("Post API Reference")
                 .version("1.0.0")
@@ -30,7 +30,7 @@ public class SwaggerConfig {
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo())
                 .select().paths(PathSelectors.any())
-                .apis(RequestHandlerSelectors.basePackage("com.vedatyildirim.basiccrudexample"))
+                .apis(RequestHandlerSelectors.any())
                 .build()
                 .pathMapping("/")
                 .useDefaultResponseMessages(false)

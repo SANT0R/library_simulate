@@ -23,7 +23,7 @@ import com.santor.library_simulate.model.Book;
 import com.santor.library_simulate.service.BookService;
 import org.springframework.web.servlet.ModelAndView;
 
-@Api(value="post", description=" Post Operations Service")
+@Api(value="post")
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/book")
@@ -52,24 +52,28 @@ public class BookController {
         return new ModelAndView("author", params);
     }
 
+    @ApiOperation(value = "Get all book")
     @GetMapping("/")
     public List<BookDTO> getAll() {
 
         return bookService.getAll();
     }
 
+    @ApiOperation(value = "Get books by id")
     @PostMapping("/getAllById")
     public List<BookDTO> getAllById(@RequestBody List<BookDTO> list) {
 
         return bookService.getAllById(list);
     }
 
+    @ApiOperation(value = "Get book by id")
     @PostMapping("/getById")
     public BookDTO getById(@RequestBody Long id) {
 
         return bookService.getById(id);
     }
 
+    @ApiOperation(value = "Delete all book")
     @PostMapping("/deleteAll")
     public String deleteAll() {
 
@@ -77,6 +81,7 @@ public class BookController {
         return "done";
     }
 
+    @ApiOperation(value = "Delete books by id")
     @PostMapping("/deleteAllById")
     public String deleteAllById(@RequestBody List<BookDTO> list) {
 
@@ -84,6 +89,7 @@ public class BookController {
         return "done";
     }
 
+    @ApiOperation(value = "Delete  book by id")
     @PostMapping("/delete")
     public String delete(@RequestBody Book book) {
 
@@ -92,6 +98,7 @@ public class BookController {
         return "done";
     }
 
+    @ApiOperation(value = "Update a book")
     @PostMapping("/update")
     public String update(@RequestBody Book book) {
 
@@ -100,6 +107,7 @@ public class BookController {
         return "done";
     }
 
+    @ApiOperation(value = "Add a book")
     @PostMapping("/add")
     public String add(@RequestBody Book book) {
 

@@ -23,7 +23,7 @@ import com.santor.library_simulate.model.Rent;
 import com.santor.library_simulate.service.RentService;
 import org.springframework.web.servlet.ModelAndView;
 
-@Api(value="post", description=" Post Operations Service")
+@Api(value="post")
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/rent")
@@ -51,24 +51,28 @@ public class RentController {
         return new ModelAndView("author", params);
     }
 
+    @ApiOperation(value = "Get all rent")
     @GetMapping("/")
     public List<RentDTO> getAll() {
 
         return rentService.getAll();
     }
 
+    @ApiOperation(value = "Get rents by id")
     @PostMapping("/getAllById")
     public List<RentDTO> getAllById(@RequestBody List<RentDTO> list) {
 
         return rentService.getAllById(list);
     }
 
+    @ApiOperation(value = "Get a rent by id")
     @PostMapping("/getById")
     public RentDTO getById(@RequestBody Long id) {
 
         return rentService.getById(id);
     }
 
+    @ApiOperation(value = "Delete all rent")
     @PostMapping("/deleteAll")
     public String deleteAll() {
 
@@ -76,6 +80,7 @@ public class RentController {
         return "done";
     }
 
+    @ApiOperation(value = "Delete rents by id")
     @PostMapping("/deleteAllById")
     public String deleteAllById(@RequestBody List<RentDTO> list) {
 
@@ -83,6 +88,7 @@ public class RentController {
         return "done";
     }
 
+    @ApiOperation(value = "Delete a rent")
     @PostMapping("/delete")
     public String delete(@RequestBody Rent rent) {
 
@@ -91,6 +97,7 @@ public class RentController {
         return "done";
     }
 
+    @ApiOperation(value = "Update a rent")
     @PostMapping("/update")
     public String update(@RequestBody Rent rent) {
 
@@ -99,6 +106,7 @@ public class RentController {
         return "done";
     }
 
+    @ApiOperation(value = "Add a rent")
     @PostMapping("/add")
     public String add(@RequestBody Rent rent) {
 
