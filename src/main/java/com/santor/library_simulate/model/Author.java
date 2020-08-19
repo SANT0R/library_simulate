@@ -18,7 +18,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @EnableJpaRepositories
 */
 public class Author extends BaseModel {
-    
+
     private static final long serialVersionUID = -6351021095604979392L;
     @Column(nullable = false)
     private String fullName;
