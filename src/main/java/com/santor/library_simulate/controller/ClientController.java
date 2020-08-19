@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import com.santor.library_simulate.dto.ClientDTO;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
@@ -22,7 +23,7 @@ import com.santor.library_simulate.model.Client;
 import com.santor.library_simulate.service.ClientService;
 import org.springframework.web.servlet.ModelAndView;
 
-@ApiOperation(value = "View a list of available posts",response = Iterable.class)
+@Api(value="post", description=" Post Operations Service")
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/client")
