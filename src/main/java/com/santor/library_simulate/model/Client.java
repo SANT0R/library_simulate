@@ -26,8 +26,6 @@ public class Client extends BaseModel {
     @Column(nullable = false)
     private String password;
 
-    private boolean enabled;
-
     @OneToMany(mappedBy = "client" , cascade = CascadeType.ALL)
     private Set<Rent> rents = new HashSet<>();
 
