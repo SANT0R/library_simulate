@@ -24,7 +24,7 @@ public class Rent extends BaseModel {
 
     private Date returnDate = finishDate;
 
-    @ManyToMany(mappedBy = "rent")
+    @ManyToMany()
     private Set<Book> books = new HashSet<>();
 
 

@@ -38,7 +38,7 @@ public class Book extends BaseModel {
     @ManyToOne(cascade = {CascadeType.REFRESH,CascadeType.PERSIST,CascadeType.MERGE})
     private  Author author;
 
-    @ManyToMany(mappedBy = "book", cascade = {CascadeType.REFRESH,CascadeType.PERSIST,CascadeType.MERGE})
+    @ManyToMany(mappedBy = "books", cascade = {CascadeType.REFRESH,CascadeType.PERSIST,CascadeType.MERGE})
     private Set<Rent> rents = new HashSet<>();
 
 

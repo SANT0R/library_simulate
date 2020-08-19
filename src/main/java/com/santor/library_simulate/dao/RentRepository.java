@@ -11,6 +11,5 @@ import java.util.List;
 @Repository
 public interface RentRepository extends CrudRepository<Rent, Long> {
 
-    List<Rent> findByName(String fullName);
 
 }
