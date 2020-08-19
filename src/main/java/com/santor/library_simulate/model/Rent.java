@@ -2,6 +2,8 @@ package com.santor.library_simulate.model;
 
 import com.santor.library_simulate.model.base.BaseModel;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 import java.util.Date;
 import java.util.HashSet;
@@ -10,11 +12,16 @@ import java.util.Set;
 
 import javax.persistence.*;
 
+@EqualsAndHashCode(callSuper = true)
 @Table
 @Entity
 @Data
+/*
+@EnableJpaRepositories
+*/
 public class Rent extends BaseModel {
 
+    private static final long serialVersionUID = 6756764858273649500L;
     @Column(nullable = false)
     private Date startDate;
 
@@ -23,12 +30,9 @@ public class Rent extends BaseModel {
 
     private Date returnDate = finishDate;
 
-    @Column(nullable = false)
-    @ManyToMany(mappedBy = "client")
+    @ManyToMany(mappedBy = "rent")
     private List<Book> books;
 
-
-    @Column(nullable = false)
     @ManyToOne
     private Client client;
 

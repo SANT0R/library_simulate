@@ -3,17 +3,24 @@ package com.santor.library_simulate.model;
 
 import com.santor.library_simulate.model.base.BaseModel;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.*;
 
+@EqualsAndHashCode(callSuper = true)
 @Table
 @Entity
 @Data
+/*
+@EnableJpaRepositories
+*/
 public class Book extends BaseModel {
 
+    private static final long serialVersionUID = -7599045333722607430L;
     @Column(nullable = false)
     private String name;
 
@@ -33,7 +40,6 @@ public class Book extends BaseModel {
     @Column(nullable = false)
     private int stock;
 
-    @Column(nullable = false)
     @ManyToOne(cascade = {CascadeType.REFRESH,CascadeType.PERSIST,CascadeType.MERGE})
     private  Author author;
 
