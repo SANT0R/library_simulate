@@ -25,8 +25,6 @@ import com.santor.library_simulate.service.AuthorService;
 import org.springframework.web.servlet.ModelAndView;
 
 @Api(value="post", description=" Post Operations Service")
-
-
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/author")
