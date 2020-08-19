@@ -57,37 +57,31 @@ public class AuthorController {
 
         return new ModelAndView("author", params);
     }
-
     @ApiOperation(value = "Get all author")
-
-
     @GetMapping("/")
     public List<AuthorDTO> getAll() {
 
         return authorService.getAll();
     }
 
+
     @ApiOperation(value = "Get authors by id")
-
-
     @PostMapping("/getAllById")
     public List<AuthorDTO> getAllById(@RequestBody List<AuthorDTO> list) {
 
         return authorService.getAllById(list);
     }
 
+
     @ApiOperation(value = "Get a author by id")
-
-
     @PostMapping("/getById")
     public AuthorDTO getById(@RequestBody Long id) {
 
         return authorService.getById(id);
     }
 
+
     @ApiOperation(value = "Delete all author")
-
-
     @PostMapping("/deleteAll")
     public String deleteAll() {
 
@@ -95,9 +89,8 @@ public class AuthorController {
         return "done";
     }
 
+
     @ApiOperation(value = "Delete authors by id")
-
-
     @PostMapping("/deleteAllById")
     public String deleteAllById(@RequestBody List<AuthorDTO> list) {
 
@@ -105,9 +98,8 @@ public class AuthorController {
         return "done";
     }
 
+
     @ApiOperation(value = "Delete a author")
-
-
     @PostMapping("/delete")
     public String delete(@RequestBody Author author) {
 
@@ -116,9 +108,8 @@ public class AuthorController {
         return "done";
     }
 
+
     @ApiOperation(value = "Update a author")
-
-
     @PostMapping("/update")
     public String update(@RequestBody Author author) {
 
@@ -127,9 +118,8 @@ public class AuthorController {
         return "done";
     }
 
+
     @ApiOperation(value = "Add a author")
-
-
     @PostMapping("/add")
     public String add(@RequestBody Author author) {
 

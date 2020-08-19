@@ -22,6 +22,7 @@ public class RentServiceImpl implements RentService {
     RentRepository rentRepository;
     private RentMapper rentMapper;
 
+    @Override
     public List<RentDTO> getAll() {
 
         List<Rent> rentList = new ArrayList<>();
@@ -30,6 +31,7 @@ public class RentServiceImpl implements RentService {
         return rentMapper.toDTOList(rentList);
     }
 
+    @Override
     public List<RentDTO> getAllById(List ids) {
 
         List<Rent> rentList = new ArrayList<>();
@@ -38,6 +40,7 @@ public class RentServiceImpl implements RentService {
         return rentMapper.toDTOList(rentList);
     }
 
+    @Override
     public void deleteAllById(List ids) {
 
         List<Rent> rentList = new ArrayList<>();
@@ -45,7 +48,8 @@ public class RentServiceImpl implements RentService {
         rentRepository.deleteAll(rentList);
 
     }
-    
+
+    @Override
     public RentDTO getById(Long id) {
 
         Optional<Rent> optionalRent =  rentRepository.findById(id);
@@ -54,35 +58,28 @@ public class RentServiceImpl implements RentService {
         return rentMapper.toDTO (rent);
     }
 
-    public List<RentDTO> findByName(String fullName) {
-        List<Rent> rentList = rentRepository.findByName(fullName);
-
-        return rentMapper.toDTOList (rentList);
-    }
-
-    public void deleteByName(String fullName) {
-        List<Rent> rentList = rentRepository.findByName(fullName);
-        rentRepository.deleteAll(rentList);
-    }
-
+    @Override
     public void add(Rent rent) {
 
         rentRepository.save(rent);
 
     }
 
+    @Override
     public void deleteAll() {
 
         rentRepository.deleteAll();
 
     }
 
+    @Override
     public void deleteById(Rent rent) {
 
         rentRepository.delete(rent);
 
     }
 
+    @Override
     public void update(Rent rent) {
 
         rentRepository.save(rent);

@@ -23,6 +23,7 @@ public class BookServiceImpl implements BookService {
     BookRepository bookRepository;
     private BookMapper bookMapper;
 
+    @Override
     public List<BookDTO> getAll() {
 
         List<Book> bookList = new ArrayList<>();
@@ -31,6 +32,7 @@ public class BookServiceImpl implements BookService {
         return bookMapper.toDTOList(bookList);
     }
 
+    @Override
     public List<BookDTO> getAllById(List ids) {
 
         List<Book> bookList = new ArrayList<>();
@@ -39,6 +41,7 @@ public class BookServiceImpl implements BookService {
         return bookMapper.toDTOList(bookList);
     }
 
+    @Override
     public void deleteAllById(List ids) {
 
         List<Book> bookList = new ArrayList<>();
@@ -47,6 +50,7 @@ public class BookServiceImpl implements BookService {
 
     }
 
+    @Override
     public BookDTO getById(Long id) {
 
         Optional<Book> optionalBook =  bookRepository.findById(id);
@@ -55,35 +59,41 @@ public class BookServiceImpl implements BookService {
         return bookMapper.toDTO (book);
     }
 
+    @Override
     public List<BookDTO> findByName(String fullName) {
-        List<Book> bookList = bookRepository.findByName(fullName);
+        List<Book> bookList = bookRepository.findByFullName(fullName);
 
         return bookMapper.toDTOList (bookList);
     }
 
+    @Override
     public void deleteByName(String fullName) {
-        List<Book> bookList = bookRepository.findByName(fullName);
+        List<Book> bookList = bookRepository.findByFullName(fullName);
         bookRepository.deleteAll(bookList);
     }
 
+    @Override
     public void add(Book book) {
 
         bookRepository.save(book);
 
     }
 
+    @Override
     public void deleteAll() {
 
         bookRepository.deleteAll();
 
     }
 
+    @Override
     public void deleteById(Book book) {
 
         bookRepository.delete(book);
 
     }
 
+    @Override
     public void update(Book book) {
 
         bookRepository.save(book);

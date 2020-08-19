@@ -10,6 +10,6 @@ import java.util.List;
 @Repository
 public interface AuthorRepository extends CrudRepository<Author, Long> {
 
-    List<Author> findByName(String fullName);
+    List<Author> findByFullName(String fullName);
 
 }

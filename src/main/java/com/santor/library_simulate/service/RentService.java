@@ -6,14 +6,12 @@ import com.santor.library_simulate.model.Rent;
 import java.util.List;
 
 public interface RentService {
-    List<RentDTO> findByName(String fullName);
     List<RentDTO> getAll();
     List<RentDTO> getAllById(List ids);
     RentDTO getById(Long id);
     void deleteAllById(List ids);
     void deleteAll();
     void deleteById(Rent rent);
-    void deleteByName(String fullName);
     void update(Rent rent);
     void add(Rent rent);
 

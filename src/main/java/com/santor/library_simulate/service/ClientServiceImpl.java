@@ -25,6 +25,7 @@ public class ClientServiceImpl implements ClientService {
     private ClientRepository clientRepository;
     private ClientMapper clientMapper;
 
+    @Override
     public List<ClientDTO> getAll() {
 
         List<Client> clientList = new ArrayList<>();
@@ -33,6 +34,7 @@ public class ClientServiceImpl implements ClientService {
         return clientMapper.toDTOList(clientList);
     }
 
+    @Override
     public List<ClientDTO> getAllById(List ids) {
 
         List<Client> clientList = new ArrayList<>();
@@ -41,6 +43,7 @@ public class ClientServiceImpl implements ClientService {
         return clientMapper.toDTOList(clientList);
     }
 
+    @Override
     public void deleteAllById(List ids) {
 
         List<Client> clientList = new ArrayList<>();
@@ -49,6 +52,7 @@ public class ClientServiceImpl implements ClientService {
 
     }
 
+    @Override
     public ClientDTO getById(Long id) {
 
         Optional<Client> optionalClient = clientRepository.findById(id);
@@ -57,35 +61,41 @@ public class ClientServiceImpl implements ClientService {
         return clientMapper.toDTO (client);
     }
 
+    @Override
     public List<ClientDTO> findByName(String fullName) {
-        List<Client> clientList = clientRepository.findByName(fullName);
+        List<Client> clientList = clientRepository.findByFullName(fullName);
 
         return clientMapper.toDTOList (clientList);
     }
 
+    @Override
     public void deleteByName(String fullName) {
-        List<Client> clientList = clientRepository.findByName(fullName);
+        List<Client> clientList = clientRepository.findByFullName(fullName);
         clientRepository.deleteAll(clientList);
     }
 
+    @Override
     public void add(Client client) {
 
         clientRepository.save(client);
 
     }
 
+    @Override
     public void deleteAll( ) {
 
         clientRepository.deleteAll();
 
     }
 
+    @Override
     public void deleteById(Client client) {
 
         clientRepository.delete(client);
 
     }
 
+    @Override
     public void update(Client client) {
 
         clientRepository.save(client);

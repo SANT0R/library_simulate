@@ -17,7 +17,7 @@ public class Book extends BaseModel {
 
     private static final long serialVersionUID = -7599045333722607430L;
     @Column(nullable = false)
-    private String name;
+    private String fullName;
 
     @Column(nullable = false)
     private String publisher;

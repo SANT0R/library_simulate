@@ -25,6 +25,7 @@ public class AuthorServiceImpl implements AuthorService {
     private AuthorRepository authorRepository;
     private AuthorMapper authorMapper;
 
+    @Override
     public List<AuthorDTO> getAll() {
 
         List<Author> authorList = new ArrayList<>();
@@ -33,6 +34,7 @@ public class AuthorServiceImpl implements AuthorService {
         return authorMapper.toDTOList(authorList);
     }
 
+    @Override
     public List<AuthorDTO> getAllById(List ids) {
 
         List<Author> authorList = new ArrayList<>();
@@ -41,6 +43,7 @@ public class AuthorServiceImpl implements AuthorService {
         return authorMapper.toDTOList(authorList);
     }
 
+    @Override
     public void deleteAllById(List ids) {
 
         List<Author> authorList = new ArrayList<>();
@@ -49,6 +52,7 @@ public class AuthorServiceImpl implements AuthorService {
 
     }
 
+    @Override
     public AuthorDTO getById(Long id) {
 
         Optional<Author> optionalAuthor =  authorRepository.findById(id);
@@ -57,35 +61,41 @@ public class AuthorServiceImpl implements AuthorService {
         return authorMapper.toDTO (author);
     }
 
+    @Override
     public List<AuthorDTO> findByName(String fullName) {
-        List<Author> authorList = authorRepository.findByName(fullName);
+        List<Author> authorList = authorRepository.findByFullName(fullName);
 
         return authorMapper.toDTOList (authorList);
     }
 
+    @Override
     public void deleteByName(String fullName) {
-        List<Author> authorList = authorRepository.findByName(fullName);
+        List<Author> authorList = authorRepository.findByFullName(fullName);
         authorRepository.deleteAll(authorList);
     }
 
+    @Override
     public void add(Author author) {
 
         authorRepository.save(author);
 
     }
 
+    @Override
     public void deleteAll() {
 
         authorRepository.deleteAll();
 
     }
 
+    @Override
     public void deleteById(Author author) {
 
         authorRepository.delete(author);
 
     }
 
+    @Override
     public void update(Author author) {
 
         authorRepository.save(author);
