@@ -13,9 +13,6 @@ class AuthorServiceTest {
 
     private Author author ;
 
-    AuthorServiceTest(Author author) {
-        this.author = author;
-    }
 
 
     @Test

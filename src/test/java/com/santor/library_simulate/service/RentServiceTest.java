@@ -15,10 +15,6 @@ class RentServiceTest {
 
     private Rent rent ;
 
-    RentServiceTest(Rent rent) {
-        this.rent = rent;
-    }
-
 
     @Test
     void add() throws Exception {

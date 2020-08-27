@@ -159,10 +159,10 @@ public class ClientController {
     }
 
     @ApiOperation(value = "Delete a client by id")
-    @PostMapping("/delete")
-    public String delete(@RequestBody Client client) {
+    @PostMapping("/deleteById")
+    public String deleteById(@RequestParam Long id) {
 
-        clientService.deleteById(client);
+        clientService.deleteById(id);
 
         return "done";
     }

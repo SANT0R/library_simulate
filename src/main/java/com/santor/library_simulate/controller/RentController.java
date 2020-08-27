@@ -140,10 +140,10 @@ public class RentController {
     }
 
     @ApiOperation(value = "Delete a rent")
-    @PostMapping("/delete")
-    public String delete(@RequestBody Rent rent) {
+    @PostMapping("/deleteById")
+    public String deleteById(@RequestParam Long id) {
 
-        rentService.deleteById(rent);
+        rentService.deleteById(id);
 
         return "done";
     }

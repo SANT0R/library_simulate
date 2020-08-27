@@ -12,10 +12,6 @@ class ClientServiceTest {
 
     private  Client client ;
 
-    ClientServiceTest(Client client) {
-        this.client = client;
-    }
-
 
     @Test
     void add() throws Exception {

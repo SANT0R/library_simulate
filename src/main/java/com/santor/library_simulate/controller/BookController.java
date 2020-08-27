@@ -159,10 +159,10 @@ public class BookController {
     }
 
     @ApiOperation(value = "Delete  book by id")
-    @PostMapping("/delete")
-    public String delete(@RequestBody Book book) {
+    @PostMapping("/deleteById")
+    public String deleteById(@RequestParam Long id) {
 
-        bookService.deleteById(book);
+        bookService.deleteById(id);
 
         return "done";
     }

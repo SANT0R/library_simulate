@@ -12,9 +12,6 @@ class BookServiceTest {
 
     private  Book book ;
 
-    BookServiceTest(Book book) {
-        this.book = book;
-    }
 
 
     @Test
