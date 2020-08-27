@@ -25,19 +25,6 @@ public class ClientServiceImpl implements ClientService {
         return clientMapper.toDTOList(clientRepository.findAll());
     }
 
-    @Override
-    public List<ClientDTO> getAllById(Iterable ids) {
-
-
-        return clientMapper.toDTOList(clientRepository.findAllById(ids));
-    }
-
-    @Override
-    public void deleteAllById(Iterable ids) {
-
-        clientRepository.deleteAll(clientRepository.findAll());
-
-    }
 
     @Override
     public ClientDTO getById(Long id) {

@@ -24,18 +24,6 @@ public class BookServiceImpl implements BookService {
         return bookMapper.toDTOList(bookRepository.findAll());
     }
 
-    @Override
-    public List<BookDTO> getAllById(Iterable ids) {
-
-        return bookMapper.toDTOList(bookRepository.findAllById(ids));
-    }
-
-    @Override
-    public void deleteAllById(Iterable ids) {
-
-        bookRepository.deleteAll(bookRepository.findAll());
-
-    }
 
     @Override
     public BookDTO getById(Long id) {

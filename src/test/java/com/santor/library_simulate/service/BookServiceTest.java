@@ -94,38 +94,6 @@ class BookServiceTest {
     }
 
 
-    @Test
-    void deleteAllById() throws Exception {
-
-
-        bookService.add(book);
-
-        List books = null;
-        books.add(book.getId()) ;
-
-        bookService.deleteAllById(books);
-
-        Mockito.verify (bookService).deleteAllById(books);
-
-    }
-
-
-    @Test
-    void getAllById() throws Exception {
-
-
-        bookService.add(book);
-
-        List books = null;
-        books.add(book.getId()) ;
-
-
-        bookService.getAllById(books);
-
-        Mockito.verify (bookService).getAllById(books);
-
-    }
-
 
     @Test
     void getAll() throws Exception {

@@ -22,19 +22,6 @@ public class RentServiceImpl implements RentService {
         return rentMapper.toDTOList(rentRepository.findAll());
     }
 
-    @Override
-    public List<RentDTO> getAllById(Iterable ids) {
-
-
-        return rentMapper.toDTOList(rentRepository.findAllById(ids));
-    }
-
-    @Override
-    public void deleteAllById(Iterable ids) {
-
-        rentRepository.deleteAll(rentRepository.findAll());
-
-    }
 
     @Override
     public RentDTO getById(Long id) {

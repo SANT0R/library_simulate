@@ -95,37 +95,6 @@ class AuthorServiceTest {
     }
 
 
-    @Test
-    void deleteAllById() throws Exception {
-
-        authorService.add(author);
-
-        List authors = null;
-        authors.add(author.getId()) ;
-
-        authorService.deleteAllById(authors);
-
-        Mockito.verify (authorService).deleteAllById(authors);
-
-    }
-
-
-    @Test
-    void getAllById() throws Exception {
-
-
-        authorService.add(author);
-
-        List authors = null;
-        authors.add(author.getId()) ;
-
-
-        authorService.getAllById(authors);
-
-        Mockito.verify (authorService).getAllById(authors);
-
-    }
-
 
     @Test
     void getAll() throws Exception {

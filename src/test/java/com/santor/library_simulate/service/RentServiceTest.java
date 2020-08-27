@@ -73,38 +73,6 @@ class RentServiceTest {
     }
 
 
-    @Test
-    void deleteAllById() throws Exception {
-
-
-        rentService.add(rent);
-
-        List rents = null;
-        rents.add(rent.getId()) ;
-
-        rentService.deleteAllById(rents);
-
-        Mockito.verify (rentService).deleteAllById(rents);
-
-    }
-
-
-    @Test
-    void getAllById() throws Exception {
-
-
-        rentService.add(rent);
-
-        List rents = null;
-        rents.add(rent.getId()) ;
-
-
-        rentService.getAllById(rents);
-
-        Mockito.verify (rentService).getAllById(rents);
-
-    }
-
 
     @Test
     void getAll() throws Exception {

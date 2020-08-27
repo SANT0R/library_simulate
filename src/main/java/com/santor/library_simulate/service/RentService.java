@@ -7,12 +7,15 @@ import java.util.List;
 
 public interface RentService {
     List<RentDTO> getAll();
-    List<RentDTO> getAllById(Iterable ids);
+
     RentDTO getById(Long id);
-    void deleteAllById(Iterable ids);
+
     void deleteAll();
+
     void deleteById(Long id);
+
     void update(Rent rent);
+
     void add(Rent rent);
 
 }

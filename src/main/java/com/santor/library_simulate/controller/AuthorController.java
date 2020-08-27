@@ -112,19 +112,6 @@ public class AuthorController {
     }
 
 
-    @ApiOperation(value = "Get authors by id")
-    @PostMapping("/getAllById")
-    public ResponseEntity<?> getAllById(@RequestParam Iterable<Long> ids) {
-        try {
-
-            return ResponseEntity.ok( authorService.getAllById(ids));
-        }
-        catch (Exception e) {
-
-            return ResponseEntity.notFound().build();
-        }
-    }
-
 
     @ApiOperation(value = "Get a author by id")
     @PostMapping("/getById")
@@ -164,15 +151,6 @@ public class AuthorController {
     public String deleteAll() {
 
         authorService.deleteAll();
-        return "done";
-    }
-
-
-    @ApiOperation(value = "Delete authors by id")
-    @PostMapping("/deleteAllById")
-    public String deleteAllById(@RequestParam Iterable<Long> ids) {
-
-        authorService.deleteAllById(ids);
         return "done";
     }
 

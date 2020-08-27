@@ -26,20 +26,7 @@ public class AuthorServiceImpl implements AuthorService {
         return authorMapper.toDTOList(authorRepository.findAll());
     }
 
-    @Override
-    public List<AuthorDTO> getAllById(Iterable ids) {
 
-
-        return authorMapper.toDTOList(authorRepository.findAllById(ids));
-    }
-
-    @Override
-    public void deleteAllById(Iterable ids) {
-
-
-        authorRepository.deleteAll(authorRepository.findAllById(ids));
-
-    }
 
     @Override
     public AuthorDTO getById(Long id) {

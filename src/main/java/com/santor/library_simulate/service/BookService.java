@@ -7,14 +7,19 @@ import java.util.List;
 
 public interface BookService {
     List<BookDTO> getAll();
-    List<BookDTO> getAllById(Iterable ids);
+
     BookDTO getById(Long id);
+
     List<BookDTO> getByName(String fullName);
-    void deleteAllById(Iterable ids);
+
     void deleteAll();
+
     void deleteById(Long id);
+
     void deleteByName(String fullName);
+
     void update(Book book);
+
     void add(Book book);
 
 

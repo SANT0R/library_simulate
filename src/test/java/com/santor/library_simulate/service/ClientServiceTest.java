@@ -93,38 +93,6 @@ class ClientServiceTest {
     }
 
 
-    @Test
-    void deleteAllById() throws Exception {
-
-
-        clientService.add(client);
-
-        List clients = null;
-        clients.add(client.getId()) ;
-
-        clientService.deleteAllById(clients);
-
-        Mockito.verify (clientService).deleteAllById(clients);
-
-    }
-
-
-    @Test
-    void getAllById() throws Exception {
-
-
-        clientService.add(client);
-
-        List clients = null;
-        clients.add(client.getId()) ;
-
-
-        clientService.getAllById(clients);
-
-        Mockito.verify (clientService).getAllById(clients);
-
-    }
-
 
     @Test
     void getAll() throws Exception {

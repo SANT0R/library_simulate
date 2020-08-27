@@ -109,12 +109,6 @@ public class ClientController {
         return clientService.getAll();
     }
 
-    @ApiOperation(value = "Get clients by id")
-    @PostMapping("/getAllById")
-    public List<ClientDTO> getAllById(@RequestBody Iterable<Long> ids) {
-
-        return clientService.getAllById(ids);
-    }
 
     @ApiOperation(value = "Get a client by id")
     @PostMapping("/getById")
@@ -150,13 +144,6 @@ public class ClientController {
         return "done";
     }
 
-    @ApiOperation(value = "Delete clients by id")
-    @PostMapping("/deleteAllById")
-    public String deleteAllById(@RequestParam Iterable<Long> ids) {
-
-        clientService.deleteAllById(ids);
-        return "done";
-    }
 
     @ApiOperation(value = "Delete a client by id")
     @PostMapping("/deleteById")
