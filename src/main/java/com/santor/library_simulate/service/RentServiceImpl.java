@@ -25,37 +25,27 @@ public class RentServiceImpl implements RentService {
     @Override
     public List<RentDTO> getAll() {
 
-        List<Rent> rentList = new ArrayList<>();
-        rentRepository.findAll().forEach(rentList::add);
-
-        return rentMapper.toDTOList(rentList);
+        return rentMapper.toDTOList(rentRepository.findAll());
     }
 
     @Override
-    public List<RentDTO> getAllById(List ids) {
+    public List<RentDTO> getAllById(Iterable ids) {
 
-        List<Rent> rentList = new ArrayList<>();
-        rentRepository.findAllById(ids).forEach((Consumer) rentList);
 
-        return rentMapper.toDTOList(rentList);
+        return rentMapper.toDTOList(rentRepository.findAllById(ids));
     }
 
     @Override
-    public void deleteAllById(List ids) {
+    public void deleteAllById(Iterable ids) {
 
-        List<Rent> rentList = new ArrayList<>();
-        rentRepository.findAllById(ids).forEach((Consumer) rentList);
-        rentRepository.deleteAll(rentList);
+        rentRepository.deleteAll(rentRepository.findAll());
 
     }
 
     @Override
     public RentDTO getById(Long id) {
 
-        Optional<Rent> optionalRent =  rentRepository.findById(id);
-        Rent rent = optionalRent.get();
-
-        return rentMapper.toDTO (rent);
+        return rentMapper.toDTO (rentRepository.getOne(id));
     }
 
     @Override

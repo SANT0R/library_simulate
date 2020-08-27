@@ -1,21 +1,14 @@
 package com.santor.library_simulate.service;
 
 
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.function.Consumer;
-
+import com.santor.library_simulate.dao.AuthorRepository;
 import com.santor.library_simulate.dto.AuthorDTO;
-import com.santor.library_simulate.dto.RentDTO;
-import com.santor.library_simulate.model.Rent;
+import com.santor.library_simulate.mapper.AuthorMapper;
+import com.santor.library_simulate.model.Author;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.santor.library_simulate.model.Author;
-import com.santor.library_simulate.dao.AuthorRepository;
-import com.santor.library_simulate.mapper.AuthorMapper;
+import java.util.List;
 
 @Service
 public class AuthorServiceImpl implements AuthorService {
@@ -25,53 +18,48 @@ public class AuthorServiceImpl implements AuthorService {
     private AuthorRepository authorRepository;
     private AuthorMapper authorMapper;
 
+
     @Override
     public List<AuthorDTO> getAll() {
 
-        List<Author> authorList = new ArrayList<>();
-        authorRepository.findAll().forEach(authorList::add);
 
-        return authorMapper.toDTOList(authorList);
+        return authorMapper.toDTOList(authorRepository.findAll());
     }
 
     @Override
-    public List<AuthorDTO> getAllById(List ids) {
+    public List<AuthorDTO> getAllById(Iterable ids) {
 
-        List<Author> authorList = new ArrayList<>();
-        authorRepository.findAll().forEach(authorList::add);
 
-        return authorMapper.toDTOList(authorList);
+        return authorMapper.toDTOList(authorRepository.findAllById(ids));
     }
 
     @Override
-    public void deleteAllById(List ids) {
+    public void deleteAllById(Iterable ids) {
 
-        List<Author> authorList = new ArrayList<>();
-        authorRepository.findAll().forEach(authorList::add);
-        authorRepository.deleteAll(authorList);
+
+        authorRepository.deleteAll(authorRepository.findAllById(ids));
 
     }
 
     @Override
     public AuthorDTO getById(Long id) {
 
-        Optional<Author> optionalAuthor =  authorRepository.findById(id);
-        Author author = optionalAuthor.get();
 
-        return authorMapper.toDTO (author);
+        return authorMapper.toDTO (authorRepository.getOne(id));
     }
 
     @Override
-    public List<AuthorDTO> findByName(String fullName) {
-        List<Author> authorList = authorRepository.findByFullName(fullName);
+    public List<AuthorDTO> getByName(String fullName) {
 
-        return authorMapper.toDTOList (authorList);
+        return authorMapper.toDTOList (authorRepository.findByFullName(fullName));
     }
 
     @Override
     public void deleteByName(String fullName) {
-        List<Author> authorList = authorRepository.findByFullName(fullName);
-        authorRepository.deleteAll(authorList);
+
+
+        authorRepository.deleteAll(authorRepository.findByFullName(fullName));
+
     }
 
     @Override
@@ -89,9 +77,9 @@ public class AuthorServiceImpl implements AuthorService {
     }
 
     @Override
-    public void deleteById(Author author) {
+    public void deleteById(Long id) {
 
-        authorRepository.delete(author);
+        authorRepository.deleteById(id);
 
     }
 

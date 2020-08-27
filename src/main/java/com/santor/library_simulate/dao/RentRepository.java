@@ -1,15 +1,11 @@
 package com.santor.library_simulate.dao;
 
-import com.santor.library_simulate.model.Client;
-import org.springframework.data.repository.CrudRepository;
+import com.santor.library_simulate.model.Rent;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.santor.library_simulate.model.Rent;
-
-import java.util.List;
-
 @Repository
-public interface RentRepository extends CrudRepository<Rent, Long> {
+public interface RentRepository extends JpaRepository<Rent, Long> {
 
 
 }

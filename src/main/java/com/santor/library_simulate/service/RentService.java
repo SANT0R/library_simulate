@@ -7,9 +7,9 @@ import java.util.List;
 
 public interface RentService {
     List<RentDTO> getAll();
-    List<RentDTO> getAllById(List ids);
+    List<RentDTO> getAllById(Iterable ids);
     RentDTO getById(Long id);
-    void deleteAllById(List ids);
+    void deleteAllById(Iterable ids);
     void deleteAll();
     void deleteById(Rent rent);
     void update(Rent rent);

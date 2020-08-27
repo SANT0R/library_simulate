@@ -1,21 +1,14 @@
 package com.santor.library_simulate.service;
 
 
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.function.Consumer;
-
-import com.santor.library_simulate.dto.BookDTO;
+import com.santor.library_simulate.dao.ClientRepository;
 import com.santor.library_simulate.dto.ClientDTO;
-import com.santor.library_simulate.model.Book;
+import com.santor.library_simulate.mapper.ClientMapper;
+import com.santor.library_simulate.model.Client;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.santor.library_simulate.model.Client;
-import com.santor.library_simulate.dao.ClientRepository;
-import com.santor.library_simulate.mapper.ClientMapper;
+import java.util.List;
 
 @Service
 public class ClientServiceImpl implements ClientService {
@@ -28,50 +21,43 @@ public class ClientServiceImpl implements ClientService {
     @Override
     public List<ClientDTO> getAll() {
 
-        List<Client> clientList = new ArrayList<>();
-        clientRepository.findAll().forEach(clientList::add);
 
-        return clientMapper.toDTOList(clientList);
+        return clientMapper.toDTOList(clientRepository.findAll());
     }
 
     @Override
-    public List<ClientDTO> getAllById(List ids) {
+    public List<ClientDTO> getAllById(Iterable ids) {
 
-        List<Client> clientList = new ArrayList<>();
-        clientRepository.findAllById(ids).forEach((Consumer) clientList);
 
-        return clientMapper.toDTOList(clientList);
+        return clientMapper.toDTOList(clientRepository.findAllById(ids));
     }
 
     @Override
-    public void deleteAllById(List ids) {
+    public void deleteAllById(Iterable ids) {
 
-        List<Client> clientList = new ArrayList<>();
-        clientRepository.findAllById(ids).forEach((Consumer) clientList);
-        clientRepository.deleteAll(clientList);
+        clientRepository.deleteAll(clientRepository.findAll());
 
     }
 
     @Override
     public ClientDTO getById(Long id) {
 
-        Optional<Client> optionalClient = clientRepository.findById(id);
-        Client client = optionalClient.get();
 
-        return clientMapper.toDTO (client);
+        return clientMapper.toDTO (clientRepository.getOne(id));
     }
 
     @Override
-    public List<ClientDTO> findByName(String fullName) {
-        List<Client> clientList = clientRepository.findByFullName(fullName);
+    public List<ClientDTO> getByName(String fullName) {
 
-        return clientMapper.toDTOList (clientList);
+
+        return clientMapper.toDTOList (clientRepository.findByFullName(fullName));
     }
 
     @Override
     public void deleteByName(String fullName) {
-        List<Client> clientList = clientRepository.findByFullName(fullName);
-        clientRepository.deleteAll(clientList);
+
+
+        clientRepository.deleteAll(clientRepository.findByFullName(fullName));
     }
 
     @Override
