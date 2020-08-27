@@ -111,7 +111,7 @@ public class RentController {
 
     @ApiOperation(value = "Get rents by id")
     @PostMapping("/getAllById")
-    public List<RentDTO> getAllById(@RequestBody List<RentDTO> rentList) {
+    public List<RentDTO> getAllById(@RequestBody Iterable<RentDTO> rentList) {
 
         return rentService.getAllById(rentList);
     }
@@ -133,7 +133,7 @@ public class RentController {
 
     @ApiOperation(value = "Delete rents by id")
     @PostMapping("/deleteAllById")
-    public String deleteAllById(@RequestParam List<Long> ids) {
+    public String deleteAllById(@RequestParam Iterable<Long> ids) {
 
         rentService.deleteAllById(ids);
         return "done";

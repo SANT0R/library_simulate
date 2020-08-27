@@ -114,7 +114,7 @@ public class AuthorController {
 
     @ApiOperation(value = "Get authors by id")
     @PostMapping("/getAllById")
-    public ResponseEntity<?> getAllById(@RequestParam List<Long> ids) {
+    public ResponseEntity<?> getAllById(@RequestParam Iterable<Long> ids) {
         try {
 
             return ResponseEntity.ok( authorService.getAllById(ids));
@@ -150,7 +150,7 @@ public class AuthorController {
 
 
     @ApiOperation(value = "Delete a author by name")
-    @PostMapping("/deleteById")
+    @PostMapping("/deleteByName")
     public String deleteByName(@RequestParam String fullName) {
 
         authorService.deleteByName(fullName);
@@ -170,7 +170,7 @@ public class AuthorController {
 
     @ApiOperation(value = "Delete authors by id")
     @PostMapping("/deleteAllById")
-    public String deleteAllById(@RequestParam List<Long> ids) {
+    public String deleteAllById(@RequestParam Iterable<Long> ids) {
 
         authorService.deleteAllById(ids);
         return "done";
@@ -185,6 +185,8 @@ public class AuthorController {
 
         return "done";
     }
+
+
     @ApiOperation(value = "Update a author")
     @PostMapping("/update")
     public String update(@RequestBody Author author) {

@@ -111,7 +111,7 @@ public class BookController {
 
     @ApiOperation(value = "Get books by id")
     @PostMapping("/getAllById")
-    public List<BookDTO> getAllById(@RequestParam List<Long> ids) {
+    public List<BookDTO> getAllById(@RequestParam Iterable<Long> ids) {
 
         return bookService.getAllById(ids);
     }
@@ -152,7 +152,7 @@ public class BookController {
 
     @ApiOperation(value = "Delete books by id")
     @PostMapping("/deleteAllById")
-    public String deleteAllById(@RequestParam List<Long> ids) {
+    public String deleteAllById(@RequestParam Iterable<Long> ids) {
 
         bookService.deleteAllById(ids);
         return "done";

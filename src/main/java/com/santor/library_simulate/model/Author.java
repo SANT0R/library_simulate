@@ -16,7 +16,7 @@ public class Author extends BaseModel {
 
     private static final long serialVersionUID = -6351021095604979392L;
     @Column(nullable = false)
-    private String fullName;
+    private String fullName = "Name Surname";
 
     @OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
     private Set<Book> books = new HashSet<>();

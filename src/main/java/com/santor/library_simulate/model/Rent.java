@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -17,12 +18,12 @@ public class Rent extends BaseModel {
 
     private static final long serialVersionUID = 6756764858273649500L;
     @Column(nullable = false)
-    private Date startDate;
+    private LocalDate startDate = LocalDate.now();
 
     @Column(nullable = false)
-    private Date finishDate;
+    private LocalDate finishDate = LocalDate.now();
 
-    private Date returnDate = finishDate;
+    private LocalDate returnDate = finishDate;
 
     @ManyToMany()
     private Set<Book> books = new HashSet<>();

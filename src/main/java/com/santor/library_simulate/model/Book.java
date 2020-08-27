@@ -6,6 +6,8 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -17,23 +19,23 @@ public class Book extends BaseModel {
 
     private static final long serialVersionUID = -7599045333722607430L;
     @Column(nullable = false)
-    private String fullName;
+    private String fullName = "Name Surname";
 
     @Column(nullable = false)
-    private String publisher;
+    private String publisher = "Name";
 
     @Column(nullable = false)
-    private String releaseYear;
+    private LocalDate releaseYear = LocalDate.now();
 
-    private String type;
+    private String type = "Type";
 
-    private String description;
-
-    @Column(nullable = false)
-    private int page;
+    private String description = "Description";
 
     @Column(nullable = false)
-    private int stock;
+    private int page = 0;
+
+    @Column(nullable = false)
+    private int stock = 0;
 
     @ManyToOne(cascade = {CascadeType.REFRESH,CascadeType.PERSIST,CascadeType.MERGE})
     private  Author author;
