@@ -9,8 +9,8 @@ import java.util.List;
 class BookServiceTest {
 
     private BookService bookService = Mockito.mock(BookService.class) ;
+    private Book book = Mockito.mock(Book.class) ;
 
-    private  Book book ;
 
 
 
@@ -98,6 +98,8 @@ class BookServiceTest {
     void deleteAllById() throws Exception {
 
 
+        bookService.add(book);
+
         List books = null;
         books.add(book.getId()) ;
 
@@ -111,6 +113,8 @@ class BookServiceTest {
     @Test
     void getAllById() throws Exception {
 
+
+        bookService.add(book);
 
         List books = null;
         books.add(book.getId()) ;

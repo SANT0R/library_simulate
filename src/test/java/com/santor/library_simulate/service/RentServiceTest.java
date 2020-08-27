@@ -12,8 +12,8 @@ import static org.junit.jupiter.api.Assertions.*;
 class RentServiceTest {
 
     private RentService rentService = Mockito.mock(RentService.class) ;
+    private Rent rent = Mockito.mock(Rent.class) ;
 
-    private Rent rent ;
 
 
     @Test
@@ -77,6 +77,8 @@ class RentServiceTest {
     void deleteAllById() throws Exception {
 
 
+        rentService.add(rent);
+
         List rents = null;
         rents.add(rent.getId()) ;
 
@@ -90,6 +92,8 @@ class RentServiceTest {
     @Test
     void getAllById() throws Exception {
 
+
+        rentService.add(rent);
 
         List rents = null;
         rents.add(rent.getId()) ;

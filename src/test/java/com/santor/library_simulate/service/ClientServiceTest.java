@@ -9,8 +9,8 @@ import java.util.List;
 class ClientServiceTest {
 
     private ClientService clientService = Mockito.mock(ClientService.class) ;
+    private Client client = Mockito.mock(Client.class) ;
 
-    private  Client client ;
 
 
     @Test
@@ -97,6 +97,8 @@ class ClientServiceTest {
     void deleteAllById() throws Exception {
 
 
+        clientService.add(client);
+
         List clients = null;
         clients.add(client.getId()) ;
 
@@ -110,6 +112,8 @@ class ClientServiceTest {
     @Test
     void getAllById() throws Exception {
 
+
+        clientService.add(client);
 
         List clients = null;
         clients.add(client.getId()) ;

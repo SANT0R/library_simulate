@@ -10,8 +10,8 @@ import java.util.List;
 class AuthorServiceTest {
 
     private AuthorService authorService = Mockito.mock(AuthorService.class) ;
+    private Author author = Mockito.mock(Author.class) ;
 
-    private Author author ;
 
 
 
@@ -98,6 +98,7 @@ class AuthorServiceTest {
     @Test
     void deleteAllById() throws Exception {
 
+        authorService.add(author);
 
         List authors = null;
         authors.add(author.getId()) ;
@@ -112,6 +113,8 @@ class AuthorServiceTest {
     @Test
     void getAllById() throws Exception {
 
+
+        authorService.add(author);
 
         List authors = null;
         authors.add(author.getId()) ;
