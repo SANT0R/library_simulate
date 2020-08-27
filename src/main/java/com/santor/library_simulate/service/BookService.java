@@ -12,7 +12,7 @@ public interface BookService {
     List<BookDTO> getByName(String fullName);
     void deleteAllById(Iterable ids);
     void deleteAll();
-    void deleteById(Book book);
+    void deleteById(Long id);
     void deleteByName(String fullName);
     void update(Book book);
     void add(Book book);

@@ -12,7 +12,7 @@ public interface ClientService {
     ClientDTO getById(Long id);
     void deleteAllById(Iterable ids);
     void deleteAll();
-    void deleteById(Client client);
+    void deleteById(Long id);
     void deleteByName(String fullName);
     void update(Client client);
     void add(Client client);

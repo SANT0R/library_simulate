@@ -11,7 +11,7 @@ public interface RentService {
     RentDTO getById(Long id);
     void deleteAllById(Iterable ids);
     void deleteAll();
-    void deleteById(Rent rent);
+    void deleteById(Long id);
     void update(Rent rent);
     void add(Rent rent);
 
