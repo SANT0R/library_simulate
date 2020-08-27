@@ -126,7 +126,7 @@ public class BookController {
 
 
     @ApiOperation(value = "Delete a book by name")
-    @PostMapping("/deleteById")
+    @PostMapping("/deleteByName")
     public String deleteByName(@RequestParam String fullName) {
 
         bookService.deleteByName(fullName);

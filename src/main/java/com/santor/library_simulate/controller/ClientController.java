@@ -127,7 +127,7 @@ public class ClientController {
 
 
     @ApiOperation(value = "Delete a client by name")
-    @PostMapping("/deleteById")
+    @PostMapping("/deleteByName")
     public String deleteByName(@RequestParam String fullName) {
 
         clientService.deleteByName(fullName);
