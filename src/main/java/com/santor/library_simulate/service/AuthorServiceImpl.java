@@ -20,7 +20,7 @@ public class AuthorServiceImpl implements AuthorService {
 
 
     @Override
-    public List<AuthorDTO> getAll() {
+    public List<AuthorDTO> getAll() throws Exception {
 
 
         return authorMapper.toDTOList(authorRepository.findAll());

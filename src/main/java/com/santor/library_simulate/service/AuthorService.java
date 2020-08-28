@@ -6,7 +6,7 @@ import com.santor.library_simulate.model.Author;
 import java.util.List;
 
 public interface AuthorService {
-    List<AuthorDTO> getAll();
+    List<AuthorDTO> getAll() throws Exception;
 
     AuthorDTO getById(Long id);
 

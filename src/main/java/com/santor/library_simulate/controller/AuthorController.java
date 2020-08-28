@@ -106,9 +106,13 @@ public class AuthorController {
     @ApiOperation(value = "Get all author")
     @GetMapping("/")
 
-    public ResponseEntity<?> getAll() {
+    public ResponseEntity<?> getAll() throws Exception {
 
-            return ResponseEntity.ok( authorService.getAll());
+        if (authorService.getAll().isEmpty()){
+            throw new Exception("No author found.");
+        }
+        else 
+            return ResponseEntity.ok(authorService.getAll());
     }
 
 
