@@ -107,28 +107,47 @@ public class AuthorController {
     @GetMapping("/")
 
     public ResponseEntity<?> getAll() throws Exception {
+/*
+        if (authorService.getAll().isEmpty()) {
 
-        if (authorService.getAll().isEmpty()){
             throw new Exception("No author found.");
-        }
-        else 
-            return ResponseEntity.ok(authorService.getAll());
-    }
+            return ResponseEntity.notFound().build();
 
+        } else {
+            return ResponseEntity.ok(authorService.getAll());
+
+        }
+*/
+
+        return ResponseEntity.notFound().build();
+    }
 
 
     @ApiOperation(value = "Get a author by id")
     @PostMapping("/getById")
-    public ResponseEntity<?> getById(@RequestParam Long id) {
+    public ResponseEntity<?> getById(@RequestParam Long id) throws Exception {
 
         try {
 
-            return ResponseEntity.ok( authorService.getById(id));
+            return ResponseEntity.ok(authorService.getById(id));
         }
         catch (Exception e) {
 
             return ResponseEntity.notFound().build();
         }
+
+
+/*
+        if(authorService.getById(id).getId()==id){
+            return ResponseEntity.ok(authorService.getById(id));
+
+        }
+        else {
+
+            throw new Exception("Author not found.");
+            return ResponseEntity.notFound().build();
+
+        }*/
     }
 
 

@@ -12,7 +12,7 @@ import java.util.Set;
 @Data
 public class BookDTO extends BaseDTO {
 
-    private String name;
+    private String fullName;
 
     private String publisher;
 
@@ -28,6 +28,5 @@ public class BookDTO extends BaseDTO {
 
     private com.santor.library_simulate.model.Author author;
 
-    private Set<Rent> rents = new HashSet<>();
 
 }

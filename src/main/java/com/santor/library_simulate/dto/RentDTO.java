@@ -14,7 +14,7 @@ import java.util.List;
 public class RentDTO extends BaseDTO {
 
 
-    private Date start_date;
+    private Date startDate;
 
     private Date finishDate;
 

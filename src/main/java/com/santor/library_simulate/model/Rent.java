@@ -23,12 +23,10 @@ public class Rent extends BaseModel {
     @Column(nullable = false)
     private LocalDate finishDate = LocalDate.now();
 
-    private LocalDate returnDate = finishDate;
+    private LocalDate returnDate ;
 
     @ManyToMany()
     private Set<Book> books = new HashSet<>();
-
-
 
     @ManyToOne
     private Client client;

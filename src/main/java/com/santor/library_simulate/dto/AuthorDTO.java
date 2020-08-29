@@ -11,5 +11,4 @@ import java.util.Set;
 public class AuthorDTO extends BaseDTO {
 
     private String fullName;
-    private Set<Book> books = new HashSet<>();
 }

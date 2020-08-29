@@ -11,12 +11,13 @@ import java.util.Set;
 @Data
 public class ClientDTO extends BaseDTO {
 
-    private String clientName;
+    private String fullName;
 
     private String password;
 
-    private boolean enabled;
+    private String phone;
 
-    private Set<Rent> rents = new HashSet<>();
+    private String eMail;
+
 
 }

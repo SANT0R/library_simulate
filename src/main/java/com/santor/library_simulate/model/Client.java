@@ -20,14 +20,14 @@ public class Client extends BaseModel {
     private String fullName = "Name Surname";
 
     @Column(nullable = false)
-    private Long phone = +905123456789L;
+    private String password = "**************";
+
+    @Column(nullable = false)
+    private String phone = "+905*********";
 
     @Column(nullable = false)
     private String eMail = "someone@something.com";
-
-    @Column(nullable = false)
-    private String password = "**************";
-
+    
     @OneToMany(mappedBy = "client" , cascade = CascadeType.ALL)
     private Set<Rent> rents = new HashSet<>();
 
