@@ -132,7 +132,7 @@ public class AuthorController {
             return ResponseEntity.ok(authorService.getById(id));
         }
         catch (Exception e) {
-
+            
             return ResponseEntity.notFound().build();
         }
 
