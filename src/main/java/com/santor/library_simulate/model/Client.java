@@ -27,7 +27,7 @@ public class Client extends BaseModel {
 
     @Column(nullable = false)
     private String eMail = "someone@something.com";
-    
+
     @OneToMany(mappedBy = "client" , cascade = CascadeType.ALL)
     private Set<Rent> rents = new HashSet<>();
 
