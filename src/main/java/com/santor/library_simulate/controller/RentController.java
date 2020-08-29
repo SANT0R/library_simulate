@@ -1,9 +1,7 @@
 package com.santor.library_simulate.controller;
 
-import com.santor.library_simulate.dto.ClientDTO;
 import com.santor.library_simulate.dto.RentDTO;
 import com.santor.library_simulate.exception.ApiRequestException;
-import com.santor.library_simulate.model.Client;
 import com.santor.library_simulate.model.Rent;
 import com.santor.library_simulate.service.RentService;
 import io.swagger.annotations.Api;
