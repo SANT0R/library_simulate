@@ -1,6 +1,7 @@
 package com.santor.library_simulate.controller;
 
 import com.santor.library_simulate.dto.AuthorDTO;
+import com.santor.library_simulate.exception.ApiRequestException;
 import com.santor.library_simulate.model.Author;
 import com.santor.library_simulate.service.AuthorService;
 import io.swagger.annotations.Api;
@@ -9,9 +10,12 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 
 @Api(value="post")
@@ -105,106 +109,173 @@ public class AuthorController {
 
     @ApiOperation(value = "Get all author")
     @GetMapping("/")
+    public ResponseEntity<List<AuthorDTO>> getAll() throws Exception {
 
-    public ResponseEntity<?> getAll() throws Exception {
-/*
         if (authorService.getAll().isEmpty()) {
 
-            throw new Exception("No author found.");
-            return ResponseEntity.notFound().build();
+            throw new ApiRequestException("No author found.");
 
         } else {
             return ResponseEntity.ok(authorService.getAll());
 
         }
-*/
 
-        return ResponseEntity.notFound().build();
     }
 
 
     @ApiOperation(value = "Get a author by id")
     @PostMapping("/getById")
-    public ResponseEntity<?> getById(@RequestParam Long id) throws Exception {
+    public ResponseEntity<AuthorDTO> getById(@RequestParam Long id) {
 
         try {
 
-            return ResponseEntity.ok(authorService.getById(id));
+            if(authorService.getById(id).getId().equals(id)){
+
+                return ResponseEntity.ok(authorService.getById(id));
+
+            }
+            else {
+
+                throw new ApiRequestException("Author not found.");
+
+            }
+
         }
-        catch (Exception e) {
-            
-            return ResponseEntity.notFound().build();
+        catch (ApiRequestException e) {
+
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
 
-
-/*
-        if(authorService.getById(id).getId()==id){
-            return ResponseEntity.ok(authorService.getById(id));
-
-        }
-        else {
-
-            throw new Exception("Author not found.");
-            return ResponseEntity.notFound().build();
-
-        }*/
     }
 
 
     @ApiOperation(value = "Get authors by name")
     @PostMapping("/getByName")
-    public List<AuthorDTO> getByName(@RequestParam String fullName) {
+    public ResponseEntity<List<AuthorDTO>> getByName(@RequestParam String fullName) {
+        try {
 
-        return authorService.getByName(fullName);
+            if(authorService.getByName(fullName).isEmpty()){
+
+                throw new ApiRequestException("Author not found.");
+
+            }
+            else {
+
+                return ResponseEntity.ok(authorService.getByName(fullName));
+
+            }
+
+        }
+        catch (ApiRequestException e) {
+
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
 
 
     @ApiOperation(value = "Delete a author by name")
     @PostMapping("/deleteByName")
-    public String deleteByName(@RequestParam String fullName) {
+    public ResponseEntity<?> deleteByName(@RequestParam String fullName) {
 
-        authorService.deleteByName(fullName);
 
-        return "done";
+        if(authorService.getByName(fullName).isEmpty()){
+
+            throw new ApiRequestException("Author not found.");
+
+
+        }
+        else {
+            try {
+
+                authorService.deleteByName(fullName);
+                return ResponseEntity.ok().build();
+
+            }
+            catch (ApiRequestException e) {
+
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+            }
+
+        }
     }
 
 
     @ApiOperation(value = "Delete all author")
     @PostMapping("/deleteAll")
-    public String deleteAll() {
+    public ResponseEntity<?> deleteAll() {
 
-        authorService.deleteAll();
-        return "done";
+        try {
+
+            authorService.deleteAll();
+            return ResponseEntity.ok().build();
+
+        }
+        catch (ApiRequestException e) {
+
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+
     }
 
 
     @ApiOperation(value = "Delete a author by id")
     @PostMapping("/deleteById")
-    public String deleteById(@RequestParam Long id) {
+    public ResponseEntity<?>  deleteById(@RequestParam Long id) {
 
-        authorService.deleteById(id);
+        if(authorService.getById(id).getId().equals(id)){
 
-        return "done";
+            try {
+
+                authorService.deleteById(id);
+                return ResponseEntity.ok().build();
+
+            }
+            catch (ApiRequestException e) {
+
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+            }
+
+        }
+        else {
+
+            throw new ApiRequestException("Author not found.");
+
+        }
+
     }
 
 
     @ApiOperation(value = "Update a author")
     @PostMapping("/update")
-    public String update(@RequestBody Author author) {
+    public ResponseEntity<URI> update(@RequestBody Author author) {
 
-        authorService.update(author);
+        try {
+            authorService.update(author);
+            String fullName = author.getFullName();
+            URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{fullName}").buildAndExpand(fullName)
+                    .toUri();
 
-        return "done";
+            return ResponseEntity.created(location).build();
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
 
 
     @ApiOperation(value = "Add a author")
     @PostMapping("/add")
-    public String add(@RequestBody Author author) {
+    public ResponseEntity<URI> add(@RequestBody Author author) {
 
-        authorService.add(author);
+        try {
+            authorService.add(author);
+            String fullName = author.getFullName();
+            URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{fullName}").buildAndExpand(fullName)
+                    .toUri();
 
-        return "done";
+            return ResponseEntity.created(location).build();
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
 
 

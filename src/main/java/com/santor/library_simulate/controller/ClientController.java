@@ -1,6 +1,7 @@
 package com.santor.library_simulate.controller;
 
 import com.santor.library_simulate.dto.ClientDTO;
+import com.santor.library_simulate.exception.ApiRequestException;
 import com.santor.library_simulate.model.Client;
 import com.santor.library_simulate.service.ClientService;
 import io.swagger.annotations.Api;
@@ -9,8 +10,12 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 
 @Api(value="post")
@@ -101,75 +106,178 @@ public class ClientController {
     )
 
 
+
     @ApiOperation(value = "Get all client")
     @GetMapping("/")
 
-    public List<ClientDTO> getAll() {
+    public ResponseEntity<List<ClientDTO>> getAll() {
 
-        return clientService.getAll();
+        if (clientService.getAll().isEmpty()) {
+
+            throw new ApiRequestException("No author found.");
+
+        } else {
+            return ResponseEntity.ok(clientService.getAll());
+
+        }
+
     }
 
 
     @ApiOperation(value = "Get a client by id")
     @PostMapping("/getById")
-    public ClientDTO getById(@RequestParam Long id) {
+    public ResponseEntity<ClientDTO> getById(@RequestParam Long id) {
 
-        return clientService.getById(id);
+        try {
+
+            if(clientService.getById(id).getId().equals(id)){
+
+                return ResponseEntity.ok(clientService.getById(id));
+
+            }
+            else {
+
+                throw new ApiRequestException("Client not found.");
+
+            }
+
+        }
+        catch (ApiRequestException e) {
+
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+
     }
 
 
     @ApiOperation(value = "Get clients by name")
     @PostMapping("/getByName")
-    public List<ClientDTO> getByName(@RequestParam String fullName) {
+    public ResponseEntity<List<ClientDTO>> getByName(@RequestParam String fullName) {
+        try {
 
-        return clientService.getByName(fullName);
+            if(clientService.getByName(fullName).isEmpty()){
+
+                throw new ApiRequestException("Client not found.");
+
+            }
+            else {
+
+                return ResponseEntity.ok(clientService.getByName(fullName));
+
+            }
+
+        }
+        catch (ApiRequestException e) {
+
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
 
 
     @ApiOperation(value = "Delete a client by name")
     @PostMapping("/deleteByName")
-    public String deleteByName(@RequestParam String fullName) {
+    public ResponseEntity<?> deleteByName(@RequestParam String fullName) {
 
-        clientService.deleteByName(fullName);
 
-        return "done";
+        if(clientService.getByName(fullName).isEmpty()){
+
+            throw new ApiRequestException("Client not found.");
+
+
+        }
+        else {
+            try {
+
+                clientService.deleteByName(fullName);
+                return ResponseEntity.ok().build();
+
+            }
+            catch (ApiRequestException e) {
+
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+            }
+
+        }
     }
 
 
     @ApiOperation(value = "Delete all client")
     @PostMapping("/deleteAll")
-    public String deleteAll() {
+    public ResponseEntity<?> deleteAll() {
 
-        clientService.deleteAll();
-        return "done";
+        try {
+
+            clientService.deleteAll();
+            return ResponseEntity.ok().build();
+
+        }
+        catch (ApiRequestException e) {
+
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+
     }
 
 
     @ApiOperation(value = "Delete a client by id")
     @PostMapping("/deleteById")
-    public String deleteById(@RequestParam Long id) {
+    public ResponseEntity<?>  deleteById(@RequestParam Long id) {
 
-        clientService.deleteById(id);
+        if(clientService.getById(id).getId().equals(id)){
 
-        return "done";
+            try {
+
+                clientService.deleteById(id);
+                return ResponseEntity.ok().build();
+
+            }
+            catch (ApiRequestException e) {
+
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+            }
+
+        }
+        else {
+
+            throw new ApiRequestException("Client not found.");
+
+        }
+
     }
+
 
     @ApiOperation(value = "Update a client")
     @PostMapping("/update")
-    public String update(@RequestBody Client client) {
+    public ResponseEntity<URI> update(@RequestBody Client client) {
 
-        clientService.update(client);
+        try {
+            clientService.update(client);
+            String fullName = client.getFullName();
+            URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{fullName}").buildAndExpand(fullName)
+                    .toUri();
 
-        return "done";
+            return ResponseEntity.created(location).build();
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+
     }
+
 
     @ApiOperation(value = "Add a client")
     @PostMapping("/add")
-    public String add(@RequestBody Client client) {
+    public ResponseEntity<URI> add(@RequestBody Client client) {
 
-        clientService.add(client);
+        try {
+            clientService.add(client);
+            String fullName = client.getFullName();
+            URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{fullName}").buildAndExpand(fullName)
+                    .toUri();
 
-        return "done";
+            return ResponseEntity.created(location).build();
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
 
 

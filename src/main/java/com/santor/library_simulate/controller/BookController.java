@@ -1,6 +1,7 @@
 package com.santor.library_simulate.controller;
 
 import com.santor.library_simulate.dto.BookDTO;
+import com.santor.library_simulate.exception.ApiRequestException;
 import com.santor.library_simulate.model.Book;
 import com.santor.library_simulate.service.BookService;
 import io.swagger.annotations.Api;
@@ -9,8 +10,12 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 
 @Api(value="post")
@@ -104,70 +109,173 @@ public class BookController {
     @ApiOperation(value = "Get all book")
     @GetMapping("/")
 
-    public List<BookDTO> getAll() {
+    public ResponseEntity<List<BookDTO>> getAll() {
 
-        return bookService.getAll();
+        if (bookService.getAll().isEmpty()) {
+
+            throw new ApiRequestException("No book found.");
+
+        } else {
+            return ResponseEntity.ok(bookService.getAll());
+
+        }
+
     }
 
-    @ApiOperation(value = "Get book by id")
-    @PostMapping("/getById")
-    public BookDTO getById(@RequestParam Long id) {
 
-        return bookService.getById(id);
+    @ApiOperation(value = "Get a book by id")
+    @PostMapping("/getById")
+    public ResponseEntity<BookDTO> getById(@RequestParam Long id) {
+
+        try {
+
+            if(bookService.getById(id).getId().equals(id)){
+
+                return ResponseEntity.ok(bookService.getById(id));
+
+            }
+            else {
+
+                throw new ApiRequestException("Book not found.");
+
+            }
+
+        }
+        catch (ApiRequestException e) {
+
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+
     }
 
 
     @ApiOperation(value = "Get books by name")
     @PostMapping("/getByName")
-    public List<BookDTO> getByName(@RequestParam String fullName) {
+    public ResponseEntity<List<BookDTO>> getByName(@RequestParam String fullName) {
+        try {
 
-        return bookService.getByName(fullName);
+            if(bookService.getByName(fullName).isEmpty()){
+
+                throw new ApiRequestException("Book not found.");
+
+            }
+            else {
+
+                return ResponseEntity.ok(bookService.getByName(fullName));
+
+            }
+
+        }
+        catch (ApiRequestException e) {
+
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
 
 
     @ApiOperation(value = "Delete a book by name")
     @PostMapping("/deleteByName")
-    public String deleteByName(@RequestParam String fullName) {
+    public ResponseEntity<?> deleteByName(@RequestParam String fullName) {
 
-        bookService.deleteByName(fullName);
 
-        return "done";
+        if(bookService.getByName(fullName).isEmpty()){
+
+            throw new ApiRequestException("Book not found.");
+
+
+        }
+        else {
+            try {
+
+                bookService.deleteByName(fullName);
+                return ResponseEntity.ok().build();
+
+            }
+            catch (ApiRequestException e) {
+
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+            }
+
+        }
     }
 
 
     @ApiOperation(value = "Delete all book")
     @PostMapping("/deleteAll")
-    public String deleteAll() {
+    public ResponseEntity<?> deleteAll() {
 
-        bookService.deleteAll();
-        return "done";
+        try {
+
+            bookService.deleteAll();
+            return ResponseEntity.ok().build();
+
+        }
+        catch (ApiRequestException e) {
+
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+
     }
 
-    @ApiOperation(value = "Delete  book by id")
+
+    @ApiOperation(value = "Delete a book by id")
     @PostMapping("/deleteById")
-    public String deleteById(@RequestParam Long id) {
+    public ResponseEntity<?>  deleteById(@RequestParam Long id) {
 
-        bookService.deleteById(id);
+        if(bookService.getById(id).getId().equals(id)){
 
-        return "done";
+            try {
+
+                bookService.deleteById(id);
+                return ResponseEntity.ok().build();
+
+            }
+            catch (ApiRequestException e) {
+
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+            }
+
+        }
+        else {
+
+            throw new ApiRequestException("Book not found.");
+
+        }
+
     }
 
-    @ApiOperation(value = "Update a book")
+
+    @ApiOperation(value = "Update a author")
     @PostMapping("/update")
-    public String update(@RequestBody Book book) {
+    public ResponseEntity<URI> update(@RequestBody Book book) {
 
-        bookService.update(book);
+        try {
+            bookService.update(book);
+            String fullName = book.getFullName();
+            URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{fullName}").buildAndExpand(fullName)
+                    .toUri();
 
-        return "done";
+            return ResponseEntity.created(location).build();
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
+
 
     @ApiOperation(value = "Add a book")
     @PostMapping("/add")
-    public String add(@RequestBody Book book) {
+    public ResponseEntity<URI> add(@RequestBody Book book) {
 
-        bookService.add(book);
+        try {
+            bookService.add(book);
+            String fullName = book.getFullName();
+            URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{fullName}").buildAndExpand(fullName)
+                    .toUri();
 
-        return "done";
+            return ResponseEntity.created(location).build();
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
 
 
