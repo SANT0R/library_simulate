@@ -4,8 +4,6 @@ import com.santor.library_simulate.model.Author;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
-import java.util.List;
-
 
 class AuthorServiceTest {
 
@@ -16,7 +14,7 @@ class AuthorServiceTest {
 
 
     @Test
-    void add() throws Exception {
+    void add(){
 
 
         authorService.add(author);
@@ -26,7 +24,7 @@ class AuthorServiceTest {
     }
 
     @Test
-    void update() throws Exception {
+    void update(){
 
 
 
@@ -37,7 +35,7 @@ class AuthorServiceTest {
     }
 
     @Test
-    void deleteById() throws Exception {
+    void deleteById(){
 
 
 
@@ -48,7 +46,7 @@ class AuthorServiceTest {
     }
 
     @Test
-    void deleteAll() throws Exception {
+    void deleteAll(){
 
 
 
@@ -60,7 +58,7 @@ class AuthorServiceTest {
 
 
     @Test
-    void deleteByName() throws Exception {
+    void deleteByName(){
 
 
 
@@ -72,7 +70,7 @@ class AuthorServiceTest {
 
 
     @Test
-    void getByName() throws Exception {
+    void getByName(){
 
 
 
@@ -84,7 +82,7 @@ class AuthorServiceTest {
 
 
     @Test
-    void getById() throws Exception {
+    void getById() {
 
 
 
@@ -97,7 +95,7 @@ class AuthorServiceTest {
 
 
     @Test
-    void getAll() throws Exception {
+    void getAll() {
 
 
 

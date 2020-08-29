@@ -4,8 +4,6 @@ import com.santor.library_simulate.model.Client;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
-import java.util.List;
-
 class ClientServiceTest {
 
     private ClientService clientService = Mockito.mock(ClientService.class) ;
@@ -14,7 +12,7 @@ class ClientServiceTest {
 
 
     @Test
-    void add() throws Exception {
+    void add(){
 
 
         clientService.add(client);
@@ -24,7 +22,7 @@ class ClientServiceTest {
     }
 
     @Test
-    void update() throws Exception {
+    void update(){
 
 
 
@@ -35,7 +33,7 @@ class ClientServiceTest {
     }
 
     @Test
-    void deleteById() throws Exception {
+    void deleteById(){
 
 
 
@@ -46,7 +44,7 @@ class ClientServiceTest {
     }
 
     @Test
-    void deleteAll() throws Exception {
+    void deleteAll(){
 
 
 
@@ -58,7 +56,7 @@ class ClientServiceTest {
 
 
     @Test
-    void deleteByName() throws Exception {
+    void deleteByName(){
 
 
 
@@ -70,7 +68,7 @@ class ClientServiceTest {
 
 
     @Test
-    void getByName() throws Exception {
+    void getByName(){
 
 
 
@@ -82,7 +80,7 @@ class ClientServiceTest {
 
 
     @Test
-    void getById() throws Exception {
+    void getById(){
 
 
 
@@ -95,7 +93,7 @@ class ClientServiceTest {
 
 
     @Test
-    void getAll() throws Exception {
+    void getAll(){
 
 
 

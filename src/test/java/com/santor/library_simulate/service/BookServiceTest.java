@@ -4,8 +4,6 @@ import com.santor.library_simulate.model.Book;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
-import java.util.List;
-
 class BookServiceTest {
 
     private BookService bookService = Mockito.mock(BookService.class) ;
@@ -15,7 +13,7 @@ class BookServiceTest {
 
 
     @Test
-    void add() throws Exception {
+    void add(){
 
 
         bookService.add(book);
@@ -25,7 +23,7 @@ class BookServiceTest {
     }
 
     @Test
-    void update() throws Exception {
+    void update(){
 
 
 
@@ -36,7 +34,7 @@ class BookServiceTest {
     }
 
     @Test
-    void deleteById() throws Exception {
+    void deleteById(){
 
 
 
@@ -47,7 +45,7 @@ class BookServiceTest {
     }
 
     @Test
-    void deleteAll() throws Exception {
+    void deleteAll(){
 
 
 
@@ -59,7 +57,7 @@ class BookServiceTest {
 
 
     @Test
-    void deleteByName() throws Exception {
+    void deleteByName(){
 
 
 
@@ -71,7 +69,7 @@ class BookServiceTest {
 
 
     @Test
-    void getByName() throws Exception {
+    void getByName(){
 
 
 
@@ -83,7 +81,7 @@ class BookServiceTest {
 
 
     @Test
-    void getById() throws Exception {
+    void getById(){
 
 
 
@@ -96,7 +94,7 @@ class BookServiceTest {
 
 
     @Test
-    void getAll() throws Exception {
+    void getAll(){
 
 
 

@@ -1,13 +1,8 @@
 package com.santor.library_simulate.service;
 
-import com.santor.library_simulate.model.Book;
 import com.santor.library_simulate.model.Rent;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-
-import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class RentServiceTest {
 
@@ -17,7 +12,7 @@ class RentServiceTest {
 
 
     @Test
-    void add() throws Exception {
+    void add(){
 
 
         rentService.add(rent);
@@ -27,7 +22,7 @@ class RentServiceTest {
     }
 
     @Test
-    void update() throws Exception {
+    void update(){
 
 
 
@@ -38,7 +33,7 @@ class RentServiceTest {
     }
 
     @Test
-    void deleteById() throws Exception {
+    void deleteById(){
 
 
 
@@ -49,7 +44,7 @@ class RentServiceTest {
     }
 
     @Test
-    void deleteAll() throws Exception {
+    void deleteAll(){
 
 
 
@@ -62,7 +57,7 @@ class RentServiceTest {
 
 
     @Test
-    void getById() throws Exception {
+    void getById(){
 
 
 
@@ -75,7 +70,7 @@ class RentServiceTest {
 
 
     @Test
-    void getAll() throws Exception {
+    void getAll(){
 
 
 
