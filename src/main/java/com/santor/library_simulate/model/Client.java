@@ -1,7 +1,6 @@
 package com.santor.library_simulate.model;
 
 import com.santor.library_simulate.model.base.BaseModel;
-import io.swagger.models.properties.EmailProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

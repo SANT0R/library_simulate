@@ -1,13 +1,10 @@
 package com.santor.library_simulate.dto;
 
 import com.santor.library_simulate.dto.base.BaseDTO;
-import com.santor.library_simulate.model.Rent;
+import com.santor.library_simulate.model.Author;
 import lombok.Data;
 
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import java.util.HashSet;
-import java.util.Set;
+import java.time.LocalDate;
 
 @Data
 public class BookDTO extends BaseDTO {
@@ -16,7 +13,7 @@ public class BookDTO extends BaseDTO {
 
     private String publisher;
 
-    private String releaseYear;
+    private LocalDate releaseYear;
 
     private String type;
 
@@ -26,7 +23,7 @@ public class BookDTO extends BaseDTO {
 
     private int stock;
 
-    private com.santor.library_simulate.model.Author author;
+    private Author author;
 
 
 }
