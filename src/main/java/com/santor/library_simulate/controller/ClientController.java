@@ -107,7 +107,7 @@ public class ClientController {
 
 
 
-    @ApiOperation(value = "Get all client")
+    @ApiOperation(value = "Get all clients")
     @GetMapping("/")
 
     public ResponseEntity<List<ClientDTO>> getAll() {
@@ -201,7 +201,7 @@ public class ClientController {
     }
 
 
-    @ApiOperation(value = "Delete all client")
+    @ApiOperation(value = "Delete all clients")
     @PostMapping("/deleteAll")
     public ResponseEntity<?> deleteAll() {
 

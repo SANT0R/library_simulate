@@ -107,7 +107,7 @@ public class AuthorController {
     )
 
 
-    @ApiOperation(value = "Get all author")
+    @ApiOperation(value = "Get all authors")
     @GetMapping("/")
     public ResponseEntity<List<AuthorDTO>> getAll() throws Exception {
 
@@ -200,7 +200,7 @@ public class AuthorController {
     }
 
 
-    @ApiOperation(value = "Delete all author")
+    @ApiOperation(value = "Delete all authors")
     @PostMapping("/deleteAll")
     public ResponseEntity<?> deleteAll() {
 

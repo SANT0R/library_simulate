@@ -108,7 +108,7 @@ public class RentController {
     )
 
 
-    @ApiOperation(value = "Get all rent")
+    @ApiOperation(value = "Get all rents")
     @GetMapping("/")
 
     public ResponseEntity<List<RentDTO>> getAll() {
@@ -151,7 +151,7 @@ public class RentController {
     }
 
 
-    @ApiOperation(value = "Delete all rent")
+    @ApiOperation(value = "Delete all rents")
     @PostMapping("/deleteAll")
     public ResponseEntity<?> deleteAll() {
 

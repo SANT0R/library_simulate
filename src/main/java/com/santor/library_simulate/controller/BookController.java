@@ -106,7 +106,7 @@ public class BookController {
     )
 
 
-    @ApiOperation(value = "Get all book")
+    @ApiOperation(value = "Get all books")
     @GetMapping("/")
 
     public ResponseEntity<List<BookDTO>> getAll() {
@@ -200,7 +200,7 @@ public class BookController {
     }
 
 
-    @ApiOperation(value = "Delete all book")
+    @ApiOperation(value = "Delete all books")
     @PostMapping("/deleteAll")
     public ResponseEntity<?> deleteAll() {
 
