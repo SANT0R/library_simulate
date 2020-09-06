@@ -36,16 +36,16 @@ public class AuthorServiceImpl implements AuthorService {
     }
 
     @Override
-    public List<AuthorDTO> getByName(String fullName) {
+    public AuthorDTO getByName(String fullName) {
 
-        return authorMapper.toDTOList (authorRepository.findByFullName(fullName));
+        return authorMapper.toDTO (authorRepository.findByFullName(fullName));
     }
 
     @Override
     public void deleteByName(String fullName) {
 
 
-        authorRepository.deleteAll(authorRepository.findByFullName(fullName));
+        authorRepository.delete(authorRepository.findByFullName(fullName));
 
     }
 

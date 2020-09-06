@@ -17,10 +17,10 @@ public class Rent extends BaseModel {
 
     private static final long serialVersionUID = 6756764858273649500L;
     @Column(nullable = false)
-    private LocalDate startDate = LocalDate.now();
+    private LocalDate startDate ;
 
     @Column(nullable = false)
-    private LocalDate finishDate = LocalDate.now();
+    private LocalDate finishDate ;
 
     private LocalDate returnDate ;
 

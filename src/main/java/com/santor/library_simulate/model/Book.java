@@ -18,23 +18,23 @@ public class Book extends BaseModel {
 
     private static final long serialVersionUID = -7599045333722607430L;
     @Column(nullable = false)
-    private String fullName = "Name Surname";
+    private String fullName;
 
     @Column(nullable = false)
-    private String publisher = "Name";
+    private String publisher;
 
     @Column(nullable = false)
-    private LocalDate releaseYear = LocalDate.now();
+    private LocalDate releaseYear;
 
-    private String type = "Type";
+    private String type;
 
-    private String description = "Description";
-
-    @Column(nullable = false)
-    private int page = 0;
+    private String description;
 
     @Column(nullable = false)
-    private int stock = 0;
+    private int page;
+
+    @Column(nullable = false)
+    private int stock;
 
     @ManyToOne(cascade = {CascadeType.REFRESH,CascadeType.PERSIST,CascadeType.MERGE})
     private  Author author;

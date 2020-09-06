@@ -34,17 +34,17 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
-    public List<ClientDTO> getByName(String fullName) {
+    public ClientDTO getByName(String fullName) {
 
 
-        return clientMapper.toDTOList (clientRepository.findByFullName(fullName));
+        return clientMapper.toDTO (clientRepository.findByFullName(fullName));
     }
 
     @Override
     public void deleteByName(String fullName) {
 
 
-        clientRepository.deleteAll(clientRepository.findByFullName(fullName));
+        clientRepository.delete(clientRepository.findByFullName(fullName));
     }
 
     @Override

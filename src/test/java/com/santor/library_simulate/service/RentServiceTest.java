@@ -1,85 +1,155 @@
 package com.santor.library_simulate.service;
 
+import com.santor.library_simulate.dao.RentRepository;
+import com.santor.library_simulate.dto.RentDTO;
+import com.santor.library_simulate.mapper.RentMapper;
+import com.santor.library_simulate.mapper.RentMapperImpl;
+import com.santor.library_simulate.model.Author;
+import com.santor.library_simulate.model.Book;
+import com.santor.library_simulate.model.Client;
 import com.santor.library_simulate.model.Rent;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.runner.RunWith;
+import org.mapstruct.factory.Mappers;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.Spy;
+import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import java.time.LocalDate;
+import java.util.Date;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
+
+@ExtendWith(MockitoExtension.class)
 class RentServiceTest {
 
-    private RentService rentService = Mockito.mock(RentService.class) ;
-    private Rent rent = Mockito.mock(Rent.class) ;
 
+    @Spy
+    private RentMapperImpl rentMapper;
+    //
+    @Mock
+    private RentRepository rentRepository;
 
+    @InjectMocks
+    private RentServiceImpl rentService;
+//    private Rent rent = Mockito.mock(Rent.class) ;
 
-    @Test
-    void add(){
+    Rent setRent(){
+        Rent rent = new Rent();
+        rent.setId(20L);
+        rent.setStartDate(LocalDate.now());
+        rent.setFinishDate(LocalDate.now());
 
+        Book book = new Book();
+        book.setFullName("Facebook");
+        book.setPage(800);
 
-        rentService.add(rent);
+        Author author = new Author();
+        author.setId(2L);
+        author.setFullName("Mehmet Santor");
+        author.getBooks().add(book);
 
-        Mockito.verify (rentService).add(rent);
+        Client client = new Client();
+        client.setEMail("alskdmlaks@gmail.com");
+        client.setFullName("msantor");
+        client.setPassword("1234");
+        client.setPhone("30203320");
 
-    }
+        rent.setClient(client);
+        rent.getBooks().add(book);
 
-    @Test
-    void update(){
+        client.getRents().add(rent);
 
-
-
-        rentService.update(rent);
-
-        Mockito.verify (rentService).update(rent);
-
-    }
-
-    @Test
-    void deleteById(){
-
-
-
-        rentService.deleteById(rent.getId());
-
-        Mockito.verify (rentService).deleteById(rent.getId());
-
-    }
-
-    @Test
-    void deleteAll(){
-
-
-
-        rentService.deleteAll();
-
-        Mockito.verify (rentService).deleteAll();
-
+        return rent;
     }
 
 
+//
+//    @Test
+//    void add() throws Exception {
+//
+//        whe
+//        rentService.add(rent);
+//
+//        verify (rentService).add(rent);
+//
+//    }
+//
+//    @Test
+//    void update() throws Exception {
+//
+//
+//
+//        rentService.update(rent);
+//
+//        verify (rentService).update(rent);
+//
+//    }
+//
+//    @Test
+//    void deleteById() throws Exception {
+//
+//
+//
+//        rentService.deleteById(rent.getId());
+//
+//        verify (rentService).deleteById(rent.getId());
+//
+//    }
+//
+//    @Test
+//    void deleteAll() throws Exception {
+//
+//
+//
+//        rentService.deleteAll();
+//
+//        verify (rentService).deleteAll();
+//
+//    }
+
 
     @Test
-    void getById(){
+    void getById() {
 
 
+        Rent rent = setRent();
 
-        rentService.getById(rent.getId());
+//        RentDTO rentDTO = rentMapper.toDTO(rent);
+//        assertTrue(rentDTO != null);
+        when(rentRepository.getOne(20L)).thenReturn(rent);
+        RentDTO rentDTO=new RentDTO();
+        rentDTO.setId(20L);
+        when(rentMapper.toDTO(rent)).thenReturn(rentDTO);
 
-        Mockito.verify (rentService).getById(rent.getId());
+        RentDTO expected = rentService.getById(20L);
 
+//        verify (rentRepository).getOne(anyLong());
+
+        assertEquals(expected.getId(), 20L);
     }
 
 
 
-    @Test
-    void getAll(){
-
-
-
-        rentService.getAll();
-
-        Mockito.verify (rentService).getAll();
-
-    }
-
+//    @Test
+//    void getAll() throws Exception {
+//
+//
+//
+//        rentService.getAll();
+//
+//        verify (rentService).getAll();
+//
+//    }
 
 
 }

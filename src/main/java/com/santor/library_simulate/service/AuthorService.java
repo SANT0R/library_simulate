@@ -23,9 +23,8 @@ public interface AuthorService {
     /**
      * Get a author by full name
      * @param fullName
-     * @return List<AuthorDTO>
-     */
-    List<AuthorDTO> getByName(String fullName);
+     * @return AuthorDTO
+     */AuthorDTO getByName(String fullName);
 
     /**
      * Delete all authors

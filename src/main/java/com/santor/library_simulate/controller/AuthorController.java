@@ -152,6 +152,7 @@ public class AuthorController {
     @ApiOperation(value = "Get authors by name")
     @PostMapping("/getByName")
     public ResponseEntity<List<AuthorDTO>> getByName(@RequestParam String fullName) {
+        /*
         try {
 
             if(authorService.getByName(fullName).isEmpty()){
@@ -170,13 +171,16 @@ public class AuthorController {
 
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
+
+         */
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
     }
 
 
     @ApiOperation(value = "Delete a author by name")
     @PostMapping("/deleteByName")
     public ResponseEntity<?> deleteByName(@RequestParam String fullName) {
-
+/*
 
         if(authorService.getByName(fullName).isEmpty()){
 
@@ -197,6 +201,9 @@ public class AuthorController {
             }
 
         }
+
+ */
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
     }
 
 

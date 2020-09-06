@@ -152,6 +152,7 @@ public class BookController {
     @ApiOperation(value = "Get books by name")
     @PostMapping("/getByName")
     public ResponseEntity<List<BookDTO>> getByName(@RequestParam String fullName) {
+        /*
         try {
 
             if(bookService.getByName(fullName).isEmpty()){
@@ -170,6 +171,10 @@ public class BookController {
 
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
+
+         */
+
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
     }
 
 
@@ -177,7 +182,7 @@ public class BookController {
     @PostMapping("/deleteByName")
     public ResponseEntity<?> deleteByName(@RequestParam String fullName) {
 
-
+/*
         if(bookService.getByName(fullName).isEmpty()){
 
             throw new ApiRequestException("Book not found.");
@@ -197,6 +202,9 @@ public class BookController {
             }
 
         }
+
+ */
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
     }
 
 

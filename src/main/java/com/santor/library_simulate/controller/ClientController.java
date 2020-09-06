@@ -153,9 +153,9 @@ public class ClientController {
     @ApiOperation(value = "Get clients by name")
     @PostMapping("/getByName")
     public ResponseEntity<List<ClientDTO>> getByName(@RequestParam String fullName) {
-        try {
+        /*try {
 
-            if(clientService.getByName(fullName).isEmpty()){
+            if(clientService.getByName(fullName)){
 
                 throw new ApiRequestException("Client not found.");
 
@@ -171,6 +171,10 @@ public class ClientController {
 
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
+
+         */
+
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
     }
 
 
@@ -178,7 +182,7 @@ public class ClientController {
     @PostMapping("/deleteByName")
     public ResponseEntity<?> deleteByName(@RequestParam String fullName) {
 
-
+/*
         if(clientService.getByName(fullName).isEmpty()){
 
             throw new ApiRequestException("Client not found.");
@@ -198,6 +202,9 @@ public class ClientController {
             }
 
         }
+
+ */
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
     }
 
 

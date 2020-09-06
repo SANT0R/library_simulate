@@ -16,16 +16,16 @@ public class Client extends BaseModel {
 
     private static final long serialVersionUID = -1494977876606097432L;
     @Column(nullable = false)
-    private String fullName = "Name Surname";
+    private String fullName;
 
     @Column(nullable = false)
-    private String password = "**************";
+    private String password ;
 
     @Column(nullable = false)
-    private String phone = "+905*********";
+    private String phone ;
 
     @Column(nullable = false)
-    private String eMail = "someone@something.com";
+    private String eMail;
 
     @OneToMany(mappedBy = "client" , cascade = CascadeType.ALL)
     private Set<Rent> rents = new HashSet<>();

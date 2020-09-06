@@ -10,7 +10,7 @@ import java.util.List;
 @Repository
 public interface BookRepository extends JpaRepository<Book, Long> {
 
-    List<Book> findByFullName(String fullName);
+    Book findByFullName(String fullName);
 
 
 

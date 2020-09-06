@@ -32,17 +32,17 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public List<BookDTO> getByName(String fullName) {
+    public BookDTO getByName(String fullName) {
 
 
-        return bookMapper.toDTOList (bookRepository.findByFullName(fullName));
+        return bookMapper.toDTO (bookRepository.findByFullName(fullName));
     }
 
     @Override
     public void deleteByName(String fullName) {
 
 
-        bookRepository.deleteAll(bookRepository.findByFullName(fullName));
+        bookRepository.delete(bookRepository.findByFullName(fullName));
     }
 
     @Override

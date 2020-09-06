@@ -12,6 +12,6 @@ public abstract class BaseModel implements Serializable{
     private static final long serialVersionUID = 1L;
     @Id
     @Column(name = "ID", unique = true, nullable = false)
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id ;
 }
