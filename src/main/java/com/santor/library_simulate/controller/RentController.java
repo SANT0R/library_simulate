@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ServerErrorException;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
@@ -25,7 +26,7 @@ import java.util.List;
 public class RentController {
 
     @Autowired
-    RentService rentService;
+    RentService entityService;
 
     @ApiResponses(value = {
             // 1xx Informational
@@ -108,16 +109,25 @@ public class RentController {
 
     @ApiOperation(value = "Get all rents")
     @GetMapping("/")
+    public ResponseEntity<List<RentDTO>> getAll()  {
 
-    public ResponseEntity<List<RentDTO>> getAll() {
+        try {
 
-        if (rentService.getAll().isEmpty()) {
+            List<RentDTO> entityDTOList =entityService.getAll();
 
-            throw new ApiRequestException("No rent found.");
+            if (entityDTOList.isEmpty()) {
 
-        } else {
-            return ResponseEntity.ok(rentService.getAll());
+                throw new ApiRequestException("No author found.");
 
+            } else {
+                return ResponseEntity.ok(entityDTOList);
+
+            }
+
+        }
+        catch (ServerErrorException e) {
+
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
 
     }
@@ -129,24 +139,16 @@ public class RentController {
 
         try {
 
-            if(rentService.getById(id).getId().equals(id)){
-
-                return ResponseEntity.ok(rentService.getById(id));
-
-            }
-            else {
-
-                throw new ApiRequestException("Rent not found.");
-
-            }
+            return ResponseEntity.ok(entityService.getById(id));
 
         }
-        catch (ApiRequestException e) {
+        catch (ServerErrorException e) {
 
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
 
     }
+
 
 
     @ApiOperation(value = "Delete all rents")
@@ -155,11 +157,11 @@ public class RentController {
 
         try {
 
-            rentService.deleteAll();
+            entityService.deleteAll();
             return ResponseEntity.ok().build();
 
         }
-        catch (ApiRequestException e) {
+        catch (ServerErrorException e) {
 
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
@@ -171,24 +173,15 @@ public class RentController {
     @PostMapping("/deleteById")
     public ResponseEntity<?>  deleteById(@RequestParam Long id) {
 
-        if(rentService.getById(id).getId().equals(id)){
+        try {
 
-            try {
-
-                rentService.deleteById(id);
-                return ResponseEntity.ok().build();
-
-            }
-            catch (ApiRequestException e) {
-
-                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-            }
+            entityService.deleteById(id);
+            return ResponseEntity.ok().build();
 
         }
-        else {
+        catch (ServerErrorException e) {
 
-            throw new ApiRequestException("Rent not found.");
-
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
 
     }
@@ -196,37 +189,33 @@ public class RentController {
 
     @ApiOperation(value = "Update a rent")
     @PostMapping("/update")
-    public ResponseEntity<URI> update(@RequestBody Rent rent) {
+    public ResponseEntity<URI> update(@RequestBody Rent entity) {
 
         try {
-            rentService.update(rent);
-            Long id = rent.getId();
-            URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(id)
-                    .toUri();
+            entityService.update(entity);
+            Long id = entity.getId();
+            URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{fullName}").buildAndExpand(id).toUri();
 
             return ResponseEntity.created(location).build();
-        } catch (Exception e) {
+        } catch (ServerErrorException e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
-
     }
 
 
     @ApiOperation(value = "Add a rent")
     @PostMapping("/add")
-    public ResponseEntity<URI> add(@RequestBody Rent rent) {
+    public ResponseEntity<URI> add(@RequestBody Rent entity) {
 
         try {
-            rentService.add(rent);
-            Long id = rent.getId();
-            URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(id)
-                    .toUri();
+            entityService.add(entity);
+            Long id = entity.getId();
+            URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{fullName}").buildAndExpand(id).toUri();
 
             return ResponseEntity.created(location).build();
-        } catch (Exception e) {
+        } catch (ServerErrorException e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
-
 
 }

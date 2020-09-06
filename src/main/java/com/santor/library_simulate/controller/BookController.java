@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ServerErrorException;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
@@ -25,7 +26,7 @@ import java.util.List;
 public class BookController {
 
     @Autowired
-    BookService bookService;
+    BookService entityService;
 
     @ApiResponses(value = {
             // 1xx Informational
@@ -108,16 +109,25 @@ public class BookController {
 
     @ApiOperation(value = "Get all books")
     @GetMapping("/")
+    public ResponseEntity<List<BookDTO>> getAll()  {
 
-    public ResponseEntity<List<BookDTO>> getAll() {
+        try {
 
-        if (bookService.getAll().isEmpty()) {
+            List<BookDTO> entityDTOList =entityService.getAll();
 
-            throw new ApiRequestException("No book found.");
+            if (entityDTOList.isEmpty()) {
 
-        } else {
-            return ResponseEntity.ok(bookService.getAll());
+                throw new ApiRequestException("No author found.");
 
+            } else {
+                return ResponseEntity.ok(entityDTOList);
+
+            }
+
+        }
+        catch (ServerErrorException e) {
+
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
 
     }
@@ -129,19 +139,10 @@ public class BookController {
 
         try {
 
-            if(bookService.getById(id).getId().equals(id)){
-
-                return ResponseEntity.ok(bookService.getById(id));
-
-            }
-            else {
-
-                throw new ApiRequestException("Book not found.");
-
-            }
+            return ResponseEntity.ok(entityService.getById(id));
 
         }
-        catch (ApiRequestException e) {
+        catch (ServerErrorException e) {
 
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
@@ -151,30 +152,18 @@ public class BookController {
 
     @ApiOperation(value = "Get books by name")
     @PostMapping("/getByName")
-    public ResponseEntity<List<BookDTO>> getByName(@RequestParam String fullName) {
-        /*
+    public ResponseEntity<BookDTO> getByName(@RequestParam String fullName) {
+
         try {
 
-            if(bookService.getByName(fullName).isEmpty()){
-
-                throw new ApiRequestException("Book not found.");
-
-            }
-            else {
-
-                return ResponseEntity.ok(bookService.getByName(fullName));
-
-            }
+            return ResponseEntity.ok(entityService.getByName(fullName));
 
         }
-        catch (ApiRequestException e) {
+        catch (ServerErrorException e) {
 
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
 
-         */
-
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
     }
 
 
@@ -182,30 +171,20 @@ public class BookController {
     @PostMapping("/deleteByName")
     public ResponseEntity<?> deleteByName(@RequestParam String fullName) {
 
-/*
-        if(bookService.getByName(fullName).isEmpty()){
+        try {
 
-            throw new ApiRequestException("Book not found.");
-
-
-        }
-        else {
-            try {
-
-                bookService.deleteByName(fullName);
-                return ResponseEntity.ok().build();
-
-            }
-            catch (ApiRequestException e) {
-
-                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-            }
+            entityService.deleteByName(fullName);
+            return ResponseEntity.ok().build();
 
         }
+        catch (ServerErrorException e) {
 
- */
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+
     }
+
+
 
 
     @ApiOperation(value = "Delete all books")
@@ -214,11 +193,11 @@ public class BookController {
 
         try {
 
-            bookService.deleteAll();
+            entityService.deleteAll();
             return ResponseEntity.ok().build();
 
         }
-        catch (ApiRequestException e) {
+        catch (ServerErrorException e) {
 
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
@@ -230,41 +209,31 @@ public class BookController {
     @PostMapping("/deleteById")
     public ResponseEntity<?>  deleteById(@RequestParam Long id) {
 
-        if(bookService.getById(id).getId().equals(id)){
+        try {
 
-            try {
-
-                bookService.deleteById(id);
-                return ResponseEntity.ok().build();
-
-            }
-            catch (ApiRequestException e) {
-
-                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-            }
+            entityService.deleteById(id);
+            return ResponseEntity.ok().build();
 
         }
-        else {
+        catch (ServerErrorException e) {
 
-            throw new ApiRequestException("Book not found.");
-
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
 
     }
 
 
-    @ApiOperation(value = "Update a author")
+    @ApiOperation(value = "Update a book")
     @PostMapping("/update")
-    public ResponseEntity<URI> update(@RequestBody Book book) {
+    public ResponseEntity<URI> update(@RequestBody Book entity) {
 
         try {
-            bookService.update(book);
-            String fullName = book.getFullName();
-            URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{fullName}").buildAndExpand(fullName)
-                    .toUri();
+            entityService.update(entity);
+            String fullName = entity.getFullName();
+            URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{fullName}").buildAndExpand(fullName).toUri();
 
             return ResponseEntity.created(location).build();
-        } catch (Exception e) {
+        } catch (ServerErrorException e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
@@ -272,19 +241,17 @@ public class BookController {
 
     @ApiOperation(value = "Add a book")
     @PostMapping("/add")
-    public ResponseEntity<URI> add(@RequestBody Book book) {
+    public ResponseEntity<URI> add(@RequestBody Book entity) {
 
         try {
-            bookService.add(book);
-            String fullName = book.getFullName();
-            URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{fullName}").buildAndExpand(fullName)
-                    .toUri();
+            entityService.add(entity);
+            String fullName = entity.getFullName();
+            URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{fullName}").buildAndExpand(fullName).toUri();
 
             return ResponseEntity.created(location).build();
-        } catch (Exception e) {
+        } catch (ServerErrorException e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
-
 
 }

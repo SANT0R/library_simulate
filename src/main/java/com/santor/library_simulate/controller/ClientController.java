@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ServerErrorException;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
@@ -25,7 +26,7 @@ import java.util.List;
 public class ClientController {
 
     @Autowired
-    ClientService clientService;
+    ClientService entityService;
 
     @ApiResponses(value = {
             // 1xx Informational
@@ -109,16 +110,25 @@ public class ClientController {
 
     @ApiOperation(value = "Get all clients")
     @GetMapping("/")
+    public ResponseEntity<List<ClientDTO>> getAll()  {
 
-    public ResponseEntity<List<ClientDTO>> getAll() {
+        try {
 
-        if (clientService.getAll().isEmpty()) {
+            List<ClientDTO> entityDTOList =entityService.getAll();
 
-            throw new ApiRequestException("No author found.");
+            if (entityDTOList.isEmpty()) {
 
-        } else {
-            return ResponseEntity.ok(clientService.getAll());
+                throw new ApiRequestException("No author found.");
 
+            } else {
+                return ResponseEntity.ok(entityDTOList);
+
+            }
+
+        }
+        catch (ServerErrorException e) {
+
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
 
     }
@@ -130,19 +140,10 @@ public class ClientController {
 
         try {
 
-            if(clientService.getById(id).getId().equals(id)){
-
-                return ResponseEntity.ok(clientService.getById(id));
-
-            }
-            else {
-
-                throw new ApiRequestException("Client not found.");
-
-            }
+            return ResponseEntity.ok(entityService.getById(id));
 
         }
-        catch (ApiRequestException e) {
+        catch (ServerErrorException e) {
 
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
@@ -152,29 +153,18 @@ public class ClientController {
 
     @ApiOperation(value = "Get clients by name")
     @PostMapping("/getByName")
-    public ResponseEntity<List<ClientDTO>> getByName(@RequestParam String fullName) {
-        /*try {
+    public ResponseEntity<ClientDTO> getByName(@RequestParam String fullName) {
 
-            if(clientService.getByName(fullName)){
+        try {
 
-                throw new ApiRequestException("Client not found.");
-
-            }
-            else {
-
-                return ResponseEntity.ok(clientService.getByName(fullName));
-
-            }
+            return ResponseEntity.ok(entityService.getByName(fullName));
 
         }
-        catch (ApiRequestException e) {
+        catch (ServerErrorException e) {
 
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
 
-         */
-
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
     }
 
 
@@ -182,30 +172,20 @@ public class ClientController {
     @PostMapping("/deleteByName")
     public ResponseEntity<?> deleteByName(@RequestParam String fullName) {
 
-/*
-        if(clientService.getByName(fullName).isEmpty()){
+        try {
 
-            throw new ApiRequestException("Client not found.");
-
-
-        }
-        else {
-            try {
-
-                clientService.deleteByName(fullName);
-                return ResponseEntity.ok().build();
-
-            }
-            catch (ApiRequestException e) {
-
-                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-            }
+            entityService.deleteByName(fullName);
+            return ResponseEntity.ok().build();
 
         }
+        catch (ServerErrorException e) {
 
- */
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+
     }
+
+
 
 
     @ApiOperation(value = "Delete all clients")
@@ -214,11 +194,11 @@ public class ClientController {
 
         try {
 
-            clientService.deleteAll();
+            entityService.deleteAll();
             return ResponseEntity.ok().build();
 
         }
-        catch (ApiRequestException e) {
+        catch (ServerErrorException e) {
 
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
@@ -230,24 +210,15 @@ public class ClientController {
     @PostMapping("/deleteById")
     public ResponseEntity<?>  deleteById(@RequestParam Long id) {
 
-        if(clientService.getById(id).getId().equals(id)){
+        try {
 
-            try {
-
-                clientService.deleteById(id);
-                return ResponseEntity.ok().build();
-
-            }
-            catch (ApiRequestException e) {
-
-                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-            }
+            entityService.deleteById(id);
+            return ResponseEntity.ok().build();
 
         }
-        else {
+        catch (ServerErrorException e) {
 
-            throw new ApiRequestException("Client not found.");
-
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
 
     }
@@ -255,37 +226,33 @@ public class ClientController {
 
     @ApiOperation(value = "Update a client")
     @PostMapping("/update")
-    public ResponseEntity<URI> update(@RequestBody Client client) {
+    public ResponseEntity<URI> update(@RequestBody Client entity) {
 
         try {
-            clientService.update(client);
-            String fullName = client.getFullName();
-            URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{fullName}").buildAndExpand(fullName)
-                    .toUri();
+            entityService.update(entity);
+            String fullName = entity.getFullName();
+            URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{fullName}").buildAndExpand(fullName).toUri();
 
             return ResponseEntity.created(location).build();
-        } catch (Exception e) {
+        } catch (ServerErrorException e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
-
     }
 
 
     @ApiOperation(value = "Add a client")
     @PostMapping("/add")
-    public ResponseEntity<URI> add(@RequestBody Client client) {
+    public ResponseEntity<URI> add(@RequestBody Client entity) {
 
         try {
-            clientService.add(client);
-            String fullName = client.getFullName();
-            URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{fullName}").buildAndExpand(fullName)
-                    .toUri();
+            entityService.add(entity);
+            String fullName = entity.getFullName();
+            URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{fullName}").buildAndExpand(fullName).toUri();
 
             return ResponseEntity.created(location).build();
-        } catch (Exception e) {
+        } catch (ServerErrorException e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
-
 
 }

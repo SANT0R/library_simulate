@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ServerErrorException;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
@@ -25,7 +26,7 @@ import java.util.List;
 public class AuthorController {
 
     @Autowired
-    private AuthorService authorService;
+    private AuthorService entityService;
 
 
     @ApiResponses(value = {
@@ -109,15 +110,25 @@ public class AuthorController {
 
     @ApiOperation(value = "Get all authors")
     @GetMapping("/")
-    public ResponseEntity<List<AuthorDTO>> getAll() throws Exception {
+    public ResponseEntity<List<AuthorDTO>> getAll()  {
 
-        if (authorService.getAll().isEmpty()) {
+        try {
 
-            throw new ApiRequestException("No author found.");
+            List<AuthorDTO> entityDTOList =entityService.getAll();
 
-        } else {
-            return ResponseEntity.ok(authorService.getAll());
+            if (entityDTOList.isEmpty()) {
 
+                throw new ApiRequestException("No author found.");
+
+            } else {
+                return ResponseEntity.ok(entityDTOList);
+
+            }
+
+        }
+        catch (ServerErrorException e) {
+
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
 
     }
@@ -129,19 +140,10 @@ public class AuthorController {
 
         try {
 
-            if(authorService.getById(id).getId().equals(id)){
-
-                return ResponseEntity.ok(authorService.getById(id));
-
-            }
-            else {
-
-                throw new ApiRequestException("Author not found.");
-
-            }
+            return ResponseEntity.ok(entityService.getById(id));
 
         }
-        catch (ApiRequestException e) {
+        catch (ServerErrorException e) {
 
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
@@ -151,60 +153,39 @@ public class AuthorController {
 
     @ApiOperation(value = "Get authors by name")
     @PostMapping("/getByName")
-    public ResponseEntity<List<AuthorDTO>> getByName(@RequestParam String fullName) {
-        /*
+    public ResponseEntity<AuthorDTO> getByName(@RequestParam String fullName) {
+
         try {
 
-            if(authorService.getByName(fullName).isEmpty()){
-
-                throw new ApiRequestException("Author not found.");
-
-            }
-            else {
-
-                return ResponseEntity.ok(authorService.getByName(fullName));
-
-            }
+            return ResponseEntity.ok(entityService.getByName(fullName));
 
         }
-        catch (ApiRequestException e) {
+        catch (ServerErrorException e) {
 
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
 
-         */
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
     }
 
 
     @ApiOperation(value = "Delete a author by name")
     @PostMapping("/deleteByName")
     public ResponseEntity<?> deleteByName(@RequestParam String fullName) {
-/*
 
-        if(authorService.getByName(fullName).isEmpty()){
-
-            throw new ApiRequestException("Author not found.");
-
-
-        }
-        else {
             try {
 
-                authorService.deleteByName(fullName);
+                entityService.deleteByName(fullName);
                 return ResponseEntity.ok().build();
 
             }
-            catch (ApiRequestException e) {
+            catch (ServerErrorException e) {
 
                 return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
             }
 
-        }
-
- */
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
     }
+
+
 
 
     @ApiOperation(value = "Delete all authors")
@@ -213,11 +194,11 @@ public class AuthorController {
 
         try {
 
-            authorService.deleteAll();
+            entityService.deleteAll();
             return ResponseEntity.ok().build();
 
         }
-        catch (ApiRequestException e) {
+        catch (ServerErrorException e) {
 
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
@@ -229,24 +210,15 @@ public class AuthorController {
     @PostMapping("/deleteById")
     public ResponseEntity<?>  deleteById(@RequestParam Long id) {
 
-        if(authorService.getById(id).getId().equals(id)){
+        try {
 
-            try {
-
-                authorService.deleteById(id);
-                return ResponseEntity.ok().build();
-
-            }
-            catch (ApiRequestException e) {
-
-                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-            }
+            entityService.deleteById(id);
+            return ResponseEntity.ok().build();
 
         }
-        else {
+        catch (ServerErrorException e) {
 
-            throw new ApiRequestException("Author not found.");
-
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
 
     }
@@ -254,16 +226,15 @@ public class AuthorController {
 
     @ApiOperation(value = "Update a author")
     @PostMapping("/update")
-    public ResponseEntity<URI> update(@RequestBody Author author) {
+    public ResponseEntity<URI> update(@RequestBody Author entity) {
 
         try {
-            authorService.update(author);
-            String fullName = author.getFullName();
-            URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{fullName}").buildAndExpand(fullName)
-                    .toUri();
+            entityService.update(entity);
+            String fullName = entity.getFullName();
+            URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{fullName}").buildAndExpand(fullName).toUri();
 
             return ResponseEntity.created(location).build();
-        } catch (Exception e) {
+        } catch (ServerErrorException e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
@@ -271,16 +242,15 @@ public class AuthorController {
 
     @ApiOperation(value = "Add a author")
     @PostMapping("/add")
-    public ResponseEntity<URI> add(@RequestBody Author author) {
+    public ResponseEntity<URI> add(@RequestBody Author entity) {
 
         try {
-            authorService.add(author);
-            String fullName = author.getFullName();
-            URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{fullName}").buildAndExpand(fullName)
-                    .toUri();
+            entityService.add(entity);
+            String fullName = entity.getFullName();
+            URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{fullName}").buildAndExpand(fullName).toUri();
 
             return ResponseEntity.created(location).build();
-        } catch (Exception e) {
+        } catch (ServerErrorException e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
