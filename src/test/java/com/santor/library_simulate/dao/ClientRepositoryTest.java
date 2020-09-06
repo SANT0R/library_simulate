@@ -1,109 +1,149 @@
 package com.santor.library_simulate.dao;
 
-import com.santor.library_simulate.model.Author;
-import com.santor.library_simulate.service.AuthorService;
+import com.santor.library_simulate.model.Client;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
+@SpringBootTest
 class ClientRepositoryTest {
 
-    private AuthorService authorService = Mockito.mock(AuthorService.class) ;
-    private Author author = Mockito.mock(Author.class) ;
+    @Autowired
+    private ClientRepository entityRepository ;
 
+    private void addEntity(Long id,String fullName){
 
+        Client entity = new Client();
+        entity.setId(id);
+        entity.setFullName(fullName);
+        entity.setEMail("alskdmlaks@gmail.com");
+        entity.setPassword("1234");
+        entity.setPhone("30203320");
 
-
-    @Test
-    void add(){
-
-
-        authorService.add(author);
-
-        Mockito.verify (authorService).add(author);
-
+        entityRepository.save(entity);
     }
 
-    @Test
-    void update(){
-
-
-
-        authorService.update(author);
-
-        Mockito.verify (authorService).update(author);
-
-    }
 
     @Test
-    void deleteById(){
+    void addTest(){
+
+        entityRepository.deleteAll();
+
+        addEntity(20L,"Mehmet Santor");
 
 
-
-        authorService.deleteById(author.getId());
-
-        Mockito.verify (authorService).deleteById(author.getId());
-
-    }
-
-    @Test
-    void deleteAll(){
-
-
-
-        authorService.deleteAll();
-
-        Mockito.verify (authorService).deleteAll();
+        Client entity = entityRepository.getOne(20L);
+        assertEquals(entity.getId(), 20L);
 
     }
 
 
     @Test
-    void deleteByName(){
+    void deleteByIdTest(){
+
+        entityRepository.deleteAll();
+
+        addEntity(10L,"Mehmet Santor");
 
 
+        entityRepository.deleteById(10L);
 
-        authorService.deleteByName(author.getFullName());
+        assertEquals(entityRepository.count(), 0);
 
-        Mockito.verify (authorService).deleteByName(author.getFullName());
+    }
+
+    @Test
+    void deleteAllTest(){
+
+        entityRepository.deleteAll();
+
+        addEntity(20L,"Mehmet Santor");
+
+
+        assertEquals(entityRepository.count(),1);
+        entityRepository.deleteAll();
+
+
+        assertEquals(entityRepository.count(), 0);
 
     }
 
 
     @Test
-    void getByName(){
+    void deleteByNameTest(){
+
+        entityRepository.deleteAll();
+
+        addEntity(20L,"Mehmet Santor");
 
 
 
-        authorService.getByName(author.getFullName());
+        assertEquals(entityRepository.count(),1);
 
-        Mockito.verify (authorService).getByName(author.getFullName());
+        entityRepository.delete(entityRepository.findByFullName("Mehmet Santor"));
+
+
+        assertEquals(entityRepository.count(),0);
+
 
     }
 
 
     @Test
-    void getById() {
+    void getByNameTest(){
+
+        entityRepository.deleteAll();
+
+        addEntity(20L,"Mehmet Santor");
+
+        Client  entity = entityRepository.findByFullName("Mehmet Santor");
+
+        assertEquals(entity.getFullName(),"Mehmet Santor" );
+
+    }
 
 
+    @Test
+    void getByIdTest() {
 
-        authorService.getById(author.getId());
+        entityRepository.deleteAll();
 
-        Mockito.verify (authorService).getById(author.getId());
+        addEntity(20L,"Mehmet Santor");
+        Client entity = entityRepository.getOne(20L);
+
+        assertEquals(entity.getId(), 20L);
 
     }
 
 
 
     @Test
-    void getAll() {
+    void getAllTest() {
+
+        entityRepository.deleteAll();
+
+        addEntity(20L,"Mehmet Santor");
+
+        addEntity(30L,"asghdf sadfg");
+
+        addEntity(40L,"fgd dfghr");
 
 
+        assertEquals(entityRepository.count(), 3);
 
-        authorService.getAll();
+        Client entity1 = entityRepository.getOne(20L);
 
-        Mockito.verify (authorService).getAll();
+        assertEquals(entity1.getId(), 20L);
 
+        Client entity2 = entityRepository.getOne(30L);
+
+        assertEquals(entity2.getId(), 30L);
+
+        Client entity3 = entityRepository.getOne(40L);
+
+        assertEquals(entity3.getId(), 40L);
     }
 
 

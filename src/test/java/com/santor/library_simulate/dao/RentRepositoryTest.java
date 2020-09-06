@@ -1,109 +1,115 @@
 package com.santor.library_simulate.dao;
 
-import com.santor.library_simulate.model.Author;
-import com.santor.library_simulate.service.AuthorService;
+import com.santor.library_simulate.model.Rent;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 
+import java.time.LocalDate;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+@SpringBootTest
 class RentRepositoryTest {
 
-    private AuthorService authorService = Mockito.mock(AuthorService.class) ;
-    private Author author = Mockito.mock(Author.class) ;
+    @Autowired
+    private RentRepository entityRepository ;
 
+    private void addEntity(Long id){
 
+        Rent entity = new Rent();
+        entity.setId(id);
+        entity.setStartDate(LocalDate.now());
+        entity.setFinishDate(LocalDate.now());
 
-
-    @Test
-    void add(){
-
-
-        authorService.add(author);
-
-        Mockito.verify (authorService).add(author);
-
+        entityRepository.save(entity);
     }
 
-    @Test
-    void update(){
-
-
-
-        authorService.update(author);
-
-        Mockito.verify (authorService).update(author);
-
-    }
 
     @Test
-    void deleteById(){
+    void addTest(){
+
+        entityRepository.deleteAll();
+
+        addEntity(20L);
 
 
-
-        authorService.deleteById(author.getId());
-
-        Mockito.verify (authorService).deleteById(author.getId());
-
-    }
-
-    @Test
-    void deleteAll(){
-
-
-
-        authorService.deleteAll();
-
-        Mockito.verify (authorService).deleteAll();
+        Rent entity = entityRepository.getOne(20L);
+        assertEquals(entity.getId(), 20L);
 
     }
 
 
     @Test
-    void deleteByName(){
+    void deleteByIdTest(){
+
+        entityRepository.deleteAll();
+
+        addEntity(10L);
 
 
+        entityRepository.deleteById(10L);
 
-        authorService.deleteByName(author.getFullName());
+        assertEquals(entityRepository.count(), 0);
 
-        Mockito.verify (authorService).deleteByName(author.getFullName());
+    }
+
+    @Test
+    void deleteAllTest(){
+
+        entityRepository.deleteAll();
+
+        addEntity(20L);
+
+
+        assertEquals(entityRepository.count(),1);
+        entityRepository.deleteAll();
+
+
+        assertEquals(entityRepository.count(), 0);
 
     }
 
 
     @Test
-    void getByName(){
+    void getByIdTest() {
 
+        entityRepository.deleteAll();
 
+        addEntity(20L);
+        Rent entity = entityRepository.getOne(20L);
 
-        authorService.getByName(author.getFullName());
-
-        Mockito.verify (authorService).getByName(author.getFullName());
-
-    }
-
-
-    @Test
-    void getById() {
-
-
-
-        authorService.getById(author.getId());
-
-        Mockito.verify (authorService).getById(author.getId());
+        assertEquals(entity.getId(), 20L);
 
     }
 
 
 
     @Test
-    void getAll() {
+    void getAllTest() {
+
+        entityRepository.deleteAll();
+
+        addEntity(20L);
+
+        addEntity(30L);
+
+        addEntity(40L);
 
 
+        assertEquals(entityRepository.count(), 3);
 
-        authorService.getAll();
+        Rent entity1 = entityRepository.getOne(20L);
 
-        Mockito.verify (authorService).getAll();
+        assertEquals(entity1.getId(), 20L);
 
+        Rent entity2 = entityRepository.getOne(30L);
+
+        assertEquals(entity2.getId(), 30L);
+
+        Rent entity3 = entityRepository.getOne(40L);
+
+        assertEquals(entity3.getId(), 40L);
     }
 
 
