@@ -24,26 +24,29 @@ class AuthorMapperTest {
 
 
     private Author addEntity(Long id,String fullName){
-        Rent rent = new Rent();
-        rent.setId(20L);
-        rent.setStartDate(LocalDate.now());
-        rent.setFinishDate(LocalDate.now());
-
-        Book book = new Book();
-        book.setFullName("Facebook");
-        book.setPage(800);
 
         Author author = new Author();
         author.setId(id);
         author.setFullName(fullName);
+
+        Book book = new Book();
+        book.setId(25L);
+        book.setFullName("Facebook");
+        book.setPage(800);
+
         author.getBooks().add(book);
 
         Client client = new Client();
+        client.setId(30L);
         client.setEMail("alskdmlaks@gmail.com");
         client.setFullName("msantor");
         client.setPassword("1234");
         client.setPhone("30203320");
 
+        Rent rent = new Rent();
+        rent.setId(20L);
+        rent.setStartDate(LocalDate.now());
+        rent.setFinishDate(LocalDate.now());
         rent.setClient(client);
         rent.getBooks().add(book);
 

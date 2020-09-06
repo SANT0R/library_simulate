@@ -1,14 +1,9 @@
 package com.santor.library_simulate.dao;
 
 import com.santor.library_simulate.model.Author;
-import com.santor.library_simulate.model.Book;
-import com.santor.library_simulate.model.Client;
-import com.santor.library_simulate.model.Rent;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-
-import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -16,48 +11,51 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class AuthorRepositoryTest {
 
     @Autowired
-    private AuthorRepository authorRepository ;
+    private AuthorRepository entityRepository ;
 
-    private void addAuthor(Long id,String fullName){
-        Rent rent = new Rent();
-        rent.setId(20L);
-        rent.setStartDate(LocalDate.now());
-        rent.setFinishDate(LocalDate.now());
+    private void addEntity(Long id,String fullName){
 
+        Author entity = new Author();
+        entity.setId(id);
+        entity.setFullName(fullName);
+        /*
         Book book = new Book();
+        book.setId(20L);
         book.setFullName("Facebook");
         book.setPage(800);
 
-        Author author = new Author();
-        author.setId(2L);
-        author.setFullName("Mehmet Santor");
         author.getBooks().add(book);
 
         Client client = new Client();
+        rent.setId(20L);
         client.setEMail("alskdmlaks@gmail.com");
         client.setFullName("msantor");
         client.setPassword("1234");
         client.setPhone("30203320");
 
+        Rent rent = new Rent();
+        rent.setId(20L);
+        rent.setStartDate(LocalDate.now());
+        rent.setFinishDate(LocalDate.now());
         rent.setClient(client);
         rent.getBooks().add(book);
 
         client.getRents().add(rent);
-
-        authorRepository.save(author);
+*/
+        entityRepository.save(entity);
     }
 
 
     @Test
     void addTest(){
 
-        authorRepository.deleteAll();
+        entityRepository.deleteAll();
 
-        addAuthor(20L,"Mehmet Santor");
+        addEntity(20L,"Mehmet Santor");
 
 
-        Author expected = authorRepository.getOne(20L);
-        assertEquals(expected.getId(), 20L);
+        Author entity = entityRepository.getOne(20L);
+        assertEquals(entity.getId(), 20L);
 
     }
 
@@ -65,30 +63,30 @@ class AuthorRepositoryTest {
     @Test
     void deleteByIdTest(){
 
-        authorRepository.deleteAll();
+        entityRepository.deleteAll();
 
-        addAuthor(10L,"Mehmet Santor");
+        addEntity(10L,"Mehmet Santor");
 
 
-        authorRepository.deleteById(10L);
+        entityRepository.deleteById(10L);
 
-        assertEquals(authorRepository.count(), 0);
+        assertEquals(entityRepository.count(), 0);
 
     }
 
     @Test
     void deleteAllTest(){
 
-        authorRepository.deleteAll();
+        entityRepository.deleteAll();
 
-        addAuthor(20L,"Mehmet Santor");
-
-
-        assertEquals(authorRepository.count(),1);
-        authorRepository.deleteAll();
+        addEntity(20L,"Mehmet Santor");
 
 
-        assertEquals(authorRepository.count(), 0);
+        assertEquals(entityRepository.count(),1);
+        entityRepository.deleteAll();
+
+
+        assertEquals(entityRepository.count(), 0);
 
     }
 
@@ -96,18 +94,18 @@ class AuthorRepositoryTest {
     @Test
     void deleteByNameTest(){
 
-        authorRepository.deleteAll();
+        entityRepository.deleteAll();
 
-        addAuthor(20L,"Mehmet Santor");
-
-
-
-        assertEquals(authorRepository.count(),1);
-
-        authorRepository.delete(authorRepository.findByFullName("Mehmet Santor"));
+        addEntity(20L,"Mehmet Santor");
 
 
-        assertEquals(authorRepository.count(),0);
+
+        assertEquals(entityRepository.count(),1);
+
+        entityRepository.delete(entityRepository.findByFullName("Mehmet Santor"));
+
+
+        assertEquals(entityRepository.count(),0);
 
 
     }
@@ -116,13 +114,13 @@ class AuthorRepositoryTest {
     @Test
     void getByNameTest(){
 
-        authorRepository.deleteAll();
+        entityRepository.deleteAll();
 
-        addAuthor(20L,"Mehmet Santor");
+        addEntity(20L,"Mehmet Santor");
 
-        Author  author1 = authorRepository.findByFullName("Mehmet Santor");
+        Author  entity = entityRepository.findByFullName("Mehmet Santor");
 
-        assertEquals(author1.getFullName(),"Mehmet Santor" );
+        assertEquals(entity.getFullName(),"Mehmet Santor" );
 
     }
 
@@ -130,12 +128,12 @@ class AuthorRepositoryTest {
     @Test
     void getByIdTest() {
 
-        authorRepository.deleteAll();
+        entityRepository.deleteAll();
 
-        addAuthor(20L,"Mehmet Santor");
-        Author author1 = authorRepository.getOne(20L);
+        addEntity(20L,"Mehmet Santor");
+        Author entity = entityRepository.getOne(20L);
 
-        assertEquals(author1.getId(), 20L);
+        assertEquals(entity.getId(), 20L);
 
     }
 
@@ -144,28 +142,28 @@ class AuthorRepositoryTest {
     @Test
     void getAllTest() {
 
-        authorRepository.deleteAll();
+        entityRepository.deleteAll();
 
-        addAuthor(20L,"Mehmet Santor");
+        addEntity(20L,"Mehmet Santor");
 
-        addAuthor(30L,"asghdf sadfg");
+        addEntity(30L,"asghdf sadfg");
 
-        addAuthor(40L,"fgd dfghr");
+        addEntity(40L,"fgd dfghr");
 
 
-        assertEquals(authorRepository.count(), 3);
+        assertEquals(entityRepository.count(), 3);
 
-        Author author1 = authorRepository.getOne(20L);
+        Author entity1 = entityRepository.getOne(20L);
 
-        assertEquals(author1.getId(), 20L);
+        assertEquals(entity1.getId(), 20L);
 
-        Author author2 = authorRepository.getOne(30L);
+        Author entity2 = entityRepository.getOne(30L);
 
-        assertEquals(author2.getId(), 30L);
+        assertEquals(entity2.getId(), 30L);
 
-        Author author3 = authorRepository.getOne(40L);
+        Author entity3 = entityRepository.getOne(40L);
 
-        assertEquals(author3.getId(), 40L);
+        assertEquals(entity3.getId(), 40L);
     }
 
 

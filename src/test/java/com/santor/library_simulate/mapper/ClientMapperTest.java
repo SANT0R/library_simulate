@@ -24,30 +24,34 @@ class ClientMapperTest {
 
 
     private Client addEntity(Long id,String fullName){
+
+        Author author = new Author();
+        author.setId(20L);
+        author.setFullName("dsfgh fghn");
+
+        Book book = new Book();
+        book.setId(25L);
+        book.setFullName("Facebook");
+        book.setPage(800);
+
+        author.getBooks().add(book);
+
+        Client client = new Client();
+        client.setId(id);
+        client.setEMail("alskdmlaks@gmail.com");
+        client.setFullName(fullName);
+        client.setPassword("1234");
+        client.setPhone("30203320");
+
         Rent rent = new Rent();
         rent.setId(20L);
         rent.setStartDate(LocalDate.now());
         rent.setFinishDate(LocalDate.now());
-
-        Book book = new Book();
-        book.setFullName("Facebook");
-        book.setPage(800);
-
-        Author author = new Author();
-        author.setId(id);
-        author.setFullName(fullName);
-        author.getBooks().add(book);
-
-        Client client = new Client();
-        client.setEMail("alskdmlaks@gmail.com");
-        client.setFullName("msantor");
-        client.setPassword("1234");
-        client.setPhone("30203320");
-
         rent.setClient(client);
         rent.getBooks().add(book);
 
         client.getRents().add(rent);
+
 
         return client;
     }

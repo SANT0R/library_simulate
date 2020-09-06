@@ -24,26 +24,28 @@ class BookMapperTest {
 
 
     private Book addEntity(Long id,String fullName){
-        Rent rent = new Rent();
-        rent.setId(20L);
-        rent.setStartDate(LocalDate.now());
-        rent.setFinishDate(LocalDate.now());
+        Author author = new Author();
+        author.setId(20L);
+        author.setFullName("sdfghj dfghj");
 
         Book book = new Book();
-        book.setFullName("Facebook");
+        book.setId(id);
+        book.setFullName(fullName);
         book.setPage(800);
 
-        Author author = new Author();
-        author.setId(id);
-        author.setFullName(fullName);
         author.getBooks().add(book);
 
         Client client = new Client();
+        client.setId(30L);
         client.setEMail("alskdmlaks@gmail.com");
         client.setFullName("msantor");
         client.setPassword("1234");
         client.setPhone("30203320");
 
+        Rent rent = new Rent();
+        rent.setId(20L);
+        rent.setStartDate(LocalDate.now());
+        rent.setFinishDate(LocalDate.now());
         rent.setClient(client);
         rent.getBooks().add(book);
 
