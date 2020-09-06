@@ -3,11 +3,13 @@ package com.santor.library_simulate.service;
 
 import com.santor.library_simulate.dao.AuthorRepository;
 import com.santor.library_simulate.dto.AuthorDTO;
+import com.santor.library_simulate.exception.ApiRequestException;
 import com.santor.library_simulate.mapper.AuthorMapper;
 import com.santor.library_simulate.model.Author;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
 
 @Service
@@ -15,15 +17,38 @@ public class AuthorServiceImpl implements AuthorService {
 
 
     @Autowired
-    private AuthorRepository authorRepository;
-    private AuthorMapper authorMapper;
+    private AuthorRepository entityRepository;
+    private AuthorMapper entityMapper;
 
+
+    @Override
+    public void add(Author author) {
+
+        entityRepository.save(author);
+
+    }
+
+    @Override
+    public void update(Author author) {
+
+        Author entity = entityRepository.getOne(author.getId());
+        if (entity.getId() != null) {
+
+            entityRepository.save(author);
+
+        }
+        else {
+
+            throw new ApiRequestException("Author not found");
+        }
+
+    }
 
     @Override
     public List<AuthorDTO> getAll() {
 
 
-        return authorMapper.toDTOList(authorRepository.findAll());
+        return entityMapper.toDTOList(entityRepository.findAll());
     }
 
 
@@ -31,49 +56,68 @@ public class AuthorServiceImpl implements AuthorService {
     @Override
     public AuthorDTO getById(Long id) {
 
+        try {
 
-        return authorMapper.toDTO (authorRepository.getOne(id));
+            Author entity = entityRepository.getOne(id);
+            return entityMapper.toDTO (entity);
+        }
+        catch (EntityNotFoundException e){
+
+            throw new ApiRequestException("Author not found");
+        }
+
     }
 
     @Override
     public AuthorDTO getByName(String fullName) {
 
-        return authorMapper.toDTO (authorRepository.findByFullName(fullName));
+        try {
+
+            Author entity = entityRepository.findByFullName(fullName);
+            return entityMapper.toDTO (entity);
+        }
+        catch (EntityNotFoundException e){
+
+            throw new ApiRequestException("Author not found");
+        }
     }
 
     @Override
     public void deleteByName(String fullName) {
 
 
-        authorRepository.delete(authorRepository.findByFullName(fullName));
+        try {
 
-    }
+            Author entity = entityRepository.findByFullName(fullName);
+            entityRepository.delete(entity);
+        }
+        catch (EntityNotFoundException e){
 
-    @Override
-    public void add(Author author) {
-
-        authorRepository.save(author);
+            throw new ApiRequestException("Author not found");
+        }
 
     }
 
     @Override
     public void deleteAll() {
 
-        authorRepository.deleteAll();
+        entityRepository.deleteAll();
 
     }
 
     @Override
     public void deleteById(Long id) {
 
-        authorRepository.deleteById(id);
+        try {
 
-    }
+            Author entity = entityRepository.getOne(id);
+            entityRepository.delete(entity);
+        }
+        catch (EntityNotFoundException e){
 
-    @Override
-    public void update(Author author) {
+            throw new ApiRequestException("Author not found");
+        }
 
-        authorRepository.save(author);
 
     }
 

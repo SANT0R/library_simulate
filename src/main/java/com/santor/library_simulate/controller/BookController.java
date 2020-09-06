@@ -1,5 +1,6 @@
 package com.santor.library_simulate.controller;
 
+import com.santor.library_simulate.dto.AuthorDTO;
 import com.santor.library_simulate.dto.BookDTO;
 import com.santor.library_simulate.exception.ApiRequestException;
 import com.santor.library_simulate.model.Book;
@@ -193,8 +194,17 @@ public class BookController {
 
         try {
 
-            entityService.deleteAll();
-            return ResponseEntity.ok().build();
+            List<BookDTO> entityDTOList =entityService.getAll();
+
+            if (entityDTOList.isEmpty()) {
+
+                throw new ApiRequestException("No book found.");
+
+            } else {
+                entityService.deleteAll();
+                return ResponseEntity.ok().build();
+
+            }
 
         }
         catch (ServerErrorException e) {

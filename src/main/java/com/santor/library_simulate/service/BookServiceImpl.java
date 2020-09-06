@@ -3,73 +3,120 @@ package com.santor.library_simulate.service;
 
 import com.santor.library_simulate.dao.BookRepository;
 import com.santor.library_simulate.dto.BookDTO;
+import com.santor.library_simulate.exception.ApiRequestException;
 import com.santor.library_simulate.mapper.BookMapper;
 import com.santor.library_simulate.model.Book;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
 
 @Service
 public class BookServiceImpl implements BookService {
 
     @Autowired
-    BookRepository bookRepository;
-    private BookMapper bookMapper;
+    BookRepository entityRepository;
+    private BookMapper entityMapper;
 
-    @Override
-    public List<BookDTO> getAll() {
-
-        return bookMapper.toDTOList(bookRepository.findAll());
-    }
-
-
-    @Override
-    public BookDTO getById(Long id) {
-
-
-        return bookMapper.toDTO (bookRepository.getOne(id));
-    }
-
-    @Override
-    public BookDTO getByName(String fullName) {
-
-
-        return bookMapper.toDTO (bookRepository.findByFullName(fullName));
-    }
-
-    @Override
-    public void deleteByName(String fullName) {
-
-
-        bookRepository.delete(bookRepository.findByFullName(fullName));
-    }
 
     @Override
     public void add(Book book) {
 
-        bookRepository.save(book);
-
-    }
-
-    @Override
-    public void deleteAll() {
-
-        bookRepository.deleteAll();
-
-    }
-
-    @Override
-    public void deleteById(Long id) {
-
-        bookRepository.deleteById(id);
+        entityRepository.save(book);
 
     }
 
     @Override
     public void update(Book book) {
 
-        bookRepository.save(book);
+        Book entity = entityRepository.getOne(book.getId());
+        if (entity.getId() != null) {
+
+            entityRepository.save(book);
+
+        }
+        else {
+
+            throw new ApiRequestException("Book not found");
+        }
+
+    }
+
+    @Override
+    public List<BookDTO> getAll() {
+
+
+        return entityMapper.toDTOList(entityRepository.findAll());
+    }
+
+
+
+    @Override
+    public BookDTO getById(Long id) {
+
+        try {
+
+            Book entity = entityRepository.getOne(id);
+            return entityMapper.toDTO (entity);
+        }
+        catch (EntityNotFoundException e){
+
+            throw new ApiRequestException("Book not found");
+        }
+
+    }
+
+    @Override
+    public BookDTO getByName(String fullName) {
+
+        try {
+
+            Book entity = entityRepository.findByFullName(fullName);
+            return entityMapper.toDTO (entity);
+        }
+        catch (EntityNotFoundException e){
+
+            throw new ApiRequestException("Book not found");
+        }
+    }
+
+    @Override
+    public void deleteByName(String fullName) {
+
+
+        try {
+
+            Book entity = entityRepository.findByFullName(fullName);
+            entityRepository.delete(entity);
+        }
+        catch (EntityNotFoundException e){
+
+            throw new ApiRequestException("Book not found");
+        }
+
+    }
+
+    @Override
+    public void deleteAll() {
+
+        entityRepository.deleteAll();
+
+    }
+
+    @Override
+    public void deleteById(Long id) {
+
+        try {
+
+            Book entity = entityRepository.getOne(id);
+            entityRepository.delete(entity);
+        }
+        catch (EntityNotFoundException e){
+
+            throw new ApiRequestException("Book not found");
+        }
+
 
     }
 

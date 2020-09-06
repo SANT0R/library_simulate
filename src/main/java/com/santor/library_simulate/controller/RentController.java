@@ -1,5 +1,6 @@
 package com.santor.library_simulate.controller;
 
+import com.santor.library_simulate.dto.BookDTO;
 import com.santor.library_simulate.dto.RentDTO;
 import com.santor.library_simulate.exception.ApiRequestException;
 import com.santor.library_simulate.model.Rent;
@@ -157,8 +158,17 @@ public class RentController {
 
         try {
 
-            entityService.deleteAll();
-            return ResponseEntity.ok().build();
+            List<RentDTO> entityDTOList =entityService.getAll();
+
+            if (entityDTOList.isEmpty()) {
+
+                throw new ApiRequestException("No rent found.");
+
+            } else {
+                entityService.deleteAll();
+                return ResponseEntity.ok().build();
+
+            }
 
         }
         catch (ServerErrorException e) {

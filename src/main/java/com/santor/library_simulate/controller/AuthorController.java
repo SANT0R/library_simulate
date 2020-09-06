@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ServerErrorException;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.persistence.EntityNotFoundException;
 import java.net.URI;
 import java.util.List;
 
@@ -194,8 +195,17 @@ public class AuthorController {
 
         try {
 
-            entityService.deleteAll();
-            return ResponseEntity.ok().build();
+            List<AuthorDTO> entityDTOList =entityService.getAll();
+
+            if (entityDTOList.isEmpty()) {
+
+                throw new ApiRequestException("No author found.");
+
+            } else {
+                entityService.deleteAll();
+                return ResponseEntity.ok().build();
+
+            }
 
         }
         catch (ServerErrorException e) {

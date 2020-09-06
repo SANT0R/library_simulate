@@ -1,5 +1,6 @@
 package com.santor.library_simulate.controller;
 
+import com.santor.library_simulate.dto.BookDTO;
 import com.santor.library_simulate.dto.ClientDTO;
 import com.santor.library_simulate.exception.ApiRequestException;
 import com.santor.library_simulate.model.Client;
@@ -194,8 +195,17 @@ public class ClientController {
 
         try {
 
-            entityService.deleteAll();
-            return ResponseEntity.ok().build();
+            List<ClientDTO> entityDTOList =entityService.getAll();
+
+            if (entityDTOList.isEmpty()) {
+
+                throw new ApiRequestException("No client found.");
+
+            } else {
+                entityService.deleteAll();
+                return ResponseEntity.ok().build();
+
+            }
 
         }
         catch (ServerErrorException e) {
