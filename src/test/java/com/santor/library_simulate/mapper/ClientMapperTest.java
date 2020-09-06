@@ -1,111 +1,121 @@
 package com.santor.library_simulate.mapper;
 
+import com.santor.library_simulate.dto.ClientDTO;
 import com.santor.library_simulate.model.Author;
-import com.santor.library_simulate.service.AuthorService;
+import com.santor.library_simulate.model.Book;
+import com.santor.library_simulate.model.Client;
+import com.santor.library_simulate.model.Rent;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Spy;
+import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.time.LocalDate;
+import java.util.Arrays;
+import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+@ExtendWith(MockitoExtension.class)
 class ClientMapperTest {
 
-    private AuthorService authorService = Mockito.mock(AuthorService.class) ;
-    private Author author = Mockito.mock(Author.class) ;
+    @Spy
+    ClientMapperImpl entityMapperImpl;
 
 
+    private Client addEntity(Long id,String fullName){
+        Rent rent = new Rent();
+        rent.setId(20L);
+        rent.setStartDate(LocalDate.now());
+        rent.setFinishDate(LocalDate.now());
 
+        Book book = new Book();
+        book.setFullName("Facebook");
+        book.setPage(800);
 
-    @Test
-    void add(){
+        Author author = new Author();
+        author.setId(id);
+        author.setFullName(fullName);
+        author.getBooks().add(book);
 
+        Client client = new Client();
+        client.setEMail("alskdmlaks@gmail.com");
+        client.setFullName("msantor");
+        client.setPassword("1234");
+        client.setPhone("30203320");
 
-        authorService.add(author);
+        rent.setClient(client);
+        rent.getBooks().add(book);
 
-        Mockito.verify (authorService).add(author);
+        client.getRents().add(rent);
 
+        return client;
     }
 
     @Test
-    void update(){
+    void toDTOTest() {
 
 
-
-        authorService.update(author);
-
-        Mockito.verify (authorService).update(author);
-
-    }
-
-    @Test
-    void deleteById(){
+        Client entity = addEntity(20L,"Mehmet Santor");
 
 
-
-        authorService.deleteById(author.getId());
-
-        Mockito.verify (authorService).deleteById(author.getId());
-
-    }
-
-    @Test
-    void deleteAll(){
-
-
-
-        authorService.deleteAll();
-
-        Mockito.verify (authorService).deleteAll();
-
+        ClientDTO entityDTO = entityMapperImpl.toDTO(entity);
+        assertEquals(entityDTO.getId(), entity.getId());
     }
 
 
     @Test
-    void deleteByName(){
+    void toDTOListTest() {
 
 
+        Client entity1 = addEntity(20L,"Mehmet Santor");
 
-        authorService.deleteByName(author.getFullName());
 
-        Mockito.verify (authorService).deleteByName(author.getFullName());
+        Client entity2 = addEntity(30L,"Mehmet asdfg");
 
+
+        List<Client> entities = Arrays.asList(entity1, entity2);
+
+        List<ClientDTO> entityDTOList = entityMapperImpl.toDTOList(entities);
+        assertEquals(entityDTOList.get(0).getId(), entity1.getId());
+        assertEquals(entityDTOList.get(1).getId(), entity2.getId());
     }
 
 
     @Test
-    void getByName(){
+    void toEntityTest() {
 
 
+        Client entity = addEntity(20L,"Mehmet Santor");
 
-        authorService.getByName(author.getFullName());
 
-        Mockito.verify (authorService).getByName(author.getFullName());
+        ClientDTO entityDTO = entityMapperImpl.toDTO(entity);
+
+        Client entity1 = entityMapperImpl.toEntity(entityDTO);
+
+        assertEquals(entity1.getId(), entityDTO.getId());
 
     }
-
 
     @Test
-    void getById() {
+    void toEntityListTest() {
 
 
+        Client entity1 = addEntity(20L,"Mehmet Santor");
 
-        authorService.getById(author.getId());
 
-        Mockito.verify (authorService).getById(author.getId());
+        Client entity2 = addEntity(30L,"Mehmet asdfg");
 
+
+        List<Client> entities = Arrays.asList(entity1, entity2);
+
+        List<ClientDTO> entityDTOList = entityMapperImpl.toDTOList(entities);
+
+        List<Client> entityList = entityMapperImpl.toEntityList(entityDTOList);
+
+
+        assertEquals(entityDTOList.get(0).getId(), entityList.get(0).getId());
+        assertEquals(entityDTOList.get(1).getId(), entityList.get(1).getId());
     }
-
-
-
-    @Test
-    void getAll() {
-
-
-
-        authorService.getAll();
-
-        Mockito.verify (authorService).getAll();
-
-    }
-
-
 
 }

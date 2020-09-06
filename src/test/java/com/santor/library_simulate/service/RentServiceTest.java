@@ -2,7 +2,6 @@ package com.santor.library_simulate.service;
 
 import com.santor.library_simulate.dao.RentRepository;
 import com.santor.library_simulate.dto.RentDTO;
-import com.santor.library_simulate.mapper.RentMapper;
 import com.santor.library_simulate.mapper.RentMapperImpl;
 import com.santor.library_simulate.model.Author;
 import com.santor.library_simulate.model.Book;
@@ -10,24 +9,15 @@ import com.santor.library_simulate.model.Client;
 import com.santor.library_simulate.model.Rent;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.junit.runner.RunWith;
-import org.mapstruct.factory.Mappers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.Spy;
-import org.mockito.junit.MockitoJUnitRunner;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.time.LocalDate;
-import java.util.Date;
-import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class RentServiceTest {

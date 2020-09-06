@@ -1,9 +1,14 @@
 package com.santor.library_simulate.dao;
 
 import com.santor.library_simulate.model.Author;
+import com.santor.library_simulate.model.Book;
+import com.santor.library_simulate.model.Client;
+import com.santor.library_simulate.model.Rent;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -14,10 +19,30 @@ class AuthorRepositoryTest {
     private AuthorRepository authorRepository ;
 
     private void addAuthor(Long id,String fullName){
+        Rent rent = new Rent();
+        rent.setId(20L);
+        rent.setStartDate(LocalDate.now());
+        rent.setFinishDate(LocalDate.now());
+
+        Book book = new Book();
+        book.setFullName("Facebook");
+        book.setPage(800);
 
         Author author = new Author();
-        author.setId(id);
-        author.setFullName(fullName);
+        author.setId(2L);
+        author.setFullName("Mehmet Santor");
+        author.getBooks().add(book);
+
+        Client client = new Client();
+        client.setEMail("alskdmlaks@gmail.com");
+        client.setFullName("msantor");
+        client.setPassword("1234");
+        client.setPhone("30203320");
+
+        rent.setClient(client);
+        rent.getBooks().add(book);
+
+        client.getRents().add(rent);
 
         authorRepository.save(author);
     }
