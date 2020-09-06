@@ -23,83 +23,45 @@ class RentServiceTest {
 
     @Mock
     private RentMapperImpl rentMapper;
-    //
+
     @Mock
     private RentRepository rentRepository;
 
     @InjectMocks
     private RentServiceImpl rentService;
-//    private Rent rent = Mockito.mock(Rent.class) ;
 
-
-//
-//    @Test
-//    void add() throws Exception {
-//
-//        whe
-//        rentService.add(rent);
-//
-//        verify (rentService).add(rent);
-//
-//    }
-//
-//    @Test
-//    void update() throws Exception {
-//
-//
-//
-//        rentService.update(rent);
-//
-//        verify (rentService).update(rent);
-//
-//    }
-//
-//    @Test
-//    void deleteById() throws Exception {
-//
-//
-//
-//        rentService.deleteById(rent.getId());
-//
-//        verify (rentService).deleteById(rent.getId());
-//
-//    }
-//
-//    @Test
-//    void deleteAll() throws Exception {
-//
-//
-//
-//        rentService.deleteAll();
-//
-//        verify (rentService).deleteAll();
-//
-//    }
 
 
 
     @Test
     void getById() {
-        Rent rent = new Rent();
-        rent.setId(20L);
-        rent.setStartDate(LocalDate.now());
-        rent.setFinishDate(LocalDate.now());
+        Author author = new Author();
+        author.setId(20L);
+        author.setFullName("sdfghj dfghj");
 
         Book book = new Book();
-        book.setFullName("Facebook");
+        book.setId(2L);
+        book.setFullName("asdfgh dfgd");
+        book.setType("sadfsd");
+        book.setDescription("dsfgash");
+        book.setPublisher("dfghj dsdf");
+        book.setReleaseYear(LocalDate.now());
         book.setPage(800);
+        book.setStock(800);
 
-        Author author = new Author();
-        author.setId(2L);
-        author.setFullName("Mehmet Santor");
         author.getBooks().add(book);
 
         Client client = new Client();
+        client.setId(30L);
         client.setEMail("alskdmlaks@gmail.com");
         client.setFullName("msantor");
         client.setPassword("1234");
         client.setPhone("30203320");
 
+        Rent rent = new Rent();
+        rent.setId(20L);
+        rent.setStartDate(LocalDate.now());
+        rent.setFinishDate(LocalDate.now());
         rent.setClient(client);
         rent.getBooks().add(book);
 
@@ -119,19 +81,6 @@ class RentServiceTest {
 
         assertEquals(expected.getId(), 20L);
     }
-
-
-
-//    @Test
-//    void getAll() throws Exception {
-//
-//
-//
-//        rentService.getAll();
-//
-//        verify (rentService).getAll();
-//
-//    }
 
 
 
