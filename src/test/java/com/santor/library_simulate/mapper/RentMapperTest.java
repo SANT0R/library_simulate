@@ -30,9 +30,14 @@ class RentMapperTest {
         author.setFullName(fullName);
 
         Book book = new Book();
-        book.setId(25L);
-        book.setFullName("Facebook");
+        book.setId(id);
+        book.setFullName(fullName);
+        book.setType("sadfsd");
+        book.setDescription("dsfgash");
+        book.setPublisher("dfghj dsdf");
+        book.setReleaseYear(LocalDate.now());
         book.setPage(800);
+        book.setStock(800);
 
         author.getBooks().add(book);
 

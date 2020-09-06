@@ -1,6 +1,5 @@
 package com.santor.library_simulate.dao;
 
-import com.santor.library_simulate.model.Author;
 import com.santor.library_simulate.model.Book;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

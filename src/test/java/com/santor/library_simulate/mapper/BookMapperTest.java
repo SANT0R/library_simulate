@@ -31,7 +31,12 @@ class BookMapperTest {
         Book book = new Book();
         book.setId(id);
         book.setFullName(fullName);
+        book.setType("sadfsd");
+        book.setDescription("dsfgash");
+        book.setPublisher("dfghj dsdf");
+        book.setReleaseYear(LocalDate.now());
         book.setPage(800);
+        book.setStock(800);
 
         author.getBooks().add(book);
 
