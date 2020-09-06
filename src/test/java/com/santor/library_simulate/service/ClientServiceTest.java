@@ -6,8 +6,8 @@ import org.mockito.Mockito;
 
 class ClientServiceTest {
 
-    private ClientService clientService = Mockito.mock(ClientService.class) ;
-    private Client client = Mockito.mock(Client.class) ;
+    private ClientService entityService = Mockito.mock(ClientService.class) ;
+    private Client entity = Mockito.mock(Client.class) ;
 
 
 
@@ -15,9 +15,9 @@ class ClientServiceTest {
     void add(){
 
 
-        clientService.add(client);
+        entityService.add(entity);
 
-        Mockito.verify (clientService).add(client);
+        Mockito.verify (entityService).add(entity);
 
     }
 
@@ -26,9 +26,9 @@ class ClientServiceTest {
 
 
 
-        clientService.update(client);
+        entityService.update(entity);
 
-        Mockito.verify (clientService).update(client);
+        Mockito.verify (entityService).update(entity);
 
     }
 
@@ -37,9 +37,9 @@ class ClientServiceTest {
 
 
 
-        clientService.deleteById(client.getId());
+        entityService.deleteById(entity.getId());
 
-        Mockito.verify (clientService).deleteById(client.getId());
+        Mockito.verify (entityService).deleteById(entity.getId());
 
     }
 
@@ -48,9 +48,9 @@ class ClientServiceTest {
 
 
 
-        clientService.deleteAll();
+        entityService.deleteAll();
 
-        Mockito.verify (clientService).deleteAll();
+        Mockito.verify (entityService).deleteAll();
 
     }
 
@@ -60,9 +60,9 @@ class ClientServiceTest {
 
 
 
-        clientService.deleteByName(client.getFullName());
+        entityService.deleteByName(entity.getFullName());
 
-        Mockito.verify (clientService).deleteByName(client.getFullName());
+        Mockito.verify (entityService).deleteByName(entity.getFullName());
 
     }
 
@@ -72,9 +72,9 @@ class ClientServiceTest {
 
 
 
-        clientService.getByName(client.getFullName());
+        entityService.getByName(entity.getFullName());
 
-        Mockito.verify (clientService).getByName(client.getFullName());
+        Mockito.verify (entityService).getByName(entity.getFullName());
 
     }
 
@@ -84,9 +84,9 @@ class ClientServiceTest {
 
 
 
-        clientService.getById(client.getId());
+        entityService.getById(entity.getId());
 
-        Mockito.verify (clientService).getById(client.getId());
+        Mockito.verify (entityService).getById(entity.getId());
 
     }
 
@@ -97,9 +97,9 @@ class ClientServiceTest {
 
 
 
-        clientService.getAll();
+        entityService.getAll();
 
-        Mockito.verify (clientService).getAll();
+        Mockito.verify (entityService).getAll();
 
     }
 

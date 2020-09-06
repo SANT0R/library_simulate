@@ -6,9 +6,8 @@ import org.mockito.Mockito;
 
 class BookServiceTest {
 
-    private BookService bookService = Mockito.mock(BookService.class) ;
-    private Book book = Mockito.mock(Book.class) ;
-
+    private BookService entityService = Mockito.mock(BookService.class) ;
+    private Book entity = Mockito.mock(Book.class) ;
 
 
 
@@ -16,9 +15,9 @@ class BookServiceTest {
     void add(){
 
 
-        bookService.add(book);
+        entityService.add(entity);
 
-        Mockito.verify (bookService).add(book);
+        Mockito.verify (entityService).add(entity);
 
     }
 
@@ -27,9 +26,9 @@ class BookServiceTest {
 
 
 
-        bookService.update(book);
+        entityService.update(entity);
 
-        Mockito.verify (bookService).update(book);
+        Mockito.verify (entityService).update(entity);
 
     }
 
@@ -38,9 +37,9 @@ class BookServiceTest {
 
 
 
-        bookService.deleteById(book.getId());
+        entityService.deleteById(entity.getId());
 
-        Mockito.verify (bookService).deleteById(book.getId());
+        Mockito.verify (entityService).deleteById(entity.getId());
 
     }
 
@@ -49,9 +48,9 @@ class BookServiceTest {
 
 
 
-        bookService.deleteAll();
+        entityService.deleteAll();
 
-        Mockito.verify (bookService).deleteAll();
+        Mockito.verify (entityService).deleteAll();
 
     }
 
@@ -61,9 +60,9 @@ class BookServiceTest {
 
 
 
-        bookService.deleteByName(book.getFullName());
+        entityService.deleteByName(entity.getFullName());
 
-        Mockito.verify (bookService).deleteByName(book.getFullName());
+        Mockito.verify (entityService).deleteByName(entity.getFullName());
 
     }
 
@@ -73,9 +72,9 @@ class BookServiceTest {
 
 
 
-        bookService.getByName(book.getFullName());
+        entityService.getByName(entity.getFullName());
 
-        Mockito.verify (bookService).getByName(book.getFullName());
+        Mockito.verify (entityService).getByName(entity.getFullName());
 
     }
 
@@ -85,9 +84,9 @@ class BookServiceTest {
 
 
 
-        bookService.getById(book.getId());
+        entityService.getById(entity.getId());
 
-        Mockito.verify (bookService).getById(book.getId());
+        Mockito.verify (entityService).getById(entity.getId());
 
     }
 
@@ -98,9 +97,9 @@ class BookServiceTest {
 
 
 
-        bookService.getAll();
+        entityService.getAll();
 
-        Mockito.verify (bookService).getAll();
+        Mockito.verify (entityService).getAll();
 
     }
 

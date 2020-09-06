@@ -4,12 +4,10 @@ import com.santor.library_simulate.model.Author;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
-
 class AuthorServiceTest {
 
-    private AuthorService authorService = Mockito.mock(AuthorService.class) ;
-    private Author author = Mockito.mock(Author.class) ;
-
+    private AuthorService entityService = Mockito.mock(AuthorService.class) ;
+    private Author entity = Mockito.mock(Author.class) ;
 
 
 
@@ -17,9 +15,9 @@ class AuthorServiceTest {
     void add(){
 
 
-        authorService.add(author);
+        entityService.add(entity);
 
-        Mockito.verify (authorService).add(author);
+        Mockito.verify (entityService).add(entity);
 
     }
 
@@ -28,9 +26,9 @@ class AuthorServiceTest {
 
 
 
-        authorService.update(author);
+        entityService.update(entity);
 
-        Mockito.verify (authorService).update(author);
+        Mockito.verify (entityService).update(entity);
 
     }
 
@@ -39,9 +37,9 @@ class AuthorServiceTest {
 
 
 
-        authorService.deleteById(author.getId());
+        entityService.deleteById(entity.getId());
 
-        Mockito.verify (authorService).deleteById(author.getId());
+        Mockito.verify (entityService).deleteById(entity.getId());
 
     }
 
@@ -50,9 +48,9 @@ class AuthorServiceTest {
 
 
 
-        authorService.deleteAll();
+        entityService.deleteAll();
 
-        Mockito.verify (authorService).deleteAll();
+        Mockito.verify (entityService).deleteAll();
 
     }
 
@@ -62,9 +60,9 @@ class AuthorServiceTest {
 
 
 
-        authorService.deleteByName(author.getFullName());
+        entityService.deleteByName(entity.getFullName());
 
-        Mockito.verify (authorService).deleteByName(author.getFullName());
+        Mockito.verify (entityService).deleteByName(entity.getFullName());
 
     }
 
@@ -74,34 +72,34 @@ class AuthorServiceTest {
 
 
 
-        authorService.getByName(author.getFullName());
+        entityService.getByName(entity.getFullName());
 
-        Mockito.verify (authorService).getByName(author.getFullName());
+        Mockito.verify (entityService).getByName(entity.getFullName());
 
     }
 
 
     @Test
-    void getById() {
+    void getById(){
 
 
 
-        authorService.getById(author.getId());
+        entityService.getById(entity.getId());
 
-        Mockito.verify (authorService).getById(author.getId());
+        Mockito.verify (entityService).getById(entity.getId());
 
     }
 
 
 
     @Test
-    void getAll() {
+    void getAll(){
 
 
 
-        authorService.getAll();
+        entityService.getAll();
 
-        Mockito.verify (authorService).getAll();
+        Mockito.verify (entityService).getAll();
 
     }
 
