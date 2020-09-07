@@ -1,13 +1,11 @@
 package com.santor.library_simulate.model;
 
 import com.santor.library_simulate.model.base.BaseModel;
-import javafx.embed.swing.JFXPanel;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
