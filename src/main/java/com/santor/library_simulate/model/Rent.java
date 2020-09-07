@@ -34,7 +34,7 @@ public class Rent extends BaseModel {
     public int pageSum(){
 
         int pageSum = 0;
-        for (Book book : books) {
+        for (Book book : this.books) {
             pageSum += book.getPage();
         }
         return pageSum;

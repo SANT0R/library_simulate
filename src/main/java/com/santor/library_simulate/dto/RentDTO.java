@@ -28,7 +28,7 @@ public class RentDTO extends BaseDTO {
     public int pageSum(){
 
         int pageSum = 0;
-        for (BookDTO book : books) {
+        for (BookDTO book : this.books) {
             pageSum += book.getPage();
         }
         return pageSum;
