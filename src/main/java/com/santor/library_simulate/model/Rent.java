@@ -1,11 +1,13 @@
 package com.santor.library_simulate.model;
 
 import com.santor.library_simulate.model.base.BaseModel;
+import javafx.embed.swing.JFXPanel;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -20,7 +22,7 @@ public class Rent extends BaseModel {
     private LocalDate startDate ;
 
     @Column(nullable = false)
-    private LocalDate finishDate ;
+    private LocalDate finishDate = startDate.plusDays(pageSum()/5);
 
     private LocalDate returnDate ;
 
@@ -29,5 +31,15 @@ public class Rent extends BaseModel {
 
     @ManyToOne
     private Client client;
+
+
+    public int pageSum(){
+
+        int pageSum = 0;
+        for (Book book : books) {
+            pageSum += book.getPage();
+        }
+        return pageSum;
+    }
 
 }
