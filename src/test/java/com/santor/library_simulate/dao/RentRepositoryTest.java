@@ -48,7 +48,8 @@ class RentRepositoryTest {
         addEntity(10L);
 
 
-        entityRepository.deleteById(10L);
+        Rent entity = entityRepository.getOne(10L);
+        entityRepository.delete(entity);
 
         assertEquals(entityRepository.count(), 0);
 

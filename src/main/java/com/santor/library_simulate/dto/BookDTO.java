@@ -1,7 +1,6 @@
 package com.santor.library_simulate.dto;
 
 import com.santor.library_simulate.dto.base.BaseDTO;
-import com.santor.library_simulate.model.Author;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -26,7 +25,7 @@ public class BookDTO extends BaseDTO {
 
     private int stock;
 
-    private Author author;
+    private AuthorDTO author;
 
 
 }

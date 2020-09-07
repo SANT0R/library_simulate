@@ -1,7 +1,6 @@
 package com.santor.library_simulate.dto;
 
 import com.santor.library_simulate.dto.base.BaseDTO;
-import com.santor.library_simulate.model.Book;
 import com.santor.library_simulate.model.Client;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -18,12 +17,20 @@ public class RentDTO extends BaseDTO {
     private static final long serialVersionUID = -8346283353054250213L;
     private LocalDate startDate;
 
-    private LocalDate finishDate;
+    private LocalDate finishDate = startDate.plusDays(pageSum()/5);
 
     private LocalDate returnDate;
 
-    private Set<Book> books = new HashSet<>();
+    private Set<BookDTO> books = new HashSet<>();
 
     private Client client;
 
+    public int pageSum(){
+
+        int pageSum = 0;
+        for (BookDTO book : books) {
+            pageSum += book.getPage();
+        }
+        return pageSum;
+    }
 }
