@@ -43,7 +43,7 @@ public class RentServiceImpl implements RentService {
 
                 }
                 if (book.getStock()==0){
-                    
+
                     throw new ApiRequestException(book.getFullName()+
                             " kitabı stokta bulunmadığı için kiralama işlemi tamamlanamadı.", HttpStatus.NOT_FOUND);
                 }

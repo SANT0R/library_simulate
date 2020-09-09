@@ -114,7 +114,7 @@ public class BookController {
 
         try {
 
-            List<BookDTO> entityDTOList =entityService.getAll();
+            List<BookDTO> entityDTOList =entityService.getAll(Boolean.TRUE);
 
             if (entityDTOList.isEmpty()) {
 
@@ -194,7 +194,7 @@ public class BookController {
 
         try {
 
-            List<BookDTO> entityDTOList =entityService.getAll();
+            List<BookDTO> entityDTOList =entityService.getAll(Boolean.TRUE);
 
             if (entityDTOList.isEmpty()) {
 

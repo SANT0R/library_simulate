@@ -97,9 +97,9 @@ class BookServiceTest {
 
 
 
-        entityService.getAll();
+        entityService.getAll(Boolean.TRUE);
 
-        Mockito.verify (entityService).getAll();
+        Mockito.verify (entityService).getAll(Boolean.TRUE);
 
     }
 
