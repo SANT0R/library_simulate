@@ -24,9 +24,9 @@ public interface BookService {
     /**
      * Get a book by full name
      * @param fullName
-     * @return BookDTO
+     * @return List<BookDTO>
      */
-    BookDTO getByName(String fullName);
+    List<BookDTO> getByName(String fullName);
 
     /**
      * Delete all books

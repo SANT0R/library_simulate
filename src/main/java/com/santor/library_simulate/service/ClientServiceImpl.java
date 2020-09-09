@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -71,18 +72,28 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
-    public ClientDTO getByName(String fullName) {
+    public List<ClientDTO> getByName(String fullName) {
 
-        try {
+        List<Client> clients = entityRepository.findAll();
+        List<Client> getClients = new ArrayList<>() ;
 
-            Client entity = entityRepository.findByFullName(fullName);
-            return entityMapper.toDTO(entity);
-        } catch (EntityNotFoundException e) {
+        for (Client client : clients){
+            if (client.getFullName().contains(fullName)){
+
+                getClients.add(client);
+            }
+        }
+
+        if (getClients.isEmpty()){
 
             throw new ApiRequestException(fullName +
                     " adlı kullanıcı bulunamadığı için işleminiz tamamlanamadı.", HttpStatus.METHOD_NOT_ALLOWED);
 
         }
+
+
+        return entityMapper.toDTOList (getClients);
+
     }
 
     @Override

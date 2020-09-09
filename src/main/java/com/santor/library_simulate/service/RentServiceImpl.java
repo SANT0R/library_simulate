@@ -211,6 +211,7 @@ statusCode - the numerical status code.
 Returns:
 the matching Status or null is no matching Status is defined.
  */
+
 @Service
 public class RentServiceImpl implements RentService {
 
@@ -226,6 +227,8 @@ public class RentServiceImpl implements RentService {
             pageSum += book.getPage();
 
             List<Long> bookIds = new ArrayList<>();
+
+            bookIds.add(0L);
 
             for (Long id : bookIds) {
                 if (book.getId()==null){
@@ -245,7 +248,7 @@ public class RentServiceImpl implements RentService {
                             " kitabı stokta bulunmadığı için kiralama işlemi tamamlanamadı.", HttpStatus.NOT_FOUND);
                 }
                 else {
-                    book.setStock(book.getStock()-1);
+                    book.setStock(book.getStock() - 1);
                 }
             }
             bookIds.add(book.getId());

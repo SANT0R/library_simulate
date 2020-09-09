@@ -1,105 +1,67 @@
 package com.santor.library_simulate.service;
 
+import com.santor.library_simulate.dao.BookRepository;
+import com.santor.library_simulate.dao.RentRepository;
+import com.santor.library_simulate.dto.BookDTO;
+import com.santor.library_simulate.mapper.BookMapperImpl;
+import com.santor.library_simulate.mapper.RentMapperImpl;
 import com.santor.library_simulate.model.Book;
+import com.santor.library_simulate.model.Rent;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+@ExtendWith(MockitoExtension.class)
 class BookServiceTest {
 
-    private BookService entityService = Mockito.mock(BookService.class) ;
-    private Book entity = Mockito.mock(Book.class) ;
 
 
+    @Mock
+    private BookMapperImpl bookMapper;
 
-    @Test
-    void add(){
+    @Mock
+    private BookRepository bookRepository;
 
+    @InjectMocks
+    private BookServiceImpl bookService;
 
-        entityService.add(entity);
-
-        Mockito.verify (entityService).add(entity);
-
-    }
-
-    @Test
-    void update(){
-
-
-
-        entityService.update(entity);
-
-        Mockito.verify (entityService).update(entity);
-
-    }
-
-    @Test
-    void deleteById(){
-
-
-
-        entityService.deleteById(entity.getId());
-
-        Mockito.verify (entityService).deleteById(entity.getId());
-
-    }
-
-    @Test
-    void deleteAll(){
-
-
-
-        entityService.deleteAll();
-
-        Mockito.verify (entityService).deleteAll();
-
-    }
-
-
-    @Test
-    void deleteByName(){
-
-
-
-        entityService.deleteByName(entity.getFullName());
-
-        Mockito.verify (entityService).deleteByName(entity.getFullName());
-
-    }
-
-
-    @Test
-    void getByName(){
-
-
-
-        entityService.getByName(entity.getFullName());
-
-        Mockito.verify (entityService).getByName(entity.getFullName());
-
-    }
-
-
-    @Test
-    void getById(){
-
-
-
-        entityService.getById(entity.getId());
-
-        Mockito.verify (entityService).getById(entity.getId());
-
-    }
 
 
 
     @Test
-    void getAll(){
+    void getByNameTest() {
+        Book book1 = new Book();
+        book1.setFullName("konyalı");
+
+        bookService.add(book1);
+
+        Book book2 = new Book();
+        book2.setFullName("urfalıyam ezelden");
+
+        bookService.add(book2);
+
+        Book book3 = new Book();
+        book3.setFullName("ağrılı halo");
+
+        bookService.add(book3);
+
+        List<BookDTO> books = bookService.getByName("ya");
+
+        List<BookDTO> expected = new ArrayList<>();
+        books.add(bookMapper.toDTO(book1));
+        books.add(bookMapper.toDTO(book2));
 
 
-
-        entityService.getAll(Boolean.TRUE);
-
-        Mockito.verify (entityService).getAll(Boolean.TRUE);
+        assertEquals(books, expected);
 
     }
 

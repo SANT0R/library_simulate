@@ -79,19 +79,29 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public BookDTO getByName(String fullName) {
+    public List<BookDTO> getByName(String fullName) {
 
-        try {
+        List<Book> books = entityRepository.findAll();
+        List<Book> getBooks = new ArrayList<>() ;
+        getBooks.add(entityRepository.findByFullName(fullName));
 
-            Book entity = entityRepository.findByFullName(fullName);
-            return entityMapper.toDTO (entity);
+        for (Book book : books){
+            if (book.getFullName().contains(fullName)){
+
+                getBooks.add(book);
+            }
         }
-        catch (EntityNotFoundException e){
+
+        if (getBooks.isEmpty()){
 
             throw new ApiRequestException(fullName +
                     " adlı kitap bulunamadığı için işleminiz tamamlanamadı.", HttpStatus.METHOD_NOT_ALLOWED);
 
         }
+
+
+        return entityMapper.toDTOList (getBooks);
+
     }
 
     @Override

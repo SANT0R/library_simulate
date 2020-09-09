@@ -1,6 +1,5 @@
 package com.santor.library_simulate.controller;
 
-import com.santor.library_simulate.dto.BookDTO;
 import com.santor.library_simulate.dto.ClientDTO;
 import com.santor.library_simulate.exception.ApiRequestException;
 import com.santor.library_simulate.model.Client;
@@ -154,7 +153,7 @@ public class ClientController {
 
     @ApiOperation(value = "Get clients by name")
     @PostMapping("/getByName")
-    public ResponseEntity<ClientDTO> getByName(@RequestParam String fullName) {
+    public ResponseEntity<List<ClientDTO>> getByName(@RequestParam String fullName) {
 
         try {
 

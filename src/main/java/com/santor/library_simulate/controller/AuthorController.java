@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ServerErrorException;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import javax.persistence.EntityNotFoundException;
 import java.net.URI;
 import java.util.List;
 
@@ -154,7 +153,7 @@ public class AuthorController {
 
     @ApiOperation(value = "Get authors by name")
     @PostMapping("/getByName")
-    public ResponseEntity<AuthorDTO> getByName(@RequestParam String fullName) {
+    public ResponseEntity<List<AuthorDTO>> getByName(@RequestParam String fullName) {
 
         try {
 

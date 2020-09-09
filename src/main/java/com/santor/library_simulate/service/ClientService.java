@@ -23,9 +23,9 @@ public interface ClientService {
     /**
      * Get a client by full name
      * @param fullName
-     * @return ClientDTO
+     * @return List<ClientDTO>
      */
-    ClientDTO getByName(String fullName);
+    List<ClientDTO> getByName(String fullName);
 
     /**
      * Delete all clients
