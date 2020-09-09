@@ -54,11 +54,17 @@ class BookServiceTest {
 
         bookService.add(book3);
 
+        Book book4 = new Book();
+        book4.setFullName("ya");
+
+        bookService.add(book4);
+
         List<BookDTO> books = bookService.getByName("ya");
 
         List<BookDTO> expected = new ArrayList<>();
         books.add(bookMapper.toDTO(book1));
         books.add(bookMapper.toDTO(book2));
+        books.add(bookMapper.toDTO(book4));
 
 
         assertEquals(books, expected);
