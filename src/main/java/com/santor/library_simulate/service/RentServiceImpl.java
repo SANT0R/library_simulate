@@ -32,6 +32,7 @@ public class RentServiceImpl implements RentService {
 
             for (Long id : bookIds) {
                 if (book.getId()==null){
+
                     throw new ApiRequestException(book.getFullName()+
                             " adlı kitap bulunamadığı için kiralama işlemi tamamlanamadı.", HttpStatus.METHOD_NOT_ALLOWED);
                 }
@@ -42,6 +43,7 @@ public class RentServiceImpl implements RentService {
 
                 }
                 if (book.getStock()==0){
+                    
                     throw new ApiRequestException(book.getFullName()+
                             " kitabı stokta bulunmadığı için kiralama işlemi tamamlanamadı.", HttpStatus.NOT_FOUND);
                 }
