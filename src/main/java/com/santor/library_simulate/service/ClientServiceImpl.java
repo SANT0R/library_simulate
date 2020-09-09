@@ -7,6 +7,7 @@ import com.santor.library_simulate.exception.ApiRequestException;
 import com.santor.library_simulate.mapper.ClientMapper;
 import com.santor.library_simulate.model.Client;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
@@ -38,7 +39,9 @@ public class ClientServiceImpl implements ClientService {
 
         } else {
 
-            throw new ApiRequestException("Client not found");
+            throw new ApiRequestException(entity.getId() +
+                    " id numaralı kullanıcı bulunamadığı için işleminiz tamamlanamadı.", HttpStatus.METHOD_NOT_ALLOWED);
+
         }
 
     }
@@ -60,7 +63,9 @@ public class ClientServiceImpl implements ClientService {
             return entityMapper.toDTO(entity);
         } catch (EntityNotFoundException e) {
 
-            throw new ApiRequestException("Client not found");
+            throw new ApiRequestException(id +
+                    " id numaralı kullanıcı bulunamadığı için işleminiz tamamlanamadı.", HttpStatus.METHOD_NOT_ALLOWED);
+
         }
 
     }
@@ -74,7 +79,9 @@ public class ClientServiceImpl implements ClientService {
             return entityMapper.toDTO(entity);
         } catch (EntityNotFoundException e) {
 
-            throw new ApiRequestException("Client not found");
+            throw new ApiRequestException(fullName +
+                    " adlı kullanıcı bulunamadığı için işleminiz tamamlanamadı.", HttpStatus.METHOD_NOT_ALLOWED);
+
         }
     }
 
@@ -88,7 +95,9 @@ public class ClientServiceImpl implements ClientService {
             entityRepository.delete(entity);
         } catch (EntityNotFoundException e) {
 
-            throw new ApiRequestException("Client not found");
+            throw new ApiRequestException(fullName +
+                    " adlı kullanıcı bulunamadığı için işleminiz tamamlanamadı.", HttpStatus.METHOD_NOT_ALLOWED);
+
         }
 
     }
@@ -109,7 +118,9 @@ public class ClientServiceImpl implements ClientService {
             entityRepository.delete(entity);
         } catch (EntityNotFoundException e) {
 
-            throw new ApiRequestException("Client not found");
+            throw new ApiRequestException(id +
+                    " id numaralı kullanıcı bulunamadığı için işleminiz tamamlanamadı.", HttpStatus.METHOD_NOT_ALLOWED);
+
         }
 
 

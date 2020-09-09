@@ -7,9 +7,11 @@ import com.santor.library_simulate.exception.ApiRequestException;
 import com.santor.library_simulate.mapper.BookMapper;
 import com.santor.library_simulate.model.Book;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -38,16 +40,23 @@ public class BookServiceImpl implements BookService {
         }
         else {
 
-            throw new ApiRequestException("Book not found");
+            throw new ApiRequestException(entity.getId() +
+                    " id numaralı kitap bulunamadığı için işleminiz tamamlanamadı.", HttpStatus.METHOD_NOT_ALLOWED);
+
         }
 
     }
 
     @Override
-    public List<BookDTO> getAll() {
+    public List<BookDTO> getAll(Boolean atStock) {
 
+        List<Book> books;
 
-        return entityMapper.toDTOList(entityRepository.findAll());
+        books = entityRepository.findAll();
+        if (atStock) {
+            books.removeIf(book -> book.getStock() == 0);
+        }
+        return entityMapper.toDTOList(books);
     }
 
 
@@ -62,7 +71,9 @@ public class BookServiceImpl implements BookService {
         }
         catch (EntityNotFoundException e){
 
-            throw new ApiRequestException("Book not found");
+            throw new ApiRequestException(id +
+                    " id numaralı kitap bulunamadığı için işleminiz tamamlanamadı.", HttpStatus.METHOD_NOT_ALLOWED);
+
         }
 
     }
@@ -77,7 +88,9 @@ public class BookServiceImpl implements BookService {
         }
         catch (EntityNotFoundException e){
 
-            throw new ApiRequestException("Book not found");
+            throw new ApiRequestException(fullName +
+                    " adlı kitap bulunamadığı için işleminiz tamamlanamadı.", HttpStatus.METHOD_NOT_ALLOWED);
+
         }
     }
 
@@ -92,7 +105,9 @@ public class BookServiceImpl implements BookService {
         }
         catch (EntityNotFoundException e){
 
-            throw new ApiRequestException("Book not found");
+            throw new ApiRequestException(fullName +
+                    " adlı kitap bulunamadığı için işleminiz tamamlanamadı.", HttpStatus.METHOD_NOT_ALLOWED);
+
         }
 
     }
@@ -114,7 +129,9 @@ public class BookServiceImpl implements BookService {
         }
         catch (EntityNotFoundException e){
 
-            throw new ApiRequestException("Book not found");
+            throw new ApiRequestException(id +
+                    " id numaralı kitap bulunamadığı için işleminiz tamamlanamadı.", HttpStatus.METHOD_NOT_ALLOWED);
+
         }
 
 

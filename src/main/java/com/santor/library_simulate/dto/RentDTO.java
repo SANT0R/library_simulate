@@ -17,7 +17,7 @@ public class RentDTO extends BaseDTO {
     private static final long serialVersionUID = -8346283353054250213L;
     private LocalDate startDate;
 
-    private LocalDate finishDate = startDate.plusDays(pageSum()/5);
+    private LocalDate finishDate ;
 
     private LocalDate returnDate;
 
@@ -25,12 +25,4 @@ public class RentDTO extends BaseDTO {
 
     private Client client;
 
-    public int pageSum(){
-
-        int pageSum = 0;
-        for (BookDTO book : this.books) {
-            pageSum += book.getPage();
-        }
-        return pageSum;
-    }
 }

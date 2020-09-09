@@ -7,6 +7,7 @@ import com.santor.library_simulate.exception.ApiRequestException;
 import com.santor.library_simulate.mapper.AuthorMapper;
 import com.santor.library_simulate.model.Author;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
@@ -39,7 +40,9 @@ public class AuthorServiceImpl implements AuthorService {
         }
         else {
 
-            throw new ApiRequestException("Author not found");
+            throw new ApiRequestException(entity.getId() +
+                    " id numaralı yazar bulunamadığı için işleminiz tamamlanamadı.", HttpStatus.METHOD_NOT_ALLOWED);
+
         }
 
     }
@@ -63,7 +66,9 @@ public class AuthorServiceImpl implements AuthorService {
         }
         catch (EntityNotFoundException e){
 
-            throw new ApiRequestException("Author not found");
+            throw new ApiRequestException(id +
+                    " id numaralı yazar bulunamadığı için işleminiz tamamlanamadı.", HttpStatus.METHOD_NOT_ALLOWED);
+
         }
 
     }
@@ -78,7 +83,9 @@ public class AuthorServiceImpl implements AuthorService {
         }
         catch (EntityNotFoundException e){
 
-            throw new ApiRequestException("Author not found");
+            throw new ApiRequestException(fullName +
+                    " adlı yazar bulunamadığı için işleminiz tamamlanamadı.", HttpStatus.METHOD_NOT_ALLOWED);
+
         }
     }
 
@@ -93,7 +100,9 @@ public class AuthorServiceImpl implements AuthorService {
         }
         catch (EntityNotFoundException e){
 
-            throw new ApiRequestException("Author not found");
+            throw new ApiRequestException(fullName +
+                    " adlı yazar bulunamadığı için işleminiz tamamlanamadı.", HttpStatus.METHOD_NOT_ALLOWED);
+
         }
 
     }
@@ -115,7 +124,9 @@ public class AuthorServiceImpl implements AuthorService {
         }
         catch (EntityNotFoundException e){
 
-            throw new ApiRequestException("Author not found");
+            throw new ApiRequestException(id +
+                    " adlı yazar bulunamadığı için işleminiz tamamlanamadı.", HttpStatus.METHOD_NOT_ALLOWED);
+
         }
 
 

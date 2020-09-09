@@ -9,9 +9,10 @@ public interface BookService {
 
     /**
      * Get all books
+     * @param atStock
      * @return List<BookDTO>
      */
-    List<BookDTO> getAll();
+    List<BookDTO> getAll(Boolean atStock);
 
     /**
      * Get a book by id

@@ -1,11 +1,14 @@
 package com.santor.library_simulate.dao;
 
+import com.santor.library_simulate.model.Book;
 import com.santor.library_simulate.model.Rent;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -14,6 +17,7 @@ class RentRepositoryTest {
 
     @Autowired
     private RentRepository entityRepository ;
+    private BookRepository bookRepository ;
 
     private void addEntity(Long id){
 
@@ -22,6 +26,19 @@ class RentRepositoryTest {
         entity.setStartDate(LocalDate.now());
         entity.setFinishDate(LocalDate.now());
 
+        Set<Book> books = new HashSet<>();
+
+        Book book1 = new Book();
+        book1.setId(295L);
+        books.add(book1);
+        Book book2 = new Book();
+        book2.setId(296L);
+        books.add(book2);
+        Book book3 = new Book();
+        book3.setId(297L);
+        books.add(book3);
+
+        entity.setBooks(books);
         entityRepository.save(entity);
     }
 

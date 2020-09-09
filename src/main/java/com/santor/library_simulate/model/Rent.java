@@ -20,7 +20,7 @@ public class Rent extends BaseModel {
     private LocalDate startDate ;
 
     @Column(nullable = false)
-    private LocalDate finishDate = startDate.plusDays(pageSum()/5);
+    private LocalDate finishDate ;
 
     private LocalDate returnDate ;
 
@@ -31,13 +31,6 @@ public class Rent extends BaseModel {
     private Client client;
 
 
-    public int pageSum(){
 
-        int pageSum = 0;
-        for (Book book : this.books) {
-            pageSum += book.getPage();
-        }
-        return pageSum;
-    }
 
 }
