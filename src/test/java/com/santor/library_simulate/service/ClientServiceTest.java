@@ -38,22 +38,22 @@ class ClientServiceTest {
         Client entity1 = new Client();
         entity1.setFullName("konyalı");
 
-        entityService.add(entity1);
+        entityRepository.save(entity1);
 
         Client entity2 = new Client();
         entity2.setFullName("urfalıyam ezelden");
 
-        entityService.add(entity2);
+        entityRepository.save(entity2);
 
         Client entity3 = new Client();
         entity3.setFullName("ağrılı halo");
 
-        entityService.add(entity3);
+        entityRepository.save(entity3);
 
         Client entity4 = new Client();
         entity4.setFullName("ya");
 
-        entityService.add(entity4);
+        entityRepository.save(entity4);
 
         List<ClientDTO> entities = entityService.getByName("ya");
 

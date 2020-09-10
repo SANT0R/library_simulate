@@ -37,22 +37,22 @@ class BookServiceTest {
         Book entity1 = new Book();
         entity1.setFullName("konyalı");
 
-        entityService.add(entity1);
+        entityRepository.save(entity1);
 
         Book entity2 = new Book();
         entity2.setFullName("urfalıyam ezelden");
 
-        entityService.add(entity2);
+        entityRepository.save(entity2);
 
         Book entity3 = new Book();
         entity3.setFullName("ağrılı halo");
 
-        entityService.add(entity3);
+        entityRepository.save(entity3);
 
         Book entity4 = new Book();
         entity4.setFullName("ya");
 
-        entityService.add(entity4);
+        entityRepository.save(entity4);
 
         List<BookDTO> entities = entityService.getByName("ya");
 

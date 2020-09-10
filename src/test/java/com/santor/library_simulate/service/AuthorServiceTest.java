@@ -35,22 +35,22 @@ class AuthorServiceTest {
         Author entity1 = new Author();
         entity1.setFullName("konyalı");
 
-        entityService.add(entity1);
+        entityRepository.save(entity1);
 
         Author entity2 = new Author();
         entity2.setFullName("urfalıyam ezelden");
 
-        entityService.add(entity2);
+        entityRepository.save(entity2);
 
         Author entity3 = new Author();
         entity3.setFullName("ağrılı halo");
 
-        entityService.add(entity3);
+        entityRepository.save(entity3);
 
         Author entity4 = new Author();
         entity4.setFullName("ya");
 
-        entityService.add(entity4);
+        entityRepository.save(entity4);
 
         List<AuthorDTO> entities = entityService.getByName("ya");
 
