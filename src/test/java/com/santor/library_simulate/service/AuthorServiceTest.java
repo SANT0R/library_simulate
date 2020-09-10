@@ -54,9 +54,9 @@ class AuthorServiceTest {
         List<AuthorDTO> entities = entityService.getByName("ya");
 
         List<AuthorDTO> expected = new ArrayList<>();
-        entities.add(entityMapper.toDTO(entity1));
-        entities.add(entityMapper.toDTO(entity2));
-        entities.add(entityMapper.toDTO(entity4));
+        expected.add(entityMapper.toDTO(entity1));
+        expected.add(entityMapper.toDTO(entity2));
+        expected.add(entityMapper.toDTO(entity4));
 
 
         assertEquals(entities, expected);

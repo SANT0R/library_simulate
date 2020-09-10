@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.ArrayList;
@@ -19,8 +20,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class BookServiceTest {
 
 
-
-    @Mock
+    @Spy
     private BookMapperImpl entityMapper;
 
     @Mock
@@ -57,12 +57,12 @@ class BookServiceTest {
         List<BookDTO> entities = entityService.getByName("ya");
 
         List<BookDTO> expected = new ArrayList<>();
-        entities.add(entityMapper.toDTO(entity1));
-        entities.add(entityMapper.toDTO(entity2));
-        entities.add(entityMapper.toDTO(entity4));
+        expected.add(entityMapper.toDTO(entity1));
+        expected.add(entityMapper.toDTO(entity2));
+        expected.add(entityMapper.toDTO(entity4));
 
 
-        assertEquals(entities, expected);
+        assertEquals(expected, entities);
 
     }
 
