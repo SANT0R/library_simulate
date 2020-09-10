@@ -83,7 +83,7 @@ public class BookServiceImpl implements BookService {
 
         List<Book> books = entityRepository.findAll();
         List<Book> getBooks = new ArrayList<>() ;
-        getBooks.add(entityRepository.findByFullName(fullName));
+        //getBooks.add(entityRepository.findByFullName(fullName));
 
         for (Book book : books){
             if (book.getFullName().contains(fullName)){
