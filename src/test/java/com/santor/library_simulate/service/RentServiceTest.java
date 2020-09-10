@@ -1,15 +1,10 @@
 package com.santor.library_simulate.service;
 
-import com.santor.library_simulate.dao.BookRepository;
-import com.santor.library_simulate.dao.RentRepository;
-import com.santor.library_simulate.mapper.BookMapperImpl;
-import com.santor.library_simulate.mapper.RentMapperImpl;
 import com.santor.library_simulate.model.Book;
 import com.santor.library_simulate.model.Rent;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDate;
@@ -20,21 +15,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @ExtendWith(MockitoExtension.class)
 class RentServiceTest {
 
-    @Mock
-    private RentMapperImpl rentMapper;
-
-    @Mock
-    private RentRepository rentRepository;
 
     @InjectMocks
     private RentServiceImpl rentService;
 
-
-    @Mock
-    private BookMapperImpl bookMapper;
-
-    @Mock
-    private BookRepository bookRepository;
 
     @InjectMocks
     private BookServiceImpl bookService;

@@ -1,108 +1,66 @@
 package com.santor.library_simulate.service;
 
+import com.santor.library_simulate.dao.AuthorRepository;
+import com.santor.library_simulate.dto.AuthorDTO;
+import com.santor.library_simulate.mapper.AuthorMapperImpl;
 import com.santor.library_simulate.model.Author;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+@ExtendWith(MockitoExtension.class)
 class AuthorServiceTest {
 
-    private AuthorService entityService = Mockito.mock(AuthorService.class) ;
-    private Author entity = Mockito.mock(Author.class) ;
 
+    @Mock
+    private AuthorMapperImpl entityMapper;
 
+    @Mock
+    private AuthorRepository entityRepository;
 
-    @Test
-    void add(){
-
-
-        entityService.add(entity);
-
-        Mockito.verify (entityService).add(entity);
-
-    }
-
-    @Test
-    void update(){
-
-
-
-        entityService.update(entity);
-
-        Mockito.verify (entityService).update(entity);
-
-    }
-
-    @Test
-    void deleteById(){
-
-
-
-        entityService.deleteById(entity.getId());
-
-        Mockito.verify (entityService).deleteById(entity.getId());
-
-    }
-
-    @Test
-    void deleteAll(){
-
-
-
-        entityService.deleteAll();
-
-        Mockito.verify (entityService).deleteAll();
-
-    }
+    @InjectMocks
+    private AuthorServiceImpl entityService;
 
 
     @Test
-    void deleteByName(){
+    void getByNameTest() {
+        Author entity1 = new Author();
+        entity1.setFullName("konyalı");
+
+        entityService.add(entity1);
+
+        Author entity2 = new Author();
+        entity2.setFullName("urfalıyam ezelden");
+
+        entityService.add(entity2);
+
+        Author entity3 = new Author();
+        entity3.setFullName("ağrılı halo");
+
+        entityService.add(entity3);
+
+        Author entity4 = new Author();
+        entity4.setFullName("ya");
+
+        entityService.add(entity4);
+
+        List<AuthorDTO> entities = entityService.getByName("ya");
+
+        List<AuthorDTO> expected = new ArrayList<>();
+        entities.add(entityMapper.toDTO(entity1));
+        entities.add(entityMapper.toDTO(entity2));
+        entities.add(entityMapper.toDTO(entity4));
 
 
-
-        entityService.deleteByName(entity.getFullName());
-
-        Mockito.verify (entityService).deleteByName(entity.getFullName());
-
-    }
-
-
-    @Test
-    void getByName(){
-
-
-
-        entityService.getByName(entity.getFullName());
-
-        Mockito.verify (entityService).getByName(entity.getFullName());
-
-    }
-
-
-    @Test
-    void getById(){
-
-
-
-        entityService.getById(entity.getId());
-
-        Mockito.verify (entityService).getById(entity.getId());
-
-    }
-
-
-
-    @Test
-    void getAll(){
-
-
-
-        entityService.getAll();
-
-        Mockito.verify (entityService).getAll();
+        assertEquals(entities, expected);
 
     }
-
-
 
 }

@@ -1,22 +1,17 @@
 package com.santor.library_simulate.service;
 
 import com.santor.library_simulate.dao.BookRepository;
-import com.santor.library_simulate.dao.RentRepository;
 import com.santor.library_simulate.dto.BookDTO;
 import com.santor.library_simulate.mapper.BookMapperImpl;
-import com.santor.library_simulate.mapper.RentMapperImpl;
 import com.santor.library_simulate.model.Book;
-import com.santor.library_simulate.model.Rent;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -26,48 +21,48 @@ class BookServiceTest {
 
 
     @Mock
-    private BookMapperImpl bookMapper;
+    private BookMapperImpl entityMapper;
 
     @Mock
-    private BookRepository bookRepository;
+    private BookRepository entityRepository;
 
     @InjectMocks
-    private BookServiceImpl bookService;
+    private BookServiceImpl entityService;
 
 
 
 
     @Test
     void getByNameTest() {
-        Book book1 = new Book();
-        book1.setFullName("konyalı");
+        Book entity1 = new Book();
+        entity1.setFullName("konyalı");
 
-        bookService.add(book1);
+        entityService.add(entity1);
 
-        Book book2 = new Book();
-        book2.setFullName("urfalıyam ezelden");
+        Book entity2 = new Book();
+        entity2.setFullName("urfalıyam ezelden");
 
-        bookService.add(book2);
+        entityService.add(entity2);
 
-        Book book3 = new Book();
-        book3.setFullName("ağrılı halo");
+        Book entity3 = new Book();
+        entity3.setFullName("ağrılı halo");
 
-        bookService.add(book3);
+        entityService.add(entity3);
 
-        Book book4 = new Book();
-        book4.setFullName("ya");
+        Book entity4 = new Book();
+        entity4.setFullName("ya");
 
-        bookService.add(book4);
+        entityService.add(entity4);
 
-        List<BookDTO> books = bookService.getByName("ya");
+        List<BookDTO> entities = entityService.getByName("ya");
 
         List<BookDTO> expected = new ArrayList<>();
-        books.add(bookMapper.toDTO(book1));
-        books.add(bookMapper.toDTO(book2));
-        books.add(bookMapper.toDTO(book4));
+        entities.add(entityMapper.toDTO(entity1));
+        entities.add(entityMapper.toDTO(entity2));
+        entities.add(entityMapper.toDTO(entity4));
 
 
-        assertEquals(books, expected);
+        assertEquals(entities, expected);
 
     }
 
