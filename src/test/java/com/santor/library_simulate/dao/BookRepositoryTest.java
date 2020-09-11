@@ -129,14 +129,16 @@ class BookRepositoryTest {
 
         entityRepository.deleteAll();
 
-        addEntity(20L,"Mehmet Santor");
+        addEntity(20L,"Konyalı");
 
-        addEntity(30L,"asghdf sadfg");
+        addEntity(30L,"Urfalıyam Ezelden");
 
-        addEntity(40L,"fgd dfghr");
+        addEntity(40L,"Ağrılı halo");
+
+        addEntity(50L,"ya");
 
 
-        assertEquals(entityRepository.count(), 3);
+        assertEquals(entityRepository.count(), 4);
 
         Book entity1 = entityRepository.getOne(20L);
 
@@ -149,6 +151,10 @@ class BookRepositoryTest {
         Book entity3 = entityRepository.getOne(40L);
 
         assertEquals(entity3.getId(), 40L);
+
+        Book entity4 = entityRepository.getOne(50L);
+
+        assertEquals(entity4.getId(), 50L);
     }
 
 
