@@ -20,7 +20,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class ClientServiceTest {
 
 
-
     @Spy
     private ClientMapperImpl entityMapper;
 
@@ -35,27 +34,27 @@ class ClientServiceTest {
 
     @Test
     void getByNameTest() {
-        Client entity1 = new Client();
-        entity1.setFullName("konyalı");
+        final Client entity1 = new Client();
+        entity1.setFullName("Konyalı");
 
-        entityRepository.save(entity1);
+        entityService.add(entity1);
 
-        Client entity2 = new Client();
-        entity2.setFullName("urfalıyam ezelden");
+        final Client entity2 = new Client();
+        entity2.setFullName("Urfalıyam Ezelden");
 
-        entityRepository.save(entity2);
+        entityService.add(entity2);
 
-        Client entity3 = new Client();
-        entity3.setFullName("ağrılı halo");
+        final Client entity3 = new Client();
+        entity3.setFullName("Ağrılı Halo");
 
-        entityRepository.save(entity3);
+        entityService.add(entity3);
 
-        Client entity4 = new Client();
+        final Client entity4 = new Client();
         entity4.setFullName("ya");
 
-        entityRepository.save(entity4);
+        entityService.add(entity4);
 
-        List<ClientDTO> entities = entityService.getByName("ya");
+        List<ClientDTO> entities = entityService.getByName("ya");//Boşş dizi dönderiyor.
 
         List<ClientDTO> expected = new ArrayList<>();
         expected.add(entityMapper.toDTO(entity1));
@@ -63,10 +62,8 @@ class ClientServiceTest {
         expected.add(entityMapper.toDTO(entity4));
 
 
-        assertEquals(entities, expected);
+        assertEquals(expected, entities);
 
     }
-
-
 
 }

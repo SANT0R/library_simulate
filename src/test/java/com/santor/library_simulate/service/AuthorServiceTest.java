@@ -30,29 +30,31 @@ class AuthorServiceTest {
     private AuthorServiceImpl entityService;
 
 
+
+
     @Test
     void getByNameTest() {
-        Author entity1 = new Author();
-        entity1.setFullName("konyalı");
+        final Author entity1 = new Author();
+        entity1.setFullName("Konyalı");
 
-        entityRepository.save(entity1);
+        entityService.add(entity1);
 
-        Author entity2 = new Author();
-        entity2.setFullName("urfalıyam ezelden");
+        final Author entity2 = new Author();
+        entity2.setFullName("Urfalıyam Ezelden");
 
-        entityRepository.save(entity2);
+        entityService.add(entity2);
 
-        Author entity3 = new Author();
-        entity3.setFullName("ağrılı halo");
+        final Author entity3 = new Author();
+        entity3.setFullName("Ağrılı Halo");
 
-        entityRepository.save(entity3);
+        entityService.add(entity3);
 
-        Author entity4 = new Author();
+        final Author entity4 = new Author();
         entity4.setFullName("ya");
 
-        entityRepository.save(entity4);
+        entityService.add(entity4);
 
-        List<AuthorDTO> entities = entityService.getByName("ya");
+        List<AuthorDTO> entities = entityService.getByName("ya");//Boşş dizi dönderiyor.
 
         List<AuthorDTO> expected = new ArrayList<>();
         expected.add(entityMapper.toDTO(entity1));
@@ -60,7 +62,7 @@ class AuthorServiceTest {
         expected.add(entityMapper.toDTO(entity4));
 
 
-        assertEquals(entities, expected);
+        assertEquals(expected, entities);
 
     }
 

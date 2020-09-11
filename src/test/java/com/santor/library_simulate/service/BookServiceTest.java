@@ -54,7 +54,7 @@ class BookServiceTest {
 
         entityService.add(entity4);
 
-        List<BookDTO> entities = entityService.getByName("ya");
+        List<BookDTO> entities = entityService.getByName("ya");//Boşş dizi dönderiyor.
 
         List<BookDTO> expected = new ArrayList<>();
         expected.add(entityMapper.toDTO(entity1));

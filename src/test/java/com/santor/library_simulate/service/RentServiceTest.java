@@ -55,7 +55,7 @@ class RentServiceTest {
 
         rentService.deleteAll();
 
-        rentService.add(rent);
+        rentService.add(rent);  //Logicler çalışıyor.
 
 //        Mockito.when(rentRepository.count()).thenReturn(123L);
 //
@@ -64,7 +64,7 @@ class RentServiceTest {
 //        assertEquals(123L, userCount);
 //        Mockito.verify(rentRepository).count();
 
-        List<RentDTO> rents = rentService.getAll();
+        List<RentDTO> rents = rentService.getAll(); //Boş dizi dönderiyor.
 
         for (RentDTO getRent : rents){
 
