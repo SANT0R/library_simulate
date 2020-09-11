@@ -38,6 +38,9 @@ class RentServiceTest {
 
     @Test
     void addTest() {
+
+        rentService.deleteAll();
+
         final Book book = new Book();
         book.setReleaseYear(LocalDate.now());
         book.setPage(250);
@@ -51,9 +54,17 @@ class RentServiceTest {
 
         rentRepository.save(rent);
 
-        LocalDate expected1 = LocalDate.now().plusDays(250/5);
+        int pageSum = 0;
+
+        for (Book book1 : rent.getBooks()) {
+            pageSum += book1.getPage();
+        }
+
+        int pageNumForADay = 5;
+
+        LocalDate expected1 = LocalDate.now().plusDays( pageSum / pageNumForADay );
         List<RentDTO> rents = rentService.getAll();
-        for (RentDTO getRent :rents){
+        for (RentDTO getRent : rents){
             if (getRent != null){
 
                 LocalDate actual = getRent.getFinishDate();

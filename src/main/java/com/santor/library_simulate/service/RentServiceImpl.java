@@ -254,7 +254,8 @@ public class RentServiceImpl implements RentService {
         }
 
 
-        rent.setFinishDate(rent.getStartDate().plusDays(pageSum/5));
+        int pageNumForADay = 5;
+        rent.setFinishDate(rent.getStartDate().plusDays(pageSum/pageNumForADay));
 
         entityRepository.save(rent);
     }
