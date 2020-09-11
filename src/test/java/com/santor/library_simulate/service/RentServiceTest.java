@@ -1,10 +1,8 @@
 package com.santor.library_simulate.service;
 
-import com.santor.library_simulate.dao.BookRepository;
 import com.santor.library_simulate.dao.RentRepository;
 import com.santor.library_simulate.dto.BookDTO;
 import com.santor.library_simulate.dto.RentDTO;
-import com.santor.library_simulate.mapper.BookMapperImpl;
 import com.santor.library_simulate.mapper.RentMapperImpl;
 import com.santor.library_simulate.model.Book;
 import com.santor.library_simulate.model.Rent;
@@ -40,13 +38,13 @@ class RentServiceTest {
 
     @Test
     void addTest() {
-        Book book = new Book();
+        final Book book = new Book();
         book.setReleaseYear(LocalDate.now());
         book.setPage(250);
         book.setStock(10);
 
 
-        Rent rent = new Rent();
+        final Rent rent = new Rent();
         rent.setStartDate(LocalDate.now());
         rent.getBooks().add(book);
 

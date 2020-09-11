@@ -23,7 +23,7 @@ class BookServiceTest {
     @Spy
     private BookMapperImpl entityMapper;
 
-    @Spy
+    @Mock
     private BookRepository entityRepository;
 
     @InjectMocks
@@ -34,22 +34,22 @@ class BookServiceTest {
 
     @Test
     void getByNameTest() {
-        Book entity1 = new Book();
+        final Book entity1 = new Book();
         entity1.setFullName("Konyalı");
 
         entityRepository.save(entity1);
 
-        Book entity2 = new Book();
+        final Book entity2 = new Book();
         entity2.setFullName("Urfalıyam Ezelden");
 
         entityRepository.save(entity2);
 
-        Book entity3 = new Book();
+        final Book entity3 = new Book();
         entity3.setFullName("Ağrılı Halo");
 
         entityRepository.save(entity3);
 
-        Book entity4 = new Book();
+        final Book entity4 = new Book();
         entity4.setFullName("ya");
 
         entityRepository.save(entity4);
