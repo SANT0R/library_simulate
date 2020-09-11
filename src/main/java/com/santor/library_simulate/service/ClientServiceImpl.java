@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -58,11 +57,13 @@ public class ClientServiceImpl implements ClientService {
     @Override
     public ClientDTO getById(Long id) {
 
-        try {
+        Client entity = entityRepository.getOne(id);
 
-            Client entity = entityRepository.getOne(id);
+        if (entity != null){
+
             return entityMapper.toDTO(entity);
-        } catch (EntityNotFoundException e) {
+        }
+        else {
 
             throw new ApiRequestException(id +
                     " id numaralı kullanıcı bulunamadığı için işleminiz tamamlanamadı.", HttpStatus.METHOD_NOT_ALLOWED);
@@ -100,11 +101,13 @@ public class ClientServiceImpl implements ClientService {
     public void deleteByName(String fullName) {
 
 
-        try {
+        Client entity = entityRepository.findByFullName(fullName);
 
-            Client entity = entityRepository.findByFullName(fullName);
+        if (entity != null){
+
             entityRepository.delete(entity);
-        } catch (EntityNotFoundException e) {
+        }
+        else {
 
             throw new ApiRequestException(fullName +
                     " adlı kullanıcı bulunamadığı için işleminiz tamamlanamadı.", HttpStatus.METHOD_NOT_ALLOWED);
@@ -123,11 +126,13 @@ public class ClientServiceImpl implements ClientService {
     @Override
     public void deleteById(Long id) {
 
-        try {
+        Client entity = entityRepository.getOne(id);
 
-            Client entity = entityRepository.getOne(id);
+        if (entity != null){
+
             entityRepository.delete(entity);
-        } catch (EntityNotFoundException e) {
+        }
+        else {
 
             throw new ApiRequestException(id +
                     " id numaralı kullanıcı bulunamadığı için işleminiz tamamlanamadı.", HttpStatus.METHOD_NOT_ALLOWED);

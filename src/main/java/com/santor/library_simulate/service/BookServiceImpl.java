@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -64,12 +63,13 @@ public class BookServiceImpl implements BookService {
     @Override
     public BookDTO getById(Long id) {
 
-        try {
+        Book entity = entityRepository.getOne(id);
 
-            Book entity = entityRepository.getOne(id);
+        if (entity != null){
+
             return entityMapper.toDTO (entity);
         }
-        catch (EntityNotFoundException e){
+        else {
 
             throw new ApiRequestException(id +
                     " id numaralı kitap bulunamadığı için işleminiz tamamlanamadı.", HttpStatus.METHOD_NOT_ALLOWED);
@@ -108,12 +108,13 @@ public class BookServiceImpl implements BookService {
     public void deleteByName(String fullName) {
 
 
-        try {
+        Book entity = entityRepository.findByFullName(fullName);
 
-            Book entity = entityRepository.findByFullName(fullName);
+        if (entity != null){
+
             entityRepository.delete(entity);
         }
-        catch (EntityNotFoundException e){
+        else {
 
             throw new ApiRequestException(fullName +
                     " adlı kitap bulunamadığı için işleminiz tamamlanamadı.", HttpStatus.METHOD_NOT_ALLOWED);
@@ -132,12 +133,13 @@ public class BookServiceImpl implements BookService {
     @Override
     public void deleteById(Long id) {
 
-        try {
+        Book entity = entityRepository.getOne(id);
 
-            Book entity = entityRepository.getOne(id);
+        if (entity != null){
+
             entityRepository.delete(entity);
         }
-        catch (EntityNotFoundException e){
+        else {
 
             throw new ApiRequestException(id +
                     " id numaralı kitap bulunamadığı için işleminiz tamamlanamadı.", HttpStatus.METHOD_NOT_ALLOWED);

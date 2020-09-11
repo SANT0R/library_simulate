@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -290,12 +289,13 @@ public class RentServiceImpl implements RentService {
     @Override
     public RentDTO getById(Long id) {
 
-        try {
+        Rent entity = entityRepository.getOne(id);
 
-            Rent entity = entityRepository.getOne(id);
+        if (entity != null){
+
             return entityMapper.toDTO (entity);
         }
-        catch (EntityNotFoundException e){
+        else {
 
             throw new ApiRequestException(id+
                     " id numaralı kira bulunamadığı için işleminiz tamamlanamadı.", HttpStatus.METHOD_NOT_ALLOWED);
@@ -315,12 +315,13 @@ public class RentServiceImpl implements RentService {
     @Override
     public void deleteById(Long id) {
 
-        try {
+        Rent entity = entityRepository.getOne(id);
 
-            Rent entity = entityRepository.getOne(id);
+        if (entity != null){
+
             entityRepository.delete(entity);
         }
-        catch (EntityNotFoundException e){
+        else {
 
             throw new ApiRequestException(id+
                     " id numaralı kira bulunamadığı için işleminiz tamamlanamadı.", HttpStatus.METHOD_NOT_ALLOWED);

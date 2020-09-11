@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -60,12 +59,13 @@ public class AuthorServiceImpl implements AuthorService {
     @Override
     public AuthorDTO getById(Long id) {
 
-        try {
+        Author entity = entityRepository.getOne(id);
 
-            Author entity = entityRepository.getOne(id);
+        if (entity != null){
+
             return entityMapper.toDTO (entity);
         }
-        catch (EntityNotFoundException e){
+        else {
 
             throw new ApiRequestException(id +
                     " id numaralı yazar bulunamadığı için işleminiz tamamlanamadı.", HttpStatus.METHOD_NOT_ALLOWED);
@@ -102,13 +102,13 @@ public class AuthorServiceImpl implements AuthorService {
     @Override
     public void deleteByName(String fullName) {
 
+        Author entity = entityRepository.findByFullName(fullName);
 
-        try {
+        if (entity != null){
 
-            Author entity = entityRepository.findByFullName(fullName);
             entityRepository.delete(entity);
         }
-        catch (EntityNotFoundException e){
+        else {
 
             throw new ApiRequestException(fullName +
                     " adlı yazar bulunamadığı için işleminiz tamamlanamadı.", HttpStatus.METHOD_NOT_ALLOWED);
@@ -127,18 +127,18 @@ public class AuthorServiceImpl implements AuthorService {
     @Override
     public void deleteById(Long id) {
 
-        try {
+        Author entity = entityRepository.getOne(id);
 
-            Author entity = entityRepository.getOne(id);
+        if (entity != null){
+
             entityRepository.delete(entity);
         }
-        catch (EntityNotFoundException e){
+        else {
 
             throw new ApiRequestException(id +
                     " adlı yazar bulunamadığı için işleminiz tamamlanamadı.", HttpStatus.METHOD_NOT_ALLOWED);
 
         }
-
 
     }
 
