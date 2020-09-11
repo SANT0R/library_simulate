@@ -53,7 +53,7 @@ class RentServiceTest {
 
         rentService.deleteAll();
 
-        rentRepository.save(rent);
+        rentService.add(rent);
 
         List<RentDTO> rents = rentService.getAll();
 
