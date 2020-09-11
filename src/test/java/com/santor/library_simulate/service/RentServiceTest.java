@@ -42,6 +42,7 @@ class RentServiceTest {
 
         final Book book = new Book();
         book.setReleaseYear(LocalDate.now());
+        book.setId(25L);
         book.setPage(250);
         book.setStock(10);
 
