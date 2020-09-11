@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 
@@ -55,6 +56,14 @@ class RentServiceTest {
         rentService.deleteAll();
 
         rentService.add(rent);
+
+//
+//        Mockito.when(rentRepository.count()).thenReturn(123L);
+//
+//        long rentCount = rentRepository.count();
+//
+//        assertEquals(123L, userCount);
+//        Mockito.verify(rentRepository).count();
 
         List<RentDTO> rents = rentService.getAll();
 
