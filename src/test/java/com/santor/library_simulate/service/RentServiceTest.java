@@ -56,7 +56,7 @@ class RentServiceTest {
         book.setPage(250);
         book.setStock(10);
 
-        bookService.add(book);
+        entityRepository.save(book);
 
         Rent rent = new Rent();
         rent.setId(301L);
@@ -67,6 +67,7 @@ class RentServiceTest {
 
         LocalDate expected1 = LocalDate.now().plusDays(250/5);
         LocalDate actual = rentService.getById(301L).getFinishDate();
+
         assertEquals(actual , expected1);
 
 
@@ -79,6 +80,7 @@ class RentServiceTest {
         }
 
         int expected2 = 9;
+
         assertEquals(sumStock, expected2);
     }
 
