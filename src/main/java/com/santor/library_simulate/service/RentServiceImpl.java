@@ -232,19 +232,22 @@ public class RentServiceImpl implements RentService {
             for (Long id : bookIds) {
                 if (book.getId()==null){
 
-                    throw new ApiRequestException(book.getFullName()+
-                            " adlı kitap bulunamadığı için kiralama işlemi tamamlanamadı.", HttpStatus.METHOD_NOT_ALLOWED);
+                    throw new ApiRequestException(
+                            "The rental process could not be completed because the book named" + book.getFullName() + "could not be found.",
+                            HttpStatus.METHOD_NOT_ALLOWED);
                 }
                 if (book.getId().equals(id)) {
 
-                    throw new ApiRequestException(book.getFullName()+
-                            " kitabından birden fazla eklediğiniz için kiralama işlemi tamamlanamadı.", HttpStatus.METHOD_NOT_ALLOWED);
+                    throw new ApiRequestException(
+                            " The lease could not be completed because you added more than one from book" + book.getFullName() + ".",
+                            HttpStatus.METHOD_NOT_ALLOWED);
 
                 }
                 if (book.getStock()==0){
 
-                    throw new ApiRequestException(book.getFullName()+
-                            " kitabı stokta bulunmadığı için kiralama işlemi tamamlanamadı.", HttpStatus.NOT_FOUND);
+                    throw new ApiRequestException(
+                            " The lease could not be completed because book" + book.getFullName() + "is not in stock.",
+                            HttpStatus.NOT_FOUND);
                 }
                 else {
                     book.setStock(book.getStock() - 1);
@@ -271,8 +274,9 @@ public class RentServiceImpl implements RentService {
         }
         else {
 
-            throw new ApiRequestException(rent.getId()+
-                    " id numaralı kira bulunamadığı için işleminiz tamamlanamadı.", HttpStatus.METHOD_NOT_ALLOWED);
+            throw new ApiRequestException(
+                    " Your transaction could not be completed because the rent with" + rent.getId() +  "id number was not found.",
+                    HttpStatus.METHOD_NOT_ALLOWED);
 
         }
 
@@ -298,8 +302,9 @@ public class RentServiceImpl implements RentService {
         }
         else {
 
-            throw new ApiRequestException(id+
-                    " id numaralı kira bulunamadığı için işleminiz tamamlanamadı.", HttpStatus.METHOD_NOT_ALLOWED);
+            throw new ApiRequestException(
+                    " Your transaction could not be completed because the rent with" + id +  "id number was not found.",
+                    HttpStatus.METHOD_NOT_ALLOWED);
 
         }
 
@@ -324,8 +329,9 @@ public class RentServiceImpl implements RentService {
         }
         else {
 
-            throw new ApiRequestException(id+
-                    " id numaralı kira bulunamadığı için işleminiz tamamlanamadı.", HttpStatus.METHOD_NOT_ALLOWED);
+            throw new ApiRequestException(
+                    " Your transaction could not be completed because the rent with" + id +  "id number was not found.",
+                    HttpStatus.METHOD_NOT_ALLOWED);
 
         }
 

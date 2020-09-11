@@ -39,9 +39,9 @@ public class BookServiceImpl implements BookService {
         }
         else {
 
-            throw new ApiRequestException(entity.getId() +
-                    " id numaralı kitap bulunamadığı için işleminiz tamamlanamadı.", HttpStatus.METHOD_NOT_ALLOWED);
-
+            throw new ApiRequestException(
+                    "Your operation could not be completed because the book number " + entity.getId() +" id could not be found.",
+                    HttpStatus.METHOD_NOT_ALLOWED);
         }
 
     }
@@ -71,9 +71,9 @@ public class BookServiceImpl implements BookService {
         }
         else {
 
-            throw new ApiRequestException(id +
-                    " id numaralı kitap bulunamadığı için işleminiz tamamlanamadı.", HttpStatus.METHOD_NOT_ALLOWED);
-
+            throw new ApiRequestException(
+                    "Your operation could not be completed because the book number " + id +" id could not be found.",
+                    HttpStatus.METHOD_NOT_ALLOWED);
         }
 
     }
@@ -94,8 +94,9 @@ public class BookServiceImpl implements BookService {
 
         if (getBooks.isEmpty()){
 
-            throw new ApiRequestException(fullName +
-                    " adlı kitap bulunamadığı için işleminiz tamamlanamadı.", HttpStatus.METHOD_NOT_ALLOWED);
+            throw new ApiRequestException(
+                    "Your operation could not be completed because the book named" + fullName +"could not be found.",
+                    HttpStatus.METHOD_NOT_ALLOWED);
 
         }
 
@@ -116,9 +117,9 @@ public class BookServiceImpl implements BookService {
         }
         else {
 
-            throw new ApiRequestException(fullName +
-                    " adlı kitap bulunamadığı için işleminiz tamamlanamadı.", HttpStatus.METHOD_NOT_ALLOWED);
-
+            throw new ApiRequestException(
+                    "Your operation could not be completed because the book named " + fullName +" could not be found.",
+                    HttpStatus.METHOD_NOT_ALLOWED);
         }
 
     }
@@ -141,9 +142,9 @@ public class BookServiceImpl implements BookService {
         }
         else {
 
-            throw new ApiRequestException(id +
-                    " id numaralı kitap bulunamadığı için işleminiz tamamlanamadı.", HttpStatus.METHOD_NOT_ALLOWED);
-
+            throw new ApiRequestException(
+                    "Your operation could not be completed because the book number " + id +" id could not be found.",
+                    HttpStatus.METHOD_NOT_ALLOWED);
         }
 
 

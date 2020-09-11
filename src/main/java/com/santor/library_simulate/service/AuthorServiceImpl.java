@@ -40,9 +40,9 @@ public class AuthorServiceImpl implements AuthorService {
         }
         else {
 
-            throw new ApiRequestException(entity.getId() +
-                    " id numaralı yazar bulunamadığı için işleminiz tamamlanamadı.", HttpStatus.METHOD_NOT_ALLOWED);
-
+            throw new ApiRequestException(
+                    "Your operation could not be completed because the author number " + entity.getId() +" id could not be found.",
+                    HttpStatus.METHOD_NOT_ALLOWED);
         }
 
     }
@@ -67,9 +67,9 @@ public class AuthorServiceImpl implements AuthorService {
         }
         else {
 
-            throw new ApiRequestException(id +
-                    " id numaralı yazar bulunamadığı için işleminiz tamamlanamadı.", HttpStatus.METHOD_NOT_ALLOWED);
-
+            throw new ApiRequestException(
+                    "Your operation could not be completed because the author number " + id +" id could not be found.",
+                    HttpStatus.METHOD_NOT_ALLOWED);
         }
 
     }
@@ -89,9 +89,9 @@ public class AuthorServiceImpl implements AuthorService {
 
         if (getAuthors.isEmpty()){
 
-            throw new ApiRequestException(fullName +
-                    " adlı yazar bulunamadığı için işleminiz tamamlanamadı.", HttpStatus.METHOD_NOT_ALLOWED);
-
+            throw new ApiRequestException(
+                    "Your operation could not be completed because the author named " + fullName +" could not be found.",
+                    HttpStatus.METHOD_NOT_ALLOWED);
         }
 
 
@@ -110,9 +110,9 @@ public class AuthorServiceImpl implements AuthorService {
         }
         else {
 
-            throw new ApiRequestException(fullName +
-                    " adlı yazar bulunamadığı için işleminiz tamamlanamadı.", HttpStatus.METHOD_NOT_ALLOWED);
-
+            throw new ApiRequestException(
+                    "Your operation could not be completed because the author named " + fullName +" could not be found.",
+                    HttpStatus.METHOD_NOT_ALLOWED);
         }
 
     }
@@ -135,9 +135,9 @@ public class AuthorServiceImpl implements AuthorService {
         }
         else {
 
-            throw new ApiRequestException(id +
-                    " adlı yazar bulunamadığı için işleminiz tamamlanamadı.", HttpStatus.METHOD_NOT_ALLOWED);
-
+            throw new ApiRequestException(
+                    "Your operation could not be completed because the author number " + id +" id could not be found.",
+                    HttpStatus.METHOD_NOT_ALLOWED);
         }
 
     }

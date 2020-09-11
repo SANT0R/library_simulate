@@ -57,7 +57,6 @@ class RentServiceTest {
 
         rentService.add(rent);
 
-//
 //        Mockito.when(rentRepository.count()).thenReturn(123L);
 //
 //        long rentCount = rentRepository.count();

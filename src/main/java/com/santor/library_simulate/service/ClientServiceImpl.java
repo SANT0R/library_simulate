@@ -39,8 +39,9 @@ public class ClientServiceImpl implements ClientService {
 
         } else {
 
-            throw new ApiRequestException(entity.getId() +
-                    " id numaralı kullanıcı bulunamadığı için işleminiz tamamlanamadı.", HttpStatus.METHOD_NOT_ALLOWED);
+            throw new ApiRequestException(
+                    "Your operation could not be completed because the client number " + entity.getId() +" id could not be found.",
+                    HttpStatus.METHOD_NOT_ALLOWED);
 
         }
 
@@ -65,8 +66,9 @@ public class ClientServiceImpl implements ClientService {
         }
         else {
 
-            throw new ApiRequestException(id +
-                    " id numaralı kullanıcı bulunamadığı için işleminiz tamamlanamadı.", HttpStatus.METHOD_NOT_ALLOWED);
+            throw new ApiRequestException(
+                    "Your operation could not be completed because the client number " + id +" id could not be found.",
+                    HttpStatus.METHOD_NOT_ALLOWED);
 
         }
 
@@ -87,8 +89,9 @@ public class ClientServiceImpl implements ClientService {
 
         if (getClients.isEmpty()){
 
-            throw new ApiRequestException(fullName +
-                    " adlı kullanıcı bulunamadığı için işleminiz tamamlanamadı.", HttpStatus.METHOD_NOT_ALLOWED);
+            throw new ApiRequestException(
+                    "Your operation could not be completed because the client named " + fullName +" could not be found.",
+                    HttpStatus.METHOD_NOT_ALLOWED);
 
         }
 
@@ -109,8 +112,9 @@ public class ClientServiceImpl implements ClientService {
         }
         else {
 
-            throw new ApiRequestException(fullName +
-                    " adlı kullanıcı bulunamadığı için işleminiz tamamlanamadı.", HttpStatus.METHOD_NOT_ALLOWED);
+            throw new ApiRequestException(
+                    "Your operation could not be completed because the client named " + fullName +" could not be found.",
+                    HttpStatus.METHOD_NOT_ALLOWED);
 
         }
 
@@ -134,8 +138,9 @@ public class ClientServiceImpl implements ClientService {
         }
         else {
 
-            throw new ApiRequestException(id +
-                    " id numaralı kullanıcı bulunamadığı için işleminiz tamamlanamadı.", HttpStatus.METHOD_NOT_ALLOWED);
+            throw new ApiRequestException(
+                    "Your operation could not be completed because the client number " + id +" id could not be found.",
+                    HttpStatus.METHOD_NOT_ALLOWED);
 
         }
 
