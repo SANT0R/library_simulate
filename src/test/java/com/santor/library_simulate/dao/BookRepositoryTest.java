@@ -1,13 +1,17 @@
 package com.santor.library_simulate.dao;
 
+import com.santor.library_simulate.model.Author;
 import com.santor.library_simulate.model.Book;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest
 class BookRepositoryTest {
@@ -15,7 +19,7 @@ class BookRepositoryTest {
     @Autowired
     private BookRepository entityRepository ;
 
-    private void addEntity(Long id,String fullName){
+    private Book addEntity(Long id,String fullName){
 
         Book entity = new Book();
         entity.setId(id);
@@ -28,6 +32,7 @@ class BookRepositoryTest {
         entity.setStock(800);
 
         entityRepository.save(entity);
+        return entity;
     }
 
 
@@ -157,6 +162,20 @@ class BookRepositoryTest {
         assertEquals(entity4.getId(), 50L);
     }
 
+    @Test
+    void searchTest(){
+        entityRepository.deleteAll();
 
+        List<Book> expected = new ArrayList<>();
+        expected.add(addEntity(20L,"Konyalı"));
+        expected.add(addEntity(30L,"Urfalıyam Ezelden"));
+        addEntity(40L,"Ağrılı halo");
+        expected.add(addEntity(50L,"ya"));
+
+        List<Book> actual = entityRepository.findByFullNameContains("ya");
+
+        assertTrue(actual != null && actual.size() == 3);
+
+    }
 
 }

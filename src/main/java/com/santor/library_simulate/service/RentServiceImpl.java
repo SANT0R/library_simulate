@@ -221,13 +221,13 @@ public class RentServiceImpl implements RentService {
     @Override
     public void add(Rent rent) {
 
+        List<Long> bookIds = new ArrayList<>();
+
+        bookIds.add(0L);
         int pageSum = 0;
         for (Book book : rent.getBooks()) {
             pageSum += book.getPage();
 
-            List<Long> bookIds = new ArrayList<>();
-
-            bookIds.add(0L);
 
             for (Long id : bookIds) {
                 if (book.getId()==null){

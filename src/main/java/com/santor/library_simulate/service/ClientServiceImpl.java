@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -77,26 +76,9 @@ public class ClientServiceImpl implements ClientService {
     @Override
     public List<ClientDTO> getByName(String fullName) {
 
-        List<Client> clients = entityRepository.findAll();
-        List<Client> getClients = new ArrayList<>() ;
+        List<Client> clients = entityRepository.findByFullNameContains(fullName);
 
-        for (Client client : clients){
-            if (client.getFullName().contains(fullName)){
-
-                getClients.add(client);
-            }
-        }
-
-        if (getClients.isEmpty()){
-
-            throw new ApiRequestException(
-                    "Your operation could not be completed because the client named " + fullName +" could not be found.",
-                    HttpStatus.METHOD_NOT_ALLOWED);
-
-        }
-
-
-        return entityMapper.toDTOList (getClients);
+        return entityMapper.toDTOList (clients);
 
     }
 

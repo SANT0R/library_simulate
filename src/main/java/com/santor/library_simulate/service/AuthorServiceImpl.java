@@ -77,25 +77,9 @@ public class AuthorServiceImpl implements AuthorService {
     @Override
     public List<AuthorDTO> getByName(String fullName) {
 
-        List<Author> authors = entityRepository.findAll();
-        List<Author> getAuthors = new ArrayList<>() ;
+        List<Author> authors = entityRepository.findByFullNameContains(fullName);
 
-        for (Author author : authors){
-            if (author.getFullName().contains(fullName)){
-
-                getAuthors.add(author);
-            }
-        }
-
-        if (getAuthors.isEmpty()){
-
-            throw new ApiRequestException(
-                    "Your operation could not be completed because the author named " + fullName +" could not be found.",
-                    HttpStatus.METHOD_NOT_ALLOWED);
-        }
-
-
-        return entityMapper.toDTOList (getAuthors);
+        return entityMapper.toDTOList (authors);
 
     }
 

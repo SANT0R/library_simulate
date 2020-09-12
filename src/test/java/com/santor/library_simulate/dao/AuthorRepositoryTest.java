@@ -5,7 +5,11 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest
 class AuthorRepositoryTest {
@@ -13,13 +17,14 @@ class AuthorRepositoryTest {
     @Autowired
     private AuthorRepository entityRepository ;
 
-    private void addEntity(Long id,String fullName){
+    private Author addEntity(Long id,String fullName){
 
         Author entity = new Author();
         entity.setId(id);
         entity.setFullName(fullName);
 
         entityRepository.save(entity);
+        return entity;
     }
 
 
@@ -121,14 +126,13 @@ class AuthorRepositoryTest {
 
         entityRepository.deleteAll();
 
-        addEntity(20L,"Mehmet Santor");
+        addEntity(20L,"Konyalı");
+        addEntity(30L,"Urfalıyam Ezelden");
+        addEntity(40L,"Ağrılı halo");
+        addEntity(50L,"ya");
 
-        addEntity(30L,"asghdf sadfg");
 
-        addEntity(40L,"fgd dfghr");
-
-
-        assertEquals(entityRepository.count(), 3);
+        assertEquals(entityRepository.count(), 4);
 
         Author entity1 = entityRepository.getOne(20L);
 
@@ -141,8 +145,26 @@ class AuthorRepositoryTest {
         Author entity3 = entityRepository.getOne(40L);
 
         assertEquals(entity3.getId(), 40L);
+
+        Author entity4 = entityRepository.getOne(50L);
+
+        assertEquals(entity4.getId(), 50L);
     }
 
+    @Test
+    void searchTest(){
+        entityRepository.deleteAll();
 
+        List<Author> expected = new ArrayList<>();
+        expected.add(addEntity(20L,"Konyalı"));
+        expected.add(addEntity(30L,"Urfalıyam Ezelden"));
+        addEntity(40L,"Ağrılı halo");
+        expected.add(addEntity(50L,"ya"));
+
+        List<Author> actual = entityRepository.findByFullNameContains("ya");
+
+        assertTrue(actual != null && actual.size() == 3);
+
+    }
 
 }

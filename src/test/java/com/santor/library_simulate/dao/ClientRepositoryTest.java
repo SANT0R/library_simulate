@@ -1,11 +1,16 @@
 package com.santor.library_simulate.dao;
 
+import com.santor.library_simulate.model.Book;
 import com.santor.library_simulate.model.Client;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest
 class ClientRepositoryTest {
@@ -13,7 +18,7 @@ class ClientRepositoryTest {
     @Autowired
     private ClientRepository entityRepository ;
 
-    private void addEntity(Long id,String fullName){
+    private Client addEntity(Long id,String fullName){
 
         Client entity = new Client();
         entity.setId(id);
@@ -23,6 +28,7 @@ class ClientRepositoryTest {
         entity.setPhone("30203320");
 
         entityRepository.save(entity);
+        return entity;
     }
 
 
@@ -119,19 +125,22 @@ class ClientRepositoryTest {
 
 
 
+
     @Test
     void getAllTest() {
 
         entityRepository.deleteAll();
 
-        addEntity(20L,"Mehmet Santor");
+        addEntity(20L,"Konyalı");
 
-        addEntity(30L,"asghdf sadfg");
+        addEntity(30L,"Urfalıyam Ezelden");
 
-        addEntity(40L,"fgd dfghr");
+        addEntity(40L,"Ağrılı halo");
+
+        addEntity(50L,"ya");
 
 
-        assertEquals(entityRepository.count(), 3);
+        assertEquals(entityRepository.count(), 4);
 
         Client entity1 = entityRepository.getOne(20L);
 
@@ -144,8 +153,27 @@ class ClientRepositoryTest {
         Client entity3 = entityRepository.getOne(40L);
 
         assertEquals(entity3.getId(), 40L);
+
+        Client entity4 = entityRepository.getOne(50L);
+
+        assertEquals(entity4.getId(), 50L);
     }
 
+    @Test
+    void searchTest(){
+        entityRepository.deleteAll();
+
+        List<Client> expected = new ArrayList<>();
+        expected.add(addEntity(20L,"Konyalı"));
+        expected.add(addEntity(30L,"Urfalıyam Ezelden"));
+        addEntity(40L,"Ağrılı halo");
+        expected.add(addEntity(50L,"ya"));
+
+        List<Client> actual = entityRepository.findByFullNameContains("ya");
+
+        assertTrue(actual != null && actual.size() == 3);
+
+    }
 
 
 }

@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -81,27 +80,9 @@ public class BookServiceImpl implements BookService {
     @Override
     public List<BookDTO> getByName(String fullName) {
 
-        List<Book> books = entityRepository.findAll();
-        List<Book> getBooks = new ArrayList<>() ;
-        //getBooks.add(entityRepository.findByFullName(fullName));
+        List<Book> books = entityRepository.findByFullNameContains(fullName);
 
-        for (Book book : books){
-            if (book.getFullName().contains(fullName)){
-
-                getBooks.add(book);
-            }
-        }
-
-        if (getBooks.isEmpty()){
-
-            throw new ApiRequestException(
-                    "Your operation could not be completed because the book named" + fullName +"could not be found.",
-                    HttpStatus.METHOD_NOT_ALLOWED);
-
-        }
-
-
-        return entityMapper.toDTOList (getBooks);
+        return entityMapper.toDTOList (books);
 
     }
 

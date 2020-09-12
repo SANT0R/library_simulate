@@ -24,7 +24,7 @@ public class Rent extends BaseModel {
 
     private LocalDate returnDate ;
 
-    @ManyToMany()
+    @ManyToMany(cascade = CascadeType.MERGE)
     private Set<Book> books = new HashSet<>();
 
     @ManyToOne
