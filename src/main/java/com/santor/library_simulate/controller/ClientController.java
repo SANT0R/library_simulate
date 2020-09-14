@@ -118,7 +118,9 @@ public class ClientController {
 
             if (entityDTOList.isEmpty()) {
 
-                throw new ApiRequestException("No author found.");
+                throw new ApiRequestException(
+                        "No client found.",
+                        HttpStatus.NOT_FOUND);
 
             } else {
                 return ResponseEntity.ok(entityDTOList);
@@ -198,7 +200,9 @@ public class ClientController {
 
             if (entityDTOList.isEmpty()) {
 
-                throw new ApiRequestException("No client found.");
+                throw new ApiRequestException(
+                        "No client found.",
+                        HttpStatus.NOT_FOUND);
 
             } else {
                 entityService.deleteAll();

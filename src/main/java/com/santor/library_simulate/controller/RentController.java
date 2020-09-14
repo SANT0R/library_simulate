@@ -118,7 +118,9 @@ public class RentController {
 
             if (entityDTOList.isEmpty()) {
 
-                throw new ApiRequestException("No author found.");
+                throw new ApiRequestException(
+                        "No rent found.",
+                        HttpStatus.NOT_FOUND);
 
             } else {
                 return ResponseEntity.ok(entityDTOList);
@@ -162,7 +164,9 @@ public class RentController {
 
             if (entityDTOList.isEmpty()) {
 
-                throw new ApiRequestException("No rent found.");
+                throw new ApiRequestException(
+                        "No rent found.",
+                        HttpStatus.NOT_FOUND);
 
             } else {
                 entityService.deleteAll();
