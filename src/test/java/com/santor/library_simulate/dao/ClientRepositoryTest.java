@@ -1,6 +1,5 @@
 package com.santor.library_simulate.dao;
 
-import com.santor.library_simulate.model.Book;
 import com.santor.library_simulate.model.Client;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,14 +17,12 @@ class ClientRepositoryTest {
     @Autowired
     private ClientRepository entityRepository ;
 
-    private Client addEntity(Long id,String fullName){
+    Long firstId = 418L; //deleteById nin çalışması için DB deki en son kayıdın idsi verilmeli.
+
+    private Client addEntity(String fullName){
 
         Client entity = new Client();
-        entity.setId(id);
         entity.setFullName(fullName);
-        entity.setEMail("alskdmlaks@gmail.com");
-        entity.setPassword("1234");
-        entity.setPhone("30203320");
 
         entityRepository.save(entity);
         return entity;
@@ -37,11 +34,13 @@ class ClientRepositoryTest {
 
         entityRepository.deleteAll();
 
-        addEntity(20L,"Mehmet Santor");
+        firstId++;
+
+        addEntity("Mehmet Santor");
 
 
-        Client entity = entityRepository.getOne(20L);
-        assertEquals(entity.getId(), 20L);
+        Client entity = entityRepository.getOne(firstId);
+        assertEquals(entity.getId(), firstId);
 
     }
 
@@ -51,10 +50,12 @@ class ClientRepositoryTest {
 
         entityRepository.deleteAll();
 
-        addEntity(10L,"Mehmet Santor");
+        firstId++;
+
+        addEntity("Mehmet Santor");
 
 
-        entityRepository.deleteById(10L);
+        entityRepository.deleteById(firstId);
 
         assertEquals(entityRepository.count(), 0);
 
@@ -65,7 +66,7 @@ class ClientRepositoryTest {
 
         entityRepository.deleteAll();
 
-        addEntity(20L,"Mehmet Santor");
+        addEntity("Mehmet Santor");
 
 
         assertEquals(entityRepository.count(),1);
@@ -82,7 +83,7 @@ class ClientRepositoryTest {
 
         entityRepository.deleteAll();
 
-        addEntity(20L,"Mehmet Santor");
+        addEntity("Mehmet Santor");
 
 
 
@@ -102,7 +103,7 @@ class ClientRepositoryTest {
 
         entityRepository.deleteAll();
 
-        addEntity(20L,"Mehmet Santor");
+        addEntity("Mehmet Santor");
 
         Client  entity = entityRepository.findByFullName("Mehmet Santor");
 
@@ -116,13 +117,14 @@ class ClientRepositoryTest {
 
         entityRepository.deleteAll();
 
-        addEntity(20L,"Mehmet Santor");
-        Client entity = entityRepository.getOne(20L);
+        firstId++;
 
-        assertEquals(entity.getId(), 20L);
+        addEntity("Mehmet Santor");
+        Client entity = entityRepository.getOne(firstId);
+
+        assertEquals(entity.getId(), firstId);
 
     }
-
 
 
 
@@ -131,49 +133,51 @@ class ClientRepositoryTest {
 
         entityRepository.deleteAll();
 
-        addEntity(20L,"Konyalı");
+        firstId++;
 
-        addEntity(30L,"Urfalıyam Ezelden");
+        addEntity("Konyalı");
 
-        addEntity(40L,"Ağrılı halo");
+        addEntity("Urfalıyam Ezelden");
 
-        addEntity(50L,"ya");
+        addEntity("Ağrılı halo");
+
+        addEntity("ya");
 
 
         assertEquals(entityRepository.count(), 4);
 
-        Client entity1 = entityRepository.getOne(20L);
+        Client entity1 = entityRepository.getOne(firstId);
 
-        assertEquals(entity1.getId(), 20L);
+        assertEquals(entity1.getId(), firstId);
 
-        Client entity2 = entityRepository.getOne(30L);
+        Client entity2 = entityRepository.getOne(firstId+1);
 
-        assertEquals(entity2.getId(), 30L);
+        assertEquals(entity2.getId(), firstId+1);
 
-        Client entity3 = entityRepository.getOne(40L);
+        Client entity3 = entityRepository.getOne(firstId+2);
 
-        assertEquals(entity3.getId(), 40L);
+        assertEquals(entity3.getId(), firstId+2);
 
-        Client entity4 = entityRepository.getOne(50L);
+        Client entity4 = entityRepository.getOne(firstId+3);
 
-        assertEquals(entity4.getId(), 50L);
+        assertEquals(entity4.getId(), firstId+3);
     }
 
     @Test
     void searchTest(){
+
         entityRepository.deleteAll();
 
         List<Client> expected = new ArrayList<>();
-        expected.add(addEntity(20L,"Konyalı"));
-        expected.add(addEntity(30L,"Urfalıyam Ezelden"));
-        addEntity(40L,"Ağrılı halo");
-        expected.add(addEntity(50L,"ya"));
+        expected.add(addEntity("Konyalı"));
+        expected.add(addEntity("Urfalıyam Ezelden"));
+        addEntity("Ağrılı halo");
+        expected.add(addEntity("ya"));
 
         List<Client> actual = entityRepository.findByFullNameContains("ya");
 
         assertTrue(actual != null && actual.size() == 3);
 
+        //assertEquals(expected,actual);
     }
-
-
 }

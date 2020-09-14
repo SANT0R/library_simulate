@@ -17,10 +17,11 @@ class AuthorRepositoryTest {
     @Autowired
     private AuthorRepository entityRepository ;
 
-    private Author addEntity(Long id,String fullName){
+    Long firstId = 418L; //deleteById nin çalışması için DB deki en son kayıdın idsi verilmeli.
+
+    private Author addEntity(String fullName){
 
         Author entity = new Author();
-        entity.setId(id);
         entity.setFullName(fullName);
 
         entityRepository.save(entity);
@@ -33,11 +34,13 @@ class AuthorRepositoryTest {
 
         entityRepository.deleteAll();
 
-        addEntity(20L,"Mehmet Santor");
+        firstId++;
+
+        addEntity("Mehmet Santor");
 
 
-        Author entity = entityRepository.getOne(20L);
-        assertEquals(entity.getId(), 20L);
+        Author entity = entityRepository.getOne(firstId);
+        assertEquals(entity.getId(), firstId);
 
     }
 
@@ -47,10 +50,12 @@ class AuthorRepositoryTest {
 
         entityRepository.deleteAll();
 
-        addEntity(10L,"Mehmet Santor");
+        firstId++;
+
+        addEntity("Mehmet Santor");
 
 
-        entityRepository.deleteById(10L);
+        entityRepository.deleteById(firstId);
 
         assertEquals(entityRepository.count(), 0);
 
@@ -61,7 +66,7 @@ class AuthorRepositoryTest {
 
         entityRepository.deleteAll();
 
-        addEntity(20L,"Mehmet Santor");
+        addEntity("Mehmet Santor");
 
 
         assertEquals(entityRepository.count(),1);
@@ -78,7 +83,7 @@ class AuthorRepositoryTest {
 
         entityRepository.deleteAll();
 
-        addEntity(20L,"Mehmet Santor");
+        addEntity("Mehmet Santor");
 
 
 
@@ -98,7 +103,7 @@ class AuthorRepositoryTest {
 
         entityRepository.deleteAll();
 
-        addEntity(20L,"Mehmet Santor");
+        addEntity("Mehmet Santor");
 
         Author  entity = entityRepository.findByFullName("Mehmet Santor");
 
@@ -112,10 +117,12 @@ class AuthorRepositoryTest {
 
         entityRepository.deleteAll();
 
-        addEntity(20L,"Mehmet Santor");
-        Author entity = entityRepository.getOne(20L);
+        firstId++;
 
-        assertEquals(entity.getId(), 20L);
+        addEntity("Mehmet Santor");
+        Author entity = entityRepository.getOne(firstId);
+
+        assertEquals(entity.getId(), firstId);
 
     }
 
@@ -126,29 +133,34 @@ class AuthorRepositoryTest {
 
         entityRepository.deleteAll();
 
-        addEntity(20L,"Konyalı");
-        addEntity(30L,"Urfalıyam Ezelden");
-        addEntity(40L,"Ağrılı halo");
-        addEntity(50L,"ya");
+        firstId++;
+
+        addEntity("Konyalı");
+
+        addEntity("Urfalıyam Ezelden");
+
+        addEntity("Ağrılı halo");
+
+        addEntity("ya");
 
 
         assertEquals(entityRepository.count(), 4);
 
-        Author entity1 = entityRepository.getOne(20L);
+        Author entity1 = entityRepository.getOne(firstId);
 
-        assertEquals(entity1.getId(), 20L);
+        assertEquals(entity1.getId(), firstId);
 
-        Author entity2 = entityRepository.getOne(30L);
+        Author entity2 = entityRepository.getOne(firstId+1);
 
-        assertEquals(entity2.getId(), 30L);
+        assertEquals(entity2.getId(), firstId+1);
 
-        Author entity3 = entityRepository.getOne(40L);
+        Author entity3 = entityRepository.getOne(firstId+2);
 
-        assertEquals(entity3.getId(), 40L);
+        assertEquals(entity3.getId(), firstId+2);
 
-        Author entity4 = entityRepository.getOne(50L);
+        Author entity4 = entityRepository.getOne(firstId+3);
 
-        assertEquals(entity4.getId(), 50L);
+        assertEquals(entity4.getId(), firstId+3);
     }
 
     @Test
@@ -156,15 +168,16 @@ class AuthorRepositoryTest {
         entityRepository.deleteAll();
 
         List<Author> expected = new ArrayList<>();
-        expected.add(addEntity(20L,"Konyalı"));
-        expected.add(addEntity(30L,"Urfalıyam Ezelden"));
-        addEntity(40L,"Ağrılı halo");
-        expected.add(addEntity(50L,"ya"));
+        expected.add(addEntity("Konyalı"));
+        expected.add(addEntity("Urfalıyam Ezelden"));
+        addEntity("Ağrılı halo");
+        expected.add(addEntity("ya"));
 
         List<Author> actual = entityRepository.findByFullNameContains("ya");
 
         assertTrue(actual != null && actual.size() == 3);
 
+        //assertEquals(expected,actual);
     }
 
 }

@@ -17,12 +17,14 @@ class RentRepositoryTest {
 
     @Autowired
     private RentRepository entityRepository ;
+    @Autowired
     private BookRepository bookRepository ;
 
-    private void addEntity(Long id){
+    Long firstId = 448L; //deleteById nin çalışması için DB deki en son kayıdın idsi verilmeli.
+
+    private void addEntity(){
 
         Rent entity = new Rent();
-        entity.setId(id);
         entity.setStartDate(LocalDate.now());
         entity.setFinishDate(LocalDate.now());
 
@@ -48,25 +50,28 @@ class RentRepositoryTest {
 
         entityRepository.deleteAll();
 
-        addEntity(20L);
+        firstId++;
+
+        addEntity();
 
 
-        Rent entity = entityRepository.getOne(20L);
-        assertEquals(entity.getId(), 20L);
+        Rent entity = entityRepository.getOne(firstId);
+        assertEquals(entity.getId(), firstId);
 
     }
 
 
     @Test
-    void deleteByIdTest(){
+    void deleteByIdTest(){//"firstId" deleteById nin çalışması için DB deki en son kayıdın idsi verilmeli.
+
 
         entityRepository.deleteAll();
 
-        addEntity(10L);
+        firstId++;
 
+        addEntity();
 
-        Rent entity = entityRepository.getOne(10L);
-        entityRepository.delete(entity);
+        entityRepository.deleteById(firstId);
 
         assertEquals(entityRepository.count(), 0);
 
@@ -77,7 +82,7 @@ class RentRepositoryTest {
 
         entityRepository.deleteAll();
 
-        addEntity(20L);
+        addEntity();
 
 
         assertEquals(entityRepository.count(),1);
@@ -94,10 +99,12 @@ class RentRepositoryTest {
 
         entityRepository.deleteAll();
 
-        addEntity(20L);
-        Rent entity = entityRepository.getOne(20L);
+        firstId++;
 
-        assertEquals(entity.getId(), 20L);
+        addEntity();
+        Rent entity = entityRepository.getOne(firstId);
+
+        assertEquals(entity.getId(), firstId);
 
     }
 
@@ -108,26 +115,28 @@ class RentRepositoryTest {
 
         entityRepository.deleteAll();
 
-        addEntity(20L);
+        firstId++;
 
-        addEntity(30L);
+        addEntity();
 
-        addEntity(40L);
+        addEntity();
+
+        addEntity();
 
 
         assertEquals(entityRepository.count(), 3);
 
-        Rent entity1 = entityRepository.getOne(20L);
+        Rent entity1 = entityRepository.getOne(firstId);
 
-        assertEquals(entity1.getId(), 20L);
+        assertEquals(entity1.getId(), firstId);
 
-        Rent entity2 = entityRepository.getOne(30L);
+        Rent entity2 = entityRepository.getOne(firstId+1);
 
-        assertEquals(entity2.getId(), 30L);
+        assertEquals(entity2.getId(), firstId+1);
 
-        Rent entity3 = entityRepository.getOne(40L);
+        Rent entity3 = entityRepository.getOne(firstId+2);
 
-        assertEquals(entity3.getId(), 40L);
+        assertEquals(entity3.getId(), firstId+2);
     }
 
 
