@@ -1,20 +1,19 @@
 package com.santor.library_simulate.service;
 
 import com.santor.library_simulate.dao.RentRepository;
-import com.santor.library_simulate.dto.BookDTO;
-import com.santor.library_simulate.dto.RentDTO;
-import com.santor.library_simulate.mapper.RentMapperImpl;
 import com.santor.library_simulate.model.Book;
 import com.santor.library_simulate.model.Rent;
+import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.lang.reflect.Array;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -26,81 +25,70 @@ class RentServiceTest {
     @Mock
     private RentRepository rentRepository;
 
-    @Spy
-    private RentMapperImpl rentMapper;
 
     @InjectMocks
     private RentServiceImpl rentService;
 
+    private Book addBook(Long id, int pageNum, int stock){
 
+        Book entity = new Book();
+        entity.setId(id);
+        entity.setFullName("fullName");
+        entity.setType("sadfsd");
+        entity.setDescription("dsfgash");
+        entity.setPublisher("dfghj dsdf");
+        entity.setReleaseYear(LocalDate.now());
+        entity.setPage(pageNum);
+        entity.setStock(stock);
 
+        return entity;
+    }
+
+    private Rent addEntity(){
+
+        Rent entity = new Rent();
+        entity.setId(20L);
+        entity.setStartDate(LocalDate.now());
+        entity.getBooks().add(addBook(2L,245,13));
+        entity.getBooks().add(addBook(4L,148,100));
+        entity.getBooks().add(addBook(3L,763,7));
+
+        rentService.add(entity);
+
+        return entity;
+    }
 
 
 
     @Test
     void addTest() {
 
+        Rent rentAdd = addEntity();
 
-        final Book book = new Book();
-        book.setReleaseYear(LocalDate.now());
-        book.setId(25L);
-        book.setPage(250);
-        book.setStock(10);
+        LocalDate actual1 = rentAdd.getFinishDate() ;
+        LocalDate expected1 = LocalDate.now().plusDays((245+763+148)/5);
 
+        assertEquals(actual1, expected1);
 
-        final Rent rent = new Rent();
-        rent.setStartDate(LocalDate.now());
-        rent.getBooks().add(book);
+        Set<Book> books = rentAdd.getBooks();
 
-
-        rentService.deleteAll();
-
-        rentService.add(rent);  //Logicler çalışıyor.
-
-//        Mockito.when(rentRepository.count()).thenReturn(123L);
-//
-//        long rentCount = rentRepository.count();
-//
-//        assertEquals(123L, userCount);
-//        Mockito.verify(rentRepository).count();
-
-        List<RentDTO> rents = rentService.getAll(); //Boş dizi dönderiyor.
-
-        for (RentDTO getRent : rents){
-
-            if (getRent != null){
-
-                int pageSum = 0;
-
-                for (Book book1 : rent.getBooks()) {
-                    pageSum += book1.getPage();
-                }
-
-                int pageNumForADay = 5;
-
-                LocalDate expected1 = LocalDate.now().plusDays( pageSum / pageNumForADay );
-
-                LocalDate actual = getRent.getFinishDate();
-                assertEquals(actual , expected1);
+        List<Integer> expected2 = new ArrayList<>();
+        expected2.add (12);
+        expected2.add (99);
+        expected2.add (6);
 
 
-                Set<BookDTO> booksDTO = getRent.getBooks();
-                int sumStock = 0;
+        List<Integer> actual2 = new ArrayList<>();
 
-                for (BookDTO book1 : booksDTO){
-                    sumStock+=book1.getStock();
+        for (Book book :books){
 
-                }
-
-                int expected2 = 9;
-
-                assertEquals(sumStock, expected2);
-
-            }
+            actual2.add(book.getStock()) ;
         }
 
+        assertEquals(expected2,actual2 );
+
+        Mockito.verify(rentRepository, Mockito.times(1)).save(rentAdd);
+
     }
-
-
 
 }

@@ -249,10 +249,9 @@ public class RentServiceImpl implements RentService {
                             " The lease could not be completed because book" + book.getFullName() + "is not in stock.",
                             HttpStatus.NOT_FOUND);
                 }
-                else {
-                    book.setStock(book.getStock() - 1);
-                }
             }
+
+            book.setStock(book.getStock() - 1);
             bookIds.add(book.getId());
         }
 
