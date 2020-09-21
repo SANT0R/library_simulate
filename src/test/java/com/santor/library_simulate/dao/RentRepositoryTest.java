@@ -65,6 +65,7 @@ class RentRepositoryTest {
     void deleteByIdTest(){//"firstId" deleteById nin çalışması için DB deki en son kayıdın idsi verilmeli.
 
 
+            
         entityRepository.deleteAll();
 
         firstId++;
