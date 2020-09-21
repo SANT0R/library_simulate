@@ -12,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ServerErrorException;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -109,6 +110,7 @@ public class BookController {
 
     @ApiOperation(value = "Get all books")
     @GetMapping("/")
+    @PreAuthorize("hasAnyRole()")
     public ResponseEntity<List<BookDTO>> getAll()  {
 
         try {
@@ -136,7 +138,8 @@ public class BookController {
 
 
     @ApiOperation(value = "Get a book by id")
-    @PostMapping("/getById")
+    @GetMapping("/getById")
+    @PreAuthorize("hasAnyRole()")
     public ResponseEntity<BookDTO> getById(@RequestParam Long id) {
 
         try {
@@ -153,7 +156,8 @@ public class BookController {
 
 
     @ApiOperation(value = "Get books by name")
-    @PostMapping("/getByName")
+    @GetMapping("/getByName")
+    @PreAuthorize("hasAnyRole()")
     public ResponseEntity<List<BookDTO>> getByName(@RequestParam String fullName) {
 
         try {
@@ -170,7 +174,8 @@ public class BookController {
 
 
     @ApiOperation(value = "Delete a book by name")
-    @PostMapping("/deleteByName")
+    @DeleteMapping("/deleteByName")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<?> deleteByName(@RequestParam String fullName) {
 
         try {
@@ -190,7 +195,8 @@ public class BookController {
 
 
     @ApiOperation(value = "Delete all books")
-    @PostMapping("/deleteAll")
+    @DeleteMapping("/deleteAll")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<?> deleteAll() {
 
         try {
@@ -219,7 +225,8 @@ public class BookController {
 
 
     @ApiOperation(value = "Delete a book by id")
-    @PostMapping("/deleteById")
+    @DeleteMapping("/deleteById")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<?>  deleteById(@RequestParam Long id) {
 
         try {
@@ -237,7 +244,8 @@ public class BookController {
 
 
     @ApiOperation(value = "Update a book")
-    @PostMapping("/update")
+    @PutMapping("/update")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<URI> update(@RequestBody Book entity) {
 
         try {
@@ -254,6 +262,7 @@ public class BookController {
 
     @ApiOperation(value = "Add a book")
     @PostMapping("/add")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<URI> add(@RequestBody Book entity) {
 
         try {

@@ -12,6 +12,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ServerErrorException;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -110,6 +113,7 @@ public class ClientController {
 
     @ApiOperation(value = "Get all clients")
     @GetMapping("/")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<List<ClientDTO>> getAll()  {
 
         try {
@@ -137,7 +141,8 @@ public class ClientController {
 
 
     @ApiOperation(value = "Get a client by id")
-    @PostMapping("/getById")
+    @GetMapping("/getById")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<ClientDTO> getById(@RequestParam Long id) {
 
         try {
@@ -153,8 +158,51 @@ public class ClientController {
     }
 
 
+    @ApiOperation(value = "Get user")
+    @PutMapping("/getMe")
+    @PreAuthorize("hasRole('ROLE_CLIENT')")
+    public ResponseEntity<ClientDTO> getMe(@RequestBody Client entity) {
+
+
+        Object thisUser = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (thisUser instanceof UserDetails) {
+            String username = ((UserDetails)thisUser).getUsername();
+
+            if (username.equals(entity.getUserName())){
+
+                return ResponseEntity.ok(entityService.getById(entity.getId()));
+            }
+
+            else {
+
+                throw new ApiRequestException(
+                        "Your operation could not be completed ",
+                        HttpStatus.METHOD_NOT_ALLOWED);
+
+            }
+        } else {
+            String username = thisUser.toString();
+
+            if (username.equals(entity.getUserName())){
+
+                return ResponseEntity.ok(entityService.getById(entity.getId()));
+            }
+
+            else {
+
+                throw new ApiRequestException(
+                        "Your operation could not be completed ",
+                        HttpStatus.METHOD_NOT_ALLOWED);
+
+            }
+        }
+
+    }
+
+
     @ApiOperation(value = "Get clients by name")
-    @PostMapping("/getByName")
+    @GetMapping("/getByName")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<List<ClientDTO>> getByName(@RequestParam String fullName) {
 
         try {
@@ -171,7 +219,8 @@ public class ClientController {
 
 
     @ApiOperation(value = "Delete a client by name")
-    @PostMapping("/deleteByName")
+    @DeleteMapping("/deleteByName")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<?> deleteByName(@RequestParam String fullName) {
 
         try {
@@ -188,10 +237,56 @@ public class ClientController {
     }
 
 
+    @ApiOperation(value = "Delete user")
+    @PutMapping("/deleteMe")
+    @PreAuthorize("hasRole('ROLE_CLIENT')")
+    public ResponseEntity<URI> deleteMe(@RequestBody Client entity) {
+
+
+        Object thisUser = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (thisUser instanceof UserDetails) {
+            String username = ((UserDetails)thisUser).getUsername();
+
+            if (username.equals(entity.getUserName())){
+
+                entityService.deleteById(entity.getId());
+                return ResponseEntity.ok().build();
+            }
+
+            else {
+
+                throw new ApiRequestException(
+                        "Your operation could not be completed ",
+                        HttpStatus.METHOD_NOT_ALLOWED);
+
+            }
+        } else {
+            String username = thisUser.toString();
+
+            if (username.equals(entity.getUserName())){
+
+                entityService.deleteById(entity.getId());
+                return ResponseEntity.ok().build();
+            }
+
+            else {
+
+                throw new ApiRequestException(
+                        "Your operation could not be completed ",
+                        HttpStatus.METHOD_NOT_ALLOWED);
+
+            }
+        }
+
+    }
+
+
+
 
 
     @ApiOperation(value = "Delete all clients")
-    @PostMapping("/deleteAll")
+    @DeleteMapping("/deleteAll")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<?> deleteAll() {
 
         try {
@@ -220,7 +315,8 @@ public class ClientController {
 
 
     @ApiOperation(value = "Delete a client by id")
-    @PostMapping("/deleteById")
+    @DeleteMapping("/deleteById")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<?>  deleteById(@RequestParam Long id) {
 
         try {
@@ -238,7 +334,8 @@ public class ClientController {
 
 
     @ApiOperation(value = "Update a client")
-    @PostMapping("/update")
+    @PutMapping("/update")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<URI> update(@RequestBody Client entity) {
 
         try {
@@ -253,8 +350,56 @@ public class ClientController {
     }
 
 
+    @ApiOperation(value = "Update user")
+    @PutMapping("/updateMe")
+    @PreAuthorize("hasRole('ROLE_CLIENT')")
+    public ResponseEntity<URI> updateMe(@RequestBody Client entity) {
+
+
+        Object thisUser = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (thisUser instanceof UserDetails) {
+            String username = ((UserDetails)thisUser).getUsername();
+
+            if (username.equals(entity.getUserName())){
+
+                entityService.update(entity);
+                URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{username}").buildAndExpand(username).toUri();
+
+                return ResponseEntity.created(location).build();
+            }
+
+            else {
+
+                throw new ApiRequestException(
+                        "Your operation could not be completed ",
+                        HttpStatus.METHOD_NOT_ALLOWED);
+
+            }
+        } else {
+            String username = thisUser.toString();
+
+            if (username.equals(entity.getUserName())){
+
+                URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{username}").buildAndExpand(username).toUri();
+
+                return ResponseEntity.created(location).build();
+            }
+
+            else {
+
+                throw new ApiRequestException(
+                        "Your operation could not be completed ",
+                        HttpStatus.METHOD_NOT_ALLOWED);
+
+            }
+        }
+
+    }
+
+
     @ApiOperation(value = "Add a client")
     @PostMapping("/add")
+    @PreAuthorize("permitAll()")
     public ResponseEntity<URI> add(@RequestBody Client entity) {
 
         try {

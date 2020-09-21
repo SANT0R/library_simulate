@@ -1,21 +1,13 @@
 package com.santor.library_simulate.dto;
 
-import com.santor.library_simulate.dto.base.BaseDTO;
+import com.santor.library_simulate.dto.base.UserDTO;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
-public class ClientDTO extends BaseDTO {
-
-    private static final long serialVersionUID = -5630358718907710394L;
-    private String fullName;
-
-    private String password;
-
-    private String phone;
-
-    private String eMail;
+public class ClientDTO extends UserDTO {
 
 
+    private static final long serialVersionUID = 6015444793203227879L;
 }

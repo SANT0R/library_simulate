@@ -13,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ServerErrorException;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -110,6 +111,7 @@ public class RentController {
 
     @ApiOperation(value = "Get all rents")
     @GetMapping("/")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<List<RentDTO>> getAll()  {
 
         try {
@@ -137,7 +139,8 @@ public class RentController {
 
 
     @ApiOperation(value = "Get a rent by id")
-    @PostMapping("/getById")
+    @GetMapping("/getById")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<RentDTO> getById(@RequestParam Long id) {
 
         try {
@@ -155,7 +158,8 @@ public class RentController {
 
 
     @ApiOperation(value = "Delete all rents")
-    @PostMapping("/deleteAll")
+    @DeleteMapping("/deleteAll")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<?> deleteAll() {
 
         try {
@@ -184,7 +188,8 @@ public class RentController {
 
 
     @ApiOperation(value = "Delete a rent by id")
-    @PostMapping("/deleteById")
+    @DeleteMapping("/deleteById")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<?>  deleteById(@RequestParam Long id) {
 
         try {
@@ -202,7 +207,8 @@ public class RentController {
 
 
     @ApiOperation(value = "Update a rent")
-    @PostMapping("/update")
+    @PutMapping("/update")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<URI> update(@RequestBody Rent entity) {
 
         try {
@@ -219,6 +225,7 @@ public class RentController {
 
     @ApiOperation(value = "Add a rent")
     @PostMapping("/add")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<URI> add(@RequestBody Rent entity) {
 
         try {
@@ -231,5 +238,6 @@ public class RentController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
+
 
 }

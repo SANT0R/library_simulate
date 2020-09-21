@@ -1,10 +1,13 @@
 package com.santor.library_simulate.model;
 
-import com.santor.library_simulate.model.base.BaseModel;
+import com.santor.library_simulate.model.base.UserModel;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -12,21 +15,9 @@ import java.util.Set;
 @Table
 @Entity
 @Data
-public class Client extends BaseModel {
+public class Client extends UserModel {
 
-    private static final long serialVersionUID = -1494977876606097432L;
-    @Column(nullable = false)
-    private String fullName;
-
-    @Column(nullable = false)
-    private String password ;
-
-    @Column(nullable = false)
-    private String phone ;
-
-    @Column(nullable = false)
-    private String eMail;
-
+    private static final long serialVersionUID = -6858890208229888077L;
     @OneToMany(mappedBy = "client" , cascade = CascadeType.ALL)
     private Set<Rent> rents = new HashSet<>();
 
