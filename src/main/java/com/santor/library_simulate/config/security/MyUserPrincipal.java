@@ -1,4 +1,4 @@
-package com.santor.library_simulate.config;
+package com.santor.library_simulate.config.security;
 
 import com.santor.library_simulate.model.Client;
 import org.springframework.security.core.GrantedAuthority;

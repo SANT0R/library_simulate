@@ -1,7 +1,6 @@
 package com.santor.library_simulate.service;
 
 
-import com.santor.library_simulate.config.MyUserPrincipal;
 import com.santor.library_simulate.dao.ClientRepository;
 import com.santor.library_simulate.dto.ClientDTO;
 import com.santor.library_simulate.exception.ApiRequestException;
@@ -9,8 +8,6 @@ import com.santor.library_simulate.mapper.ClientMapper;
 import com.santor.library_simulate.model.Client;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

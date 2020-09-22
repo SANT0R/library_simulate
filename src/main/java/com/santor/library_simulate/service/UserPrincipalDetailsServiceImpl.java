@@ -1,7 +1,7 @@
 package com.santor.library_simulate.service;
 
 
-import com.santor.library_simulate.config.MyUserPrincipal;
+import com.santor.library_simulate.config.security.MyUserPrincipal;
 import com.santor.library_simulate.dao.ClientRepository;
 import com.santor.library_simulate.model.Client;
 import org.springframework.security.core.userdetails.UserDetails;
