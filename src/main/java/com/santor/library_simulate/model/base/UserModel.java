@@ -1,5 +1,6 @@
 package com.santor.library_simulate.model.base;
 
+import com.santor.library_simulate.config.security.ApiUserRole;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -31,6 +32,6 @@ public abstract class UserModel  extends BaseModel implements Serializable {
     private String eMail;
 
     @Column(nullable = false)
-    private String role;
+    private ApiUserRole role;
 
 }
