@@ -1,7 +1,7 @@
 package com.santor.library_simulate.service;
 
 
-import com.santor.library_simulate.MyUserPrincipal;
+import com.santor.library_simulate.config.MyUserPrincipal;
 import com.santor.library_simulate.dao.ClientRepository;
 import com.santor.library_simulate.dto.ClientDTO;
 import com.santor.library_simulate.exception.ApiRequestException;
@@ -23,14 +23,6 @@ public class ClientServiceImpl implements ClientService {
     private ClientRepository entityRepository;
     private ClientMapper entityMapper;
 
-    @Override
-    public UserDetails loadUserByUsername(String username) {
-        Client user = entityRepository.findByUserName(username);
-        if (user == null) {
-            throw new UsernameNotFoundException(username);
-        }
-        return new MyUserPrincipal(user);
-    }
 
     @Override
     public void add(Client client) {

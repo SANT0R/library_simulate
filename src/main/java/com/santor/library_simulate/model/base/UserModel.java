@@ -4,7 +4,8 @@ import com.santor.library_simulate.config.security.ApiUserRole;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.MappedSuperclass;
 import java.io.Serializable;
 
 
@@ -16,7 +17,7 @@ public abstract class UserModel  extends BaseModel implements Serializable {
 
     private static final long serialVersionUID = 3766500994656537938L;
 
-    @Column(name = "userName", unique = true, nullable = false)
+    @Column(unique = true, nullable = false)
     private String userName ;
 
     @Column(nullable = false)
@@ -33,5 +34,6 @@ public abstract class UserModel  extends BaseModel implements Serializable {
 
     @Column(nullable = false)
     private ApiUserRole role;
+
 
 }

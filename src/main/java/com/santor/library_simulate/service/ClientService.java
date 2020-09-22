@@ -9,13 +9,6 @@ import java.util.List;
 public interface ClientService {
 
     /**
-     * loadUserByUsername
-     * @param  username -
-     * @return UserDetails
-     */
-    UserDetails loadUserByUsername(String username);
-
-    /**
      * Get all clients
      * @return List<ClientDTO>
      */

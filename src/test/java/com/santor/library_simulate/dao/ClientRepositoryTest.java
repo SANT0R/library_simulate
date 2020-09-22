@@ -1,9 +1,11 @@
 package com.santor.library_simulate.dao;
 
+import com.santor.library_simulate.config.security.ApiUserRole;
 import com.santor.library_simulate.model.Client;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,12 +19,20 @@ class ClientRepositoryTest {
     @Autowired
     private ClientRepository entityRepository ;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     Long firstId = 418L; //deleteById nin çalışması için DB deki en son kayıdın idsi verilmeli.
 
     private Client addEntity(String fullName){
 
         Client entity = new Client();
         entity.setFullName(fullName);
+        entity.setUserName(fullName);
+        entity.setPassword(passwordEncoder.encode("Santor123"));
+        entity.setRole(ApiUserRole.ADMIN);
+        entity.setEMail("sdfd");
+        entity.setPhone("45296656");
 
         entityRepository.save(entity);
         return entity;
@@ -36,7 +46,7 @@ class ClientRepositoryTest {
 
         firstId++;
 
-        addEntity("Mehmet Santor");
+        addEntity("Santor");
 
 
         Client entity = entityRepository.getOne(firstId);
