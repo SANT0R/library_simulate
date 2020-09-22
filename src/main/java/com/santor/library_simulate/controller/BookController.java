@@ -110,7 +110,6 @@ public class BookController {
 
     @ApiOperation(value = "Get all books")
     @GetMapping("/")
-    @PreAuthorize("hasAnyRole()")
     public ResponseEntity<List<BookDTO>> getAll()  {
 
         try {
@@ -139,7 +138,6 @@ public class BookController {
 
     @ApiOperation(value = "Get a book by id")
     @GetMapping("/getById")
-    @PreAuthorize("hasAnyRole()")
     public ResponseEntity<BookDTO> getById(@RequestParam Long id) {
 
         try {
@@ -157,7 +155,6 @@ public class BookController {
 
     @ApiOperation(value = "Get books by name")
     @GetMapping("/getByName")
-    @PreAuthorize("hasAnyRole()")
     public ResponseEntity<List<BookDTO>> getByName(@RequestParam String fullName) {
 
         try {

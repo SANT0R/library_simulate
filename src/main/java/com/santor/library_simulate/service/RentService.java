@@ -15,7 +15,7 @@ public interface RentService {
 
     /**
      * Get a rent by id
-     * @param id
+     * @param id -
      * @return RentDTO
      */
     RentDTO getById(Long id);
@@ -27,19 +27,19 @@ public interface RentService {
 
     /**
      * Delete a rent by id
-     * @param id
+     * @param id -
      */
     void deleteById(Long id);
 
     /**
      * Update a rent
-     * @param rent
+     * @param rent -
      */
     void update(Rent rent);
 
     /**
      * Add a rent
-     * @param rent
+     * @param rent -
      */
     void add(Rent rent);
 

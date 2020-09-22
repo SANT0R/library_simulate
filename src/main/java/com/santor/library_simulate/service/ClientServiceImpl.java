@@ -1,6 +1,7 @@
 package com.santor.library_simulate.service;
 
 
+import com.santor.library_simulate.MyUserPrincipal;
 import com.santor.library_simulate.dao.ClientRepository;
 import com.santor.library_simulate.dto.ClientDTO;
 import com.santor.library_simulate.exception.ApiRequestException;
@@ -8,6 +9,8 @@ import com.santor.library_simulate.mapper.ClientMapper;
 import com.santor.library_simulate.model.Client;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,9 +23,18 @@ public class ClientServiceImpl implements ClientService {
     private ClientRepository entityRepository;
     private ClientMapper entityMapper;
 
+    @Override
+    public UserDetails loadUserByUsername(String username) {
+        Client user = entityRepository.findByUserName(username);
+        if (user == null) {
+            throw new UsernameNotFoundException(username);
+        }
+        return new MyUserPrincipal(user);
+    }
 
     @Override
     public void add(Client client) {
+
 
         entityRepository.save(client);
 

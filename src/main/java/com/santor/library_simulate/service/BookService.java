@@ -9,21 +9,21 @@ public interface BookService {
 
     /**
      * Get all books
-     * @param atStock
+     * @param atStock -
      * @return List<BookDTO>
      */
     List<BookDTO> getAll(Boolean atStock);
 
     /**
      * Get a book by id
-     * @param id
+     * @param id -
      * @return BookDTO
      */
     BookDTO getById(Long id);
 
     /**
      * Get a book by full name
-     * @param fullName
+     * @param fullName -
      * @return List<BookDTO>
      */
     List<BookDTO> getByName(String fullName);
@@ -35,25 +35,25 @@ public interface BookService {
 
     /**
      * Delete a book by id
-     * @param id
+     * @param id -
      */
     void deleteById(Long id);
 
     /**
      * Delete a book by name
-     * @param fullName
+     * @param fullName -
      */
     void deleteByName(String fullName);
 
     /**
      * Update a book
-     * @param book
+     * @param book -
      */
     void update(Book book);
 
     /**
      * Add a book
-     * @param book
+     * @param book -
      */
     void add(Book book);
 

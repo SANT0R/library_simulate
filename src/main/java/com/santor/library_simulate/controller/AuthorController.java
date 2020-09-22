@@ -111,7 +111,6 @@ public class AuthorController {
 
     @ApiOperation(value = "Get all authors")
     @GetMapping("/")
-    @PreAuthorize("hasAnyRole()")
     public ResponseEntity<List<AuthorDTO>> getAll()  {
 
         try {
@@ -140,7 +139,6 @@ public class AuthorController {
 
     @ApiOperation(value = "Get a author by id")
     @GetMapping("/getById")
-    @PreAuthorize("hasAnyRole()")
     public ResponseEntity<AuthorDTO> getById(@RequestParam Long id) {
 
         try {
@@ -158,7 +156,6 @@ public class AuthorController {
 
     @ApiOperation(value = "Get authors by name")
     @GetMapping("/getByName")
-    @PreAuthorize("hasAnyRole()")
     public ResponseEntity<List<AuthorDTO>> getByName(@RequestParam String fullName) {
 
         try {

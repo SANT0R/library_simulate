@@ -15,14 +15,14 @@ public interface AuthorService {
 
     /**
      * Get a author by id
-     * @param id
+     * @param id -
      * @return AuthorDTO
      */
     AuthorDTO getById(Long id);
 
     /**
      * Get a author by full name
-     * @param fullName
+     * @param fullName -
      * @return List<AuthorDTO>
      */List<AuthorDTO> getByName(String fullName);
 
@@ -33,25 +33,25 @@ public interface AuthorService {
 
     /**
      * Delete a author by id
-     * @param id
+     * @param id -
      */
     void deleteById(Long id);
 
     /**
      * Delete a author by name
-     * @param fullName
+     * @param fullName -
      */
     void deleteByName(String fullName);
 
     /**
      * Update a author
-     * @param author
+     * @param author -
      */
     void update(Author author);
 
     /**
      * Add a author
-     * @param author
+     * @param author -
      */
     void add(Author author);
 
