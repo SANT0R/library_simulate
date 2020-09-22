@@ -176,8 +176,8 @@ public class ClientController {
             else {
 
                 throw new ApiRequestException(
-                        "Your operation could not be completed ",
-                        HttpStatus.METHOD_NOT_ALLOWED);
+                        "Forbidden call ",
+                        HttpStatus.FORBIDDEN);
 
             }
         } else {
@@ -191,8 +191,8 @@ public class ClientController {
             else {
 
                 throw new ApiRequestException(
-                        "Your operation could not be completed ",
-                        HttpStatus.METHOD_NOT_ALLOWED);
+                        "Forbidden call ",
+                        HttpStatus.FORBIDDEN);
 
             }
         }
@@ -257,8 +257,8 @@ public class ClientController {
             else {
 
                 throw new ApiRequestException(
-                        "Your operation could not be completed ",
-                        HttpStatus.METHOD_NOT_ALLOWED);
+                        "Forbidden call ",
+                        HttpStatus.FORBIDDEN);
 
             }
         } else {
@@ -273,8 +273,8 @@ public class ClientController {
             else {
 
                 throw new ApiRequestException(
-                        "Your operation could not be completed ",
-                        HttpStatus.METHOD_NOT_ALLOWED);
+                        "Forbidden call ",
+                        HttpStatus.FORBIDDEN);
 
             }
         }
@@ -372,8 +372,8 @@ public class ClientController {
             else {
 
                 throw new ApiRequestException(
-                        "Your operation could not be completed ",
-                        HttpStatus.METHOD_NOT_ALLOWED);
+                        "Forbidden call ",
+                        HttpStatus.FORBIDDEN);
 
             }
         }
@@ -391,8 +391,8 @@ public class ClientController {
             else {
 
                 throw new ApiRequestException(
-                        "Your operation could not be completed ",
-                        HttpStatus.METHOD_NOT_ALLOWED);
+                        "Forbidden call ",
+                        HttpStatus.FORBIDDEN);
 
             }
         }

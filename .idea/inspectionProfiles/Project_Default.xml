@@ -6,6 +6,9 @@
         <language minSize="50" name="Java" />
       </Languages>
     </inspection_tool>
+    <inspection_tool class="IfStatementWithIdenticalBranches" enabled="true" level="WEAK WARNING" enabled_by_default="true">
+      <option name="myHighlightWhenLastStatementIsCall" value="false" />
+    </inspection_tool>
     <inspection_tool class="SerializableHasSerialVersionUIDField" enabled="true" level="WARNING" enabled_by_default="true">
       <option name="ignoreAnonymousInnerClasses" value="false" />
       <option name="superClassString" value="java.awt.Component" />

@@ -1,6 +1,5 @@
 package com.santor.library_simulate.controller;
 
-import com.santor.library_simulate.dto.BookDTO;
 import com.santor.library_simulate.dto.RentDTO;
 import com.santor.library_simulate.exception.ApiRequestException;
 import com.santor.library_simulate.model.Rent;
@@ -264,8 +263,8 @@ public class RentController {
             else {
 
                 throw new ApiRequestException(
-                        "Your operation could not be completed ",
-                        HttpStatus.METHOD_NOT_ALLOWED);
+                        "Forbidden call ",
+                        HttpStatus.FORBIDDEN);
 
             }
         }
@@ -284,8 +283,8 @@ public class RentController {
             else {
 
                 throw new ApiRequestException(
-                        "Your operation could not be completed ",
-                        HttpStatus.METHOD_NOT_ALLOWED);
+                        "Forbidden call ",
+                        HttpStatus.FORBIDDEN);
 
             }
         }
