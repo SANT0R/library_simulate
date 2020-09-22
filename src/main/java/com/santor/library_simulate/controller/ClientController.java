@@ -244,6 +244,7 @@ public class ClientController {
 
 
         Object thisUser = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
         if (thisUser instanceof UserDetails) {
             String username = ((UserDetails)thisUser).getUsername();
 
@@ -375,11 +376,13 @@ public class ClientController {
                         HttpStatus.METHOD_NOT_ALLOWED);
 
             }
-        } else {
+        }
+        else {
             String username = thisUser.toString();
 
             if (username.equals(entity.getUserName())){
 
+                entityService.update(entity);
                 URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{username}").buildAndExpand(username).toUri();
 
                 return ResponseEntity.created(location).build();

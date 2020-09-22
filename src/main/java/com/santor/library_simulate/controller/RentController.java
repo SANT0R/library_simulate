@@ -14,6 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ServerErrorException;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -231,11 +233,61 @@ public class RentController {
         try {
             entityService.add(entity);
             Long id = entity.getId();
-            URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{fullName}").buildAndExpand(id).toUri();
+            URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(id).toUri();
 
             return ResponseEntity.created(location).build();
         } catch (ServerErrorException e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+
+    @ApiOperation(value = "Add user rent")
+    @PostMapping("/addMyRent")
+    @PreAuthorize("hasRole('ROLE_CLIENT')")
+    public ResponseEntity<URI> addMyRent(@RequestBody Rent entity) {
+
+
+        Object thisUser = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (thisUser instanceof UserDetails) {
+            String username = ((UserDetails)thisUser).getUsername();
+
+            if (username.equals(entity.getClient().getUserName())){
+
+                entityService.add(entity);
+                Long id = entity.getId();
+                URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(id).toUri();
+
+                return ResponseEntity.created(location).build();
+            }
+
+            else {
+
+                throw new ApiRequestException(
+                        "Your operation could not be completed ",
+                        HttpStatus.METHOD_NOT_ALLOWED);
+
+            }
+        }
+        else {
+            String username = thisUser.toString();
+
+            if (username.equals(entity.getClient().getUserName())){
+
+                entityService.add(entity);
+                Long id = entity.getId();
+                URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(id).toUri();
+
+                return ResponseEntity.created(location).build();
+            }
+
+            else {
+
+                throw new ApiRequestException(
+                        "Your operation could not be completed ",
+                        HttpStatus.METHOD_NOT_ALLOWED);
+
+            }
         }
     }
 
