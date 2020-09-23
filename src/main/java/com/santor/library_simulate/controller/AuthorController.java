@@ -24,6 +24,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/author")
+@CrossOrigin
 public class AuthorController {
 
     @Autowired

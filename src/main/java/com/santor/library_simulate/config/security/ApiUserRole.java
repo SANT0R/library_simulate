@@ -10,15 +10,18 @@ import static com.santor.library_simulate.config.security.ApiUserPermission.*;
 
 public enum ApiUserRole {
 
+    ADMIN(Sets.newHashSet(ADMIN_READ, ADMIN_WRITE,
+            AUTHOR_READ,AUTHOR_WRITE,
+            BOOK_READ, BOOK_WRITE,
+            CLIENT_READ, CLIENT_WRITE,
+            RENT_READ, RENT_WRITE)),
+
     CLIENT(Sets.newHashSet(AUTHOR_READ,BOOK_READ,
                         CLIENT_READ, CLIENT_WRITE,
                         RENT_READ, RENT_WRITE)),
 
-    ADMIN(Sets.newHashSet(ADMIN_READ, ADMIN_WRITE,
-                        AUTHOR_READ,AUTHOR_WRITE,
-                        BOOK_READ, BOOK_WRITE,
-                        CLIENT_READ, CLIENT_WRITE,
-                        RENT_READ, RENT_WRITE));
+
+    GUEST(Sets.newHashSet());
 
     private final Set<ApiUserPermission> permission;
 

@@ -1,6 +1,8 @@
 package com.santor.library_simulate.config.security;
 
-import com.santor.library_simulate.service.UserPrincipalDetailsServiceImpl;
+import com.santor.library_simulate.config.security.Jwt.JwtAuthenticationFilter;
+import com.santor.library_simulate.config.security.Jwt.JwtAuthorizationFilter;
+import com.santor.library_simulate.dao.ClientRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -9,6 +11,7 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -19,9 +22,12 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class ApiSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private UserPrincipalDetailsServiceImpl userPrincipalDetailsService;
+    private ClientRepository userRepository;
 
-    public ApiSecurityConfig(UserPrincipalDetailsServiceImpl userPrincipalDetailsService) {
+    public ApiSecurityConfig(UserPrincipalDetailsServiceImpl userPrincipalDetailsService,
+                             ClientRepository userRepository) {
         this.userPrincipalDetailsService = userPrincipalDetailsService;
+        this.userRepository = userRepository;
     }
 
 
@@ -30,13 +36,22 @@ public class ApiSecurityConfig extends WebSecurityConfigurerAdapter {
         http
 //                .csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
 //                .and()
+
+
+                // remove csrf and state in session because in jwt we do not need them
                 .csrf().disable()
-                .authorizeRequests()
-                .antMatchers("/","index","/css/*","/js/*").permitAll()
-                .anyRequest()
-                .authenticated()
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
-                .formLogin();
+                // add jwt filters (1. authentication, 2. authorization)
+                .addFilter(new JwtAuthenticationFilter(authenticationManager()))
+                .addFilter(new JwtAuthorizationFilter(authenticationManager(), this.userRepository))
+                .authorizeRequests()
+                // configure access rules
+                .antMatchers("/","/login","index","/css/*","/js/*").permitAll()
+                .anyRequest()
+                .authenticated();
+//                .and()
+//                .formLogin();
 //                .httpBasic();
     }
 

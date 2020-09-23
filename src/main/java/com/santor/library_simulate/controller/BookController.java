@@ -24,6 +24,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/book")
+@CrossOrigin
 public class BookController {
 
     @Autowired
@@ -112,7 +113,7 @@ public class BookController {
     @GetMapping("/")
     public ResponseEntity<List<BookDTO>> getAll()  {
 
-        try {
+
 
             List<BookDTO> entityDTOList =entityService.getAll(Boolean.TRUE);
 
@@ -127,11 +128,6 @@ public class BookController {
 
             }
 
-        }
-        catch (ServerErrorException e) {
-
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-        }
 
     }
 
