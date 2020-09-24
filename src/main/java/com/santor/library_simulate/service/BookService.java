@@ -1,7 +1,6 @@
 package com.santor.library_simulate.service;
 
 import com.santor.library_simulate.dto.BookDTO;
-import com.santor.library_simulate.model.Book;
 
 import java.util.List;
 
@@ -49,12 +48,12 @@ public interface BookService {
      * Update a book
      * @param book -
      */
-    void update(Book book);
+    void update(BookDTO book);
 
     /**
      * Add a book
      * @param book -
      */
-    void add(Book book);
+    void add(BookDTO book);
 
 }

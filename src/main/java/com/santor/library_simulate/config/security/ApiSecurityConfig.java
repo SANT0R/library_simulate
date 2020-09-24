@@ -47,7 +47,7 @@ public class ApiSecurityConfig extends WebSecurityConfigurerAdapter {
                 .addFilter(new JwtAuthorizationFilter(authenticationManager(), this.userRepository))
                 .authorizeRequests()
                 // configure access rules
-                .antMatchers("/","/login","index","/css/*","/js/*").permitAll()
+                .antMatchers("/","/login","index","/css/*","/js/*","/client/add").permitAll()
                 .anyRequest()
                 .authenticated();
 //                .and()
@@ -60,7 +60,7 @@ public class ApiSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder(10);
+        return new BCryptPasswordEncoder();
     }
 
 

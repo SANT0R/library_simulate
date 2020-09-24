@@ -1,7 +1,6 @@
 package com.santor.library_simulate.service;
 
 import com.santor.library_simulate.dto.RentDTO;
-import com.santor.library_simulate.model.Rent;
 
 import java.util.List;
 
@@ -35,12 +34,12 @@ public interface RentService {
      * Update a rent
      * @param rent -
      */
-    void update(Rent rent);
+    void update(RentDTO rent);
 
     /**
      * Add a rent
      * @param rent -
      */
-    void add(Rent rent);
+    void add(RentDTO rent);
 
 }

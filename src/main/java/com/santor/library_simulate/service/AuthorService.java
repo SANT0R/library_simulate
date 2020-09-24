@@ -1,7 +1,6 @@
 package com.santor.library_simulate.service;
 
 import com.santor.library_simulate.dto.AuthorDTO;
-import com.santor.library_simulate.model.Author;
 
 import java.util.List;
 
@@ -47,12 +46,12 @@ public interface AuthorService {
      * Update a author
      * @param author -
      */
-    void update(Author author);
+    void update(AuthorDTO author);
 
     /**
      * Add a author
      * @param author -
      */
-    void add(Author author);
+    void add(AuthorDTO author);
 
 }

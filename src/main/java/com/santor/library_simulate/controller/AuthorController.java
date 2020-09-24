@@ -2,7 +2,6 @@ package com.santor.library_simulate.controller;
 
 import com.santor.library_simulate.dto.AuthorDTO;
 import com.santor.library_simulate.exception.ApiRequestException;
-import com.santor.library_simulate.model.Author;
 import com.santor.library_simulate.service.AuthorService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -245,7 +244,7 @@ public class AuthorController {
     @ApiOperation(value = "Update a author")
     @PutMapping("/update")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public ResponseEntity<URI> update(@RequestBody Author entity) {
+    public ResponseEntity<URI> update(@RequestBody AuthorDTO entity) {
 
         try {
             entityService.update(entity);
@@ -262,7 +261,7 @@ public class AuthorController {
     @ApiOperation(value = "Add a author")
     @PostMapping("/add")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public ResponseEntity<URI> add(@RequestBody Author entity) {
+    public ResponseEntity<URI> add(@RequestBody AuthorDTO entity) {
 
         try {
             entityService.add(entity);

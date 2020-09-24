@@ -2,7 +2,6 @@ package com.santor.library_simulate.controller;
 
 import com.santor.library_simulate.dto.RentDTO;
 import com.santor.library_simulate.exception.ApiRequestException;
-import com.santor.library_simulate.model.Rent;
 import com.santor.library_simulate.service.RentService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -118,7 +117,7 @@ public class RentController {
 
         try {
 
-            List<RentDTO> entityDTOList =entityService.getAll();
+            List<RentDTO> entityDTOList = entityService.getAll();
 
             if (entityDTOList.isEmpty()) {
 
@@ -211,7 +210,7 @@ public class RentController {
     @ApiOperation(value = "Update a rent")
     @PutMapping("/update")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public ResponseEntity<URI> update(@RequestBody Rent entity) {
+    public ResponseEntity<URI> update(@RequestBody RentDTO entity) {
 
         try {
             entityService.update(entity);
@@ -228,7 +227,7 @@ public class RentController {
     @ApiOperation(value = "Add a rent")
     @PostMapping("/add")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public ResponseEntity<URI> add(@RequestBody Rent entity) {
+    public ResponseEntity<URI> add(@RequestBody RentDTO entity) {
 
         try {
             entityService.add(entity);
@@ -245,7 +244,7 @@ public class RentController {
     @ApiOperation(value = "Add user rent")
     @PostMapping("/addMyRent")
     @PreAuthorize("hasRole('ROLE_CLIENT')")
-    public ResponseEntity<URI> addMyRent(@RequestBody Rent entity) {
+    public ResponseEntity<URI> addMyRent(@RequestBody RentDTO entity) {
 
 
         Object thisUser = SecurityContextHolder.getContext().getAuthentication().getPrincipal();

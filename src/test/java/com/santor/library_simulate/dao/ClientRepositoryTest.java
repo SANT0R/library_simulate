@@ -3,6 +3,7 @@ package com.santor.library_simulate.dao;
 import com.santor.library_simulate.config.security.ApiUserRole;
 import com.santor.library_simulate.model.Client;
 import org.junit.jupiter.api.Test;
+import org.mockito.Spy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.password.PasswordEncoder;

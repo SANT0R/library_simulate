@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -23,19 +22,19 @@ public class AuthorServiceImpl implements AuthorService {
 
 
     @Override
-    public void add(Author author) {
+    public void add(AuthorDTO author) {
 
-        entityRepository.save(author);
+        entityRepository.save(entityMapper.toEntity(author));
 
     }
 
     @Override
-    public void update(Author author) {
+    public void update(AuthorDTO author) {
 
         Author entity = entityRepository.getOne(author.getId());
         if (entity.getId() != null) {
 
-            entityRepository.save(author);
+            entityRepository.save(entityMapper.toEntity(author));
 
         }
         else {

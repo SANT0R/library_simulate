@@ -22,20 +22,20 @@ public class ClientServiceImpl implements ClientService {
 
 
     @Override
-    public void add(Client client) {
+    public void add(ClientDTO client) {
 
 
-        entityRepository.save(client);
+        entityRepository.save(entityMapper.toEntity(client));
 
     }
 
     @Override
-    public void update(Client client) {
+    public void update(ClientDTO client) {
 
         Client entity = entityRepository.getOne(client.getId());
         if (entity.getId() != null) {
 
-            entityRepository.save(client);
+            entityRepository.save(entityMapper.toEntity(client));
 
         } else {
 

@@ -1,10 +1,10 @@
 package com.santor.library_simulate.service;
 
 import com.santor.library_simulate.dao.RentRepository;
+import com.santor.library_simulate.dto.BookDTO;
 import com.santor.library_simulate.dto.RentDTO;
 import com.santor.library_simulate.exception.ApiRequestException;
 import com.santor.library_simulate.mapper.RentMapper;
-import com.santor.library_simulate.model.Book;
 import com.santor.library_simulate.model.Rent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -219,13 +219,13 @@ public class RentServiceImpl implements RentService {
     private RentMapper entityMapper;
 
     @Override
-    public void add(Rent rent) {
+    public void add(RentDTO rent) {
 
         List<Long> bookIds = new ArrayList<>();
 
         bookIds.add(0L);
         int pageSum = 0;
-        for (Book book : rent.getBooks()) {
+        for (BookDTO book : rent.getBooks()) {
             pageSum += book.getPage();
 
 
@@ -259,16 +259,16 @@ public class RentServiceImpl implements RentService {
         int pageNumForADay = 5;
         rent.setFinishDate(rent.getStartDate().plusDays(pageSum/pageNumForADay));
 
-        entityRepository.save(rent);
+        entityRepository.save(entityMapper.toEntity(rent));
     }
 
     @Override
-    public void update(Rent rent) {
+    public void update(RentDTO rent) {
 
         Rent entity = entityRepository.getOne(rent.getId());
         if (entity.getId() != null) {
 
-            entityRepository.save(rent);
+            entityRepository.save(entityMapper.toEntity(rent));
 
         }
         else {

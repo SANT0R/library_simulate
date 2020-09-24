@@ -18,23 +18,24 @@ public class BookServiceImpl implements BookService {
     @Autowired
     BookRepository entityRepository;
 
+
     private BookMapper entityMapper;
 
 
     @Override
-    public void add(Book book) {
+    public void add(BookDTO book) {
 
-        entityRepository.save(book);
+        entityRepository.save(entityMapper.toEntity(book));
 
     }
 
     @Override
-    public void update(Book book) {
+    public void update(BookDTO book) {
 
         Book entity = entityRepository.getOne(book.getId());
         if (entity.getId() != null) {
 
-            entityRepository.save(book);
+            entityRepository.save(entityMapper.toEntity(book));
 
         }
         else {

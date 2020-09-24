@@ -119,7 +119,7 @@ public class ClientController {
 
         try {
 
-            List<ClientDTO> entityDTOList =entityService.getAll();
+            List<ClientDTO> entityDTOList = entityService.getAll();
 
             if (entityDTOList.isEmpty()) {
 
@@ -293,7 +293,7 @@ public class ClientController {
 
         try {
 
-            List<ClientDTO> entityDTOList =entityService.getAll();
+            List<ClientDTO> entityDTOList = entityService.getAll();
 
             if (entityDTOList.isEmpty()) {
 
@@ -338,7 +338,7 @@ public class ClientController {
     @ApiOperation(value = "Update a client")
     @PutMapping("/update")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public ResponseEntity<URI> update(@RequestBody Client entity) {
+    public ResponseEntity<URI> update(@RequestBody ClientDTO entity) {
 
         try {
             entityService.update(entity);
@@ -355,7 +355,7 @@ public class ClientController {
     @ApiOperation(value = "Update user")
     @PutMapping("/updateMe")
     @PreAuthorize("hasRole('ROLE_CLIENT')")
-    public ResponseEntity<URI> updateMe(@RequestBody Client entity) {
+    public ResponseEntity<URI> updateMe(@RequestBody ClientDTO entity) {
 
 
         Object thisUser = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -404,7 +404,7 @@ public class ClientController {
     @ApiOperation(value = "Add a client")
     @PostMapping("/add")
     @PreAuthorize("permitAll()")
-    public ResponseEntity<URI> add(@RequestBody Client entity) {
+    public ResponseEntity<URI> add(@RequestBody ClientDTO entity) {
 
         try {
             entityService.add(entity);

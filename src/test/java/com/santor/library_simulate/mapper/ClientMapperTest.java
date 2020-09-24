@@ -1,10 +1,13 @@
 package com.santor.library_simulate.mapper;
 
+import com.santor.library_simulate.config.security.ApiUserRole;
 import com.santor.library_simulate.dto.ClientDTO;
 import com.santor.library_simulate.model.Author;
 import com.santor.library_simulate.model.Book;
 import com.santor.library_simulate.model.Client;
 import com.santor.library_simulate.model.Rent;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Spy;
@@ -22,6 +25,8 @@ class ClientMapperTest {
     @Spy
     ClientMapperImpl entityMapperImpl;
 
+    @Spy
+    private PasswordEncoder passwordEncoder;
 
     private Client addEntity(Long id,String fullName){
 
@@ -42,11 +47,12 @@ class ClientMapperTest {
         author.getBooks().add(book);
 
         Client client = new Client();
-        client.setId(id);
-        client.setEMail("alskdmlaks@gmail.com");
         client.setFullName(fullName);
-        client.setPassword("1234");
-        client.setPhone("30203320");
+        client.setUserName(fullName);
+        client.setPassword(passwordEncoder.encode("Santor123"));
+        client.setRole(ApiUserRole.ADMIN);
+        client.setEMail("sdfd");
+        client.setPhone("45296656");
 
         Rent rent = new Rent();
         rent.setId(20L);
@@ -86,8 +92,9 @@ class ClientMapperTest {
         List<Client> entities = Arrays.asList(entity1, entity2);
 
         List<ClientDTO> entityDTOList = entityMapperImpl.toDTOList(entities);
-        assertEquals(entityDTOList.get(0).getId(), entity1.getId());
-        assertEquals(entityDTOList.get(1).getId(), entity2.getId());
+
+        assertEquals(entityDTOList.get(0).getFullName(), entity1.getFullName());
+        assertEquals(entityDTOList.get(1).getFullName(), entity2.getFullName());
     }
 
 

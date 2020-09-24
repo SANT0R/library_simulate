@@ -2,7 +2,6 @@ package com.santor.library_simulate.controller;
 
 import com.santor.library_simulate.dto.BookDTO;
 import com.santor.library_simulate.exception.ApiRequestException;
-import com.santor.library_simulate.model.Book;
 import com.santor.library_simulate.service.BookService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -115,7 +114,7 @@ public class BookController {
 
 
 
-            List<BookDTO> entityDTOList =entityService.getAll(Boolean.TRUE);
+            List<BookDTO> entityDTOList = entityService.getAll(Boolean.TRUE);
 
             if (entityDTOList.isEmpty()) {
 
@@ -239,7 +238,7 @@ public class BookController {
     @ApiOperation(value = "Update a book")
     @PutMapping("/update")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public ResponseEntity<URI> update(@RequestBody Book entity) {
+    public ResponseEntity<URI> update(@RequestBody BookDTO entity) {
 
         try {
             entityService.update(entity);
@@ -256,7 +255,7 @@ public class BookController {
     @ApiOperation(value = "Add a book")
     @PostMapping("/add")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public ResponseEntity<URI> add(@RequestBody Book entity) {
+    public ResponseEntity<URI> add(@RequestBody BookDTO entity) {
 
         try {
             entityService.add(entity);
