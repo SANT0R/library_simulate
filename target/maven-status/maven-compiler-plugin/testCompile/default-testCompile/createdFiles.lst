@@ -1,0 +1,10 @@
+com\santor\library_simulate\dao\BookRepositoryTest.class
+com\santor\library_simulate\dao\ClientRepositoryTest.class
+com\santor\library_simulate\mapper\AuthorMapperTest.class
+com\santor\library_simulate\service\RentServiceTest.class
+com\santor\library_simulate\dao\RentRepositoryTest.class
+com\santor\library_simulate\dao\AuthorRepositoryTest.class
+com\santor\library_simulate\LibrarySimulateApplicationTests.class
+com\santor\library_simulate\mapper\ClientMapperTest.class
+com\santor\library_simulate\mapper\BookMapperTest.class
+com\santor\library_simulate\mapper\RentMapperTest.class

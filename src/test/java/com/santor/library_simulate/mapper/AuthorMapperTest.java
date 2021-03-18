@@ -22,7 +22,7 @@ class AuthorMapperTest {
     @Spy
     AuthorMapperImpl entityMapperImpl;
 
-
+    
     private Author addEntity(Long id,String fullName){
 
         Author author = new Author();
